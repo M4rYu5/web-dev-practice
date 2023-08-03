@@ -3,7 +3,7 @@
 }
 
 
-.pagination-1 {
+.pagination-container-1 {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
@@ -12,10 +12,10 @@
     width: fit-content;
 }
 
-.pagination-1>.pagination-number-1 {
+.pagination-container-1>.pagination-number-1 {
     min-width: 1em;
     text-align: center;
-    padding:4px 10px;
+    padding: 4px 10px;
     border-radius: 6px;
 
     /* 
@@ -26,12 +26,12 @@
 }
 
 
-.pagination-1>.pagination-current-1 {
+.pagination-container-1>.pagination-current-1 {
     color: white;
     background-color: lightskyblue;
 }
 
-.pagination-1>.pagination-number-1:hover:not(.pagination-current-1):not(.pagination-space-1) {
+.pagination-container-1>.pagination-number-1:hover:not(.pagination-current-1):not(.pagination-space-1) {
     color: white;
     background-color: gray;
 }
