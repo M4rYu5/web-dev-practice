@@ -1,7 +1,87 @@
+figcaption {
+    font-style: italic;
+}
+
 .underline {
     border-bottom: 1px solid black;
 }
 
+
+
+
+
+
+
+
+
+
+/* PAGINATION FROM DESIGN (I) */
+
+.pagination-container-2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin: 1em 2em auto auto;
+    font-size: 20px;
+    width: fit-content;
+}
+
+
+.pagination-number-background-2 {
+    background-color: #1d2935;
+    padding: 12px 0px 12px 0px;
+    vertical-align: middle;
+}
+
+
+.pagination-container-2 .pagination-number-2 {
+    text-align: center;
+    background-color: #1d2935;
+    color: white;
+    vertical-align: middle;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+
+.pagination-container-2 .pagination-arrow-2 {
+    text-align: center;
+    background-color: #1d2935;
+    color: white;
+    vertical-align: middle;
+    padding: 8px 14px 8px 14px;
+    cursor: pointer;
+}
+
+.margin-left-4px {
+    margin-left: 4px;
+}
+
+.margin-right-4px {
+    margin-right: 4px;
+}
+
+.pagination-container-2 .pagination-current-2 {
+    color: white;
+    background-color: #4bb14e;
+}
+
+.pagination-container-2 .pagination-number-2:hover:not(.pagination-current-2):not(.pagination-space-2) {
+    color: black;
+    background-color: #dcdedd;
+}
+
+.pagination-container-2 .pagination-arrow-2:hover:not(.pagination-current-2):not(.pagination-space-2) {
+    color: black;
+    background-color: #dcdedd;
+}
+
+
+
+
+
+
+/* PAGINATION FREE HANDED */
 
 .pagination-container-1 {
     display: flex;
