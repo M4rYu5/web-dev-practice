@@ -4,11 +4,12 @@
 
 
 .pagination-1 {
-    margin: 1em 2em auto auto;
-    font-size: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
+    margin: 1em 2em auto auto;
+    font-size: 20px;
+    width: fit-content;
 }
 
 .pagination-1>.pagination-number-1 {
