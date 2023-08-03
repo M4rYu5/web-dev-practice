@@ -1,0 +1,31 @@
+.underline {
+    border-bottom: 1px solid black;
+}
+
+
+.pagination-1 {
+    margin: 1em 2em auto auto;
+    font-size: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.pagination-1>.pagination-number-1 {
+    min-width: 1em;
+    text-align: center;
+    padding:4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+.pagination-1>.pagination-current-1 {
+    color: white;
+    background-color: lightskyblue;
+}
+
+.pagination-1>.pagination-number-1:hover:not(.pagination-current-1):not(.pagination-space-1) {
+    color: white;
+    background-color: gray;
+}
