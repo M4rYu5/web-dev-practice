@@ -16,6 +16,11 @@
     text-align: center;
     padding:4px 10px;
     border-radius: 6px;
+
+    /* 
+        NOTE: "cursor: pointer" is the default cursor for links 
+        (my <a> tag don't have href attr set, which doesn't make it a link)
+    */
     cursor: pointer;
 }
 
