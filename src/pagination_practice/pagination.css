@@ -11,7 +11,63 @@ figcaption {
 
 
 
+/* PAGINATION FROM DESIGN (II) */
 
+.pagination-container-3 {
+    border-radius: 5px;
+    max-width: max-content;
+    float: right;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.pagination-number-3 {
+    font-size: 20px;
+    color: #5288dd;
+    padding: 10px;
+    min-width: 20px;
+    text-align: center;
+    margin: 0px;
+    float: left;
+    
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+
+.pagination-number-disabled-3{
+    color: gray;
+}
+
+.pagination-number-3:not(.pagination-current-3):not(.pagination-space-3):not(.pagination-number-disabled-3):hover{
+    background-color: lightgray;
+    color: #082671;
+    cursor: pointer;
+}
+
+.pagination-current-3{
+    color: white;
+    background-color: #027eff;
+    border: 1px solid  #027eff;
+}
+
+/* borders */
+
+.pagination-number-3:first-child{
+    border-left: 1px solid lightgray;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.pagination-number-3:last-child{
+    border-right: 1px solid lightgray;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.pagination-number-3:not(:last-child){
+    border-right: 1px solid lightgray;
+}
 
 
 
