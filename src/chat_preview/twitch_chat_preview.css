@@ -83,6 +83,7 @@ body {
 /* messages styles starts now */
 
 .messages {
+    padding: 3px;
     text-align: left;
     overflow-y: auto;
     height: calc(100% - 30px);
