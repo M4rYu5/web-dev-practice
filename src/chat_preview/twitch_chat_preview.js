@@ -13,6 +13,7 @@ let autoscrollClampHeight = 100;
 
 setCallbacks(tmiClient)
 messageContainer.addEventListener("scroll", messageScrolled);
+setLinks();
 
 
 
@@ -33,6 +34,16 @@ function setCallbacks(client) {
     client.connect().catch(console.error);
     client.on('message', onMessageReceived);
 }
+
+
+function setLinks(){
+    let textLink = document.getElementById("title-text-link");
+    let glyphLink = document.getElementById("title-glyph-link");
+    textLink.href = "https://twitch.tv/" + twitchStreamer;
+    glyphLink.href = "https://twitch.tv/" + twitchStreamer;
+    textLink.textContent = "twitch.tv/" + twitchStreamer;
+}
+
 
 
 function onMessageReceived(channel, tags, message, self) {
