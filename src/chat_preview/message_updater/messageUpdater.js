@@ -1,4 +1,5 @@
-import { encodeString, createElementFromHTML } from "../util.js";
+import { encodeString, createElementFromHTML, CustomEvent } from "../util.js";
+import { MessageDTO } from "./messageDTO.js";
 
 /**
  * Manages the chat HTML: connects to twitch, adds new messages to chat and manages the scroll
@@ -84,8 +85,9 @@ export class MessageUpdater {
 
     /** handle the received message from tmi.js client */
     #onMessageReceived = (channel, tags, message, self) => {
-        //	if(self) return;
-        let chatMessage = this.#createChatMessage(tags["display-name"], message, tags["color"]);
+        let messageDTO = this.#constructMessageDTO(channel, tags, message, self);
+
+        let chatMessage = this.#createChatMessage(messageDTO.userDisplayName, messageDTO.message, messageDTO.color);
         this.#messageContainer.appendChild(chatMessage)
 
         while (this.#messageContainer.childElementCount > this.#maxMessages) {
@@ -125,6 +127,20 @@ export class MessageUpdater {
         textLink.href = "https://twitch.tv/" + this.#twitchStreamer;
         glyphLink.href = "https://twitch.tv/" + this.#twitchStreamer;
         textLink.textContent = "twitch.tv/" + this.#twitchStreamer;
+    }
+
+
+    #constructMessageDTO = (channel, tags, message, self) => {
+        return new MessageDTO(
+            channel.substring(1),
+            tags["username"],
+            self, 
+            tags["display-name"],
+            message,
+            tags["color"],
+            tags["mod"],
+            tags["subscriber"],
+            tags["turbo"])
     }
 
 }
