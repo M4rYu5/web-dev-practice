@@ -18,3 +18,32 @@ export function createMultipleElementsFromHTML(htmlString) {
 
     return div.childNodes;
 }
+
+export class CustomEvent {
+
+    #callbacks = []
+
+    constructor() {}
+
+    trigger(args){
+        this.#callbacks.forEach(f => {
+            f[1].apply(f[0], args)
+        });
+    }
+
+    /** inset callback (only one per function) */
+    add(object, callback){
+        let c = [object, callback];
+        if(this.#callbacks.includes(c))
+            return;
+        this.#callbacks.push(c);
+    }
+
+    remove(object, callback){
+        let c = [object, callback];
+        if(this.#callbacks.includes(c))
+            return;
+        this.#callbacks.pop(c);
+    }
+
+}
