@@ -6,6 +6,8 @@ import { MessageDTO } from "./messageDTO.js";
  */
 export class MessageUpdater {
 
+    onMessageReceived = new CustomEvent();
+
     #messageContainer = document.getElementById("messages");
     #shoudScrollToLastMessage = true;
 
@@ -97,6 +99,8 @@ export class MessageUpdater {
         if (this.#shoudScrollToLastMessage) {
             this.#messageContainer.lastChild.scrollIntoView();
         }
+
+        this.onMessageReceived.trigger([messageDTO]);
     }
 
     /** creates the HTML message element */
