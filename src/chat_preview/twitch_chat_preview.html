@@ -10,18 +10,42 @@
 </head>
 
 <body>
-    <div class="chat">
-        <div class="title">
-            <span>Chat:&nbsp</span>
-            <a id="title-text-link" target="_blank" class="title-channel" href="twitch.tv/..." >twitch.tv/...&nbsp</a>
-            <a id="title-glyph-link" target="_blank" class="fa fa-external-link follow-link" href="twitch.tv/..." aria-hidden="true"></a>
+    <div id="chat-container" class="chat-container">
+        <div class="tts">
+            <fieldset id="tts-fieldset" class="tts-closed">
+                <legend>Text to Speach <input id="tts-arrow" type="checkbox" /></legend>
+                <div id="tts-content">
+                    <div>
+                        <input type="checkbox" id="tts-all-toggle" />
+                        <label>All</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="tts-sub-toggle" />
+                        <label>Subscribers</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="tts-mod-toggle" />
+                        <label>Moderators</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="tts-turbo-toggle" />
+                        <label>Turbo</label>
+                    </div>
+                </div>
+            </fieldset>
         </div>
-        <div id="messages" class="messages">
-            <!-- here will be all messages -->
+        <div class="chat">
+            <div class="title">
+                <span>Chat:&nbsp</span>
+                <a id="title-text-link" target="_blank" class="title-channel" href="twitch.tv/...">twitch.tv/...&nbsp</a>
+                <a id="title-glyph-link" target="_blank" class="fa fa-external-link follow-link" href="twitch.tv/..." aria-hidden="true"></a>
+            </div>
+            <div id="messages" class="messages">
+                <!-- here will be all messages -->
 
+            </div>
         </div>
     </div>
-
     <script src="libraries/tmi.js/tmi.min.js"></script>
     <script src="twitch_chat_preview.js" type="module"></script>
 </body>
