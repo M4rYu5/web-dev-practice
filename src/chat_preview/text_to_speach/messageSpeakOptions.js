@@ -1,8 +1,8 @@
 export class MessageSpeakOptions{
-    viewers = false;
-    subscribers = false;
-    mods = false;
-    turbo = false;
+    viewers = true;
+    subscribers = true;
+    mods = true;
+    turbo = true;
     includeDisplayName = true;
     speed = 1.2;
     maxMessageLength = 150;
