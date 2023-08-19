@@ -41,7 +41,9 @@ export class TextToSpeach {
         if (!(messageSpeakOptions instanceof MessageSpeakOptions)) {
             return;
         }
-        let canSpeak = (messageSpeakOptions.all
+
+        var noPerks = !(messageDTO.subscriber || messageDTO.mod || messageDTO.turbo);
+        let canSpeak = (noPerks && messageSpeakOptions.viewers
             || messageDTO.subscriber && messageSpeakOptions.subscribers
             || messageDTO.mod && messageSpeakOptions.mods
             || messageDTO.turbo && messageSpeakOptions.turbo)
@@ -49,7 +51,6 @@ export class TextToSpeach {
         if (!canSpeak) {
             return;
         }
-
 
         let message = new SpeechSynthesisUtterance(this.#messageComposer(messageDTO, messageSpeakOptions));
         message.rate = messageSpeakOptions.speed;
@@ -70,7 +71,7 @@ export class TextToSpeach {
     #setTtsDefaults = (isActive, currentSpeakOptions) => {
         // set the object's values
         document.getElementById("tts-arrow").checked = isActive;
-        document.getElementById("tts-all-toggle").checked = currentSpeakOptions.all;
+        document.getElementById("tts-viewer-toggle").checked = currentSpeakOptions.viewers;
         document.getElementById("tts-sub-toggle").checked = currentSpeakOptions.subscribers;
         document.getElementById("tts-mod-toggle").checked = currentSpeakOptions.mods;
         document.getElementById("tts-turbo-toggle").checked = currentSpeakOptions.turbo;
@@ -85,8 +86,8 @@ export class TextToSpeach {
             this.#isActive = document.getElementById("tts-arrow").checked;
             this.reset();
         });
-        document.getElementById("tts-all-toggle").addEventListener("input", (ev) => {
-            this.#defaultSpeakOptions.all = document.getElementById("tts-all-toggle").checked;
+        document.getElementById("tts-viewer-toggle").addEventListener("input", (ev) => {
+            this.#defaultSpeakOptions.viewers = document.getElementById("tts-viewer-toggle").checked;
             this.reset();
         });
         document.getElementById("tts-sub-toggle").addEventListener("input", (ev) => {

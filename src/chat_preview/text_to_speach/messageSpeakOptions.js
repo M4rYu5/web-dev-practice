@@ -1,5 +1,5 @@
 export class MessageSpeakOptions{
-    all = false;
+    viewers = false;
     subscribers = false;
     mods = false;
     turbo = false;
