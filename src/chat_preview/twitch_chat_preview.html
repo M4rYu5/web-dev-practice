@@ -10,18 +10,58 @@
 </head>
 
 <body>
-    <div class="chat">
-        <div class="title">
-            <span>Chat:&nbsp</span>
-            <a id="title-text-link" target="_blank" class="title-channel" href="twitch.tv/..." >twitch.tv/...&nbsp</a>
-            <a id="title-glyph-link" target="_blank" class="fa fa-external-link follow-link" href="twitch.tv/..." aria-hidden="true"></a>
+    <div id="chat-container" class="chat-container">
+        <div class="tts">
+            <fieldset id="tts-fieldset" class="tts-closed">
+                <legend>Text to Speach <input id="tts-active" type="checkbox" /><span id="tts-arrow">▼</span></legend>
+                <div id="tts-content">
+                    <div>
+                        <input type="checkbox" id="tts-viewer-toggle" />
+                        <label>Viewers</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="tts-sub-toggle" />
+                        <label>Subscribers</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="tts-mod-toggle" />
+                        <label>Moderators</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="tts-turbo-toggle" />
+                        <label>Turbo</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="tts-name-toggle" checked/>
+                        <label>Names</label>
+                    </div>
+                    <div style="display: flex; flex-flow: row; flex-wrap: nowrap;">
+                        <input type="range" id="tts-speed-toggle" min="0.5" max="3" step="0.1" style="width: 60%;"/>
+                        <label>Speed</label>
+                    </div>
+                    <div style="display: flex; flex-flow: row; flex-wrap: nowrap;">
+                        <input type="number" id="tts-length-toggle" min="0" style="width: 3em;"/>
+                        <label>Max Length</label>
+                    </div>
+                </div>
+            </fieldset>
         </div>
-        <div id="messages" class="messages">
-            <!-- here will be all messages -->
+        <div class="chat">
+            <div class="title">
+                <span>Chat:&nbsp</span>
+                <a id="title-text-link" target="_blank" class="title-channel" href="twitch.tv/...">twitch.tv/...&nbsp</a>
+                <a id="title-glyph-link" target="_blank" class="fa fa-external-link follow-link" href="twitch.tv/..." aria-hidden="true"></a>
+            </div>
+            <div id="messages" class="messages">
+                <!-- here will be all messages -->
+                <!-- <div class="message-line">
+                    <span class="chatter">Name</span>
+                    <span class="chatter-message">Hello world 1</span>
+                </div> -->
 
+            </div>
         </div>
     </div>
-
     <script src="libraries/tmi.js/tmi.min.js"></script>
     <script src="twitch_chat_preview.js" type="module"></script>
 </body>
