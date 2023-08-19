@@ -71,6 +71,7 @@ body {
 }
 
 #tts-content label {
+    margin-left: 4px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
