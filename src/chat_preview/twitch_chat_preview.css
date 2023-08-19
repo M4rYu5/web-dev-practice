@@ -111,6 +111,7 @@ body {
     box-sizing: border-box;
     color: white;
     border-radius: 15px;
+    overflow: hidden;
 }
 
 .title {
