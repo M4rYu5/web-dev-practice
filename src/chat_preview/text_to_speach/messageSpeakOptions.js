@@ -6,4 +6,5 @@ export class MessageSpeakOptions{
     includeDisplayName = true;
     speed = 1.2;
     maxMessageLength = 150;
+    languageName = null;
 }

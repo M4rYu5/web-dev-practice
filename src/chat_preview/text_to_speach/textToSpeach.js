@@ -4,6 +4,7 @@ import { MessageSpeakOptions } from "./messageSpeakOptions.js";
 export class TextToSpeach {
 
     #isAvailable
+    #ttsVoices = {}; // dictionary
     #isActive = false;
     #defaultSpeakOptions = new MessageSpeakOptions();
 
@@ -17,6 +18,7 @@ export class TextToSpeach {
         this.#setTtsDefaults(this.#isActive, this.#defaultSpeakOptions);
         this.#setTtsOptionEvents();
         this.#setContentGrowHandler();
+        this.#fillLanguages();
     }
 
 
@@ -60,6 +62,9 @@ export class TextToSpeach {
 
         let message = new SpeechSynthesisUtterance(this.#messageComposer(messageDTO, messageSpeakOptions));
         message.rate = messageSpeakOptions.speed;
+        if (messageSpeakOptions.languageName != null) {
+            message.voice = this.#ttsVoices[messageSpeakOptions.languageName];
+        }
         window.speechSynthesis.speak(message);
     }
 
@@ -131,7 +136,44 @@ export class TextToSpeach {
             this.reset();
         });
         document.getElementById("tts-max-length").addEventListener("input", (ev) => {
+            this.#defaultSpeakOptions.maxMessageLength = document.getElementById("tts-max-length").value;
             this.reset();
+        });
+        document.getElementById("tts-voice-select").addEventListener("change", (ev) => {
+            let element = document.getElementById("tts-voice-select");
+            let name = element.options[element.selectedIndex].getAttribute("data-name");
+            this.#defaultSpeakOptions.languageName = name;
+            this.reset();
+        });
+    }
+
+    #fillLanguages = () => {
+        if (!this.isAvailable()) {
+            return;
+        }
+
+        // voices are loaded async of page load, and they might not be available at this moment
+        const voices = speechSynthesis.getVoices();
+        if (voices.length == 0) {
+            window.speechSynthesis.onvoiceschanged = () => {
+                this.#fillLanguages();
+            };
+            return;
+        }
+
+        this.#ttsVoices = voices.map((x) => {
+            let obj = new Object();
+            obj[x.name] = x;
+            return obj;
+        });
+        voices.forEach(voice => {
+            const option = document.createElement("option");
+            option.textContent = `${voice.name} (${voice.lang})`;
+            if (voice.default) { option.textContent += " — DEFAULT";}
+
+            this.#ttsVoices[voice.name] = voice;
+            option.setAttribute("data-name", voice.name);
+            document.getElementById("tts-voice-select").appendChild(option);
         });
     }
 }
