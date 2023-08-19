@@ -2,18 +2,24 @@ import { MessageDTO } from "../message_updater/messageDTO.js";
 import { MessageSpeakOptions } from "./messageSpeakOptions.js";
 
 export class TextToSpeach {
-    
+
     #isAvailable
     #isActive = false;
     #defaultSpeakOptions = new MessageSpeakOptions();
 
-    constructor(){
+    #fieldset = document.getElementById("tts-fieldset");
+    #content = document.getElementById("tts-content");
+
+
+    constructor() {
         this.#isAvailable = window.speechSynthesis != null;
 
         this.#setTtsDefaults(this.#isActive, this.#defaultSpeakOptions);
         this.#setTtsOptionEvents();
+        this.#setContentGrowHandler();
     }
 
+    
     isAvailable = () => {
         return this.#isAvailable;
     }
@@ -22,17 +28,17 @@ export class TextToSpeach {
         return this.#isActive;
     }
 
-    reset = () =>{
+    reset = () => {
         window.speechSynthesis.cancel();
     }
 
     speak = (messageDTO, messageSpeakOptions = null) => {
         messageSpeakOptions ??= this.#defaultSpeakOptions;
 
-        if (!this.#isAvailable){
+        if (!this.#isAvailable) {
             return;
         }
-        if (!this.#isActive){
+        if (!this.#isActive) {
             return;
         }
         if (!(messageDTO instanceof MessageDTO)) {
@@ -59,7 +65,7 @@ export class TextToSpeach {
 
     #messageComposer = (messageDTO, messageSpeakOptions) => {
         let message = "";
-        if(messageSpeakOptions.includeDisplayName){
+        if (messageSpeakOptions.includeDisplayName) {
             message += messageDTO.userDisplayName;
         }
         message += messageDTO.message;
@@ -67,6 +73,18 @@ export class TextToSpeach {
     }
 
 
+
+    #setContentGrowHandler = () => {
+        document.getElementById("tts-arrow").onclick = () => {
+            if (this.#fieldset.classList.contains("tts-closed")) {
+                this.#content.style.maxHeight = this.#content.scrollHeight + "px";
+                this.#fieldset.classList.remove("tts-closed");
+            } else {
+                this.#content.style.maxHeight = "0px";
+                this.#fieldset.classList.add("tts-closed");
+            }
+        }
+    }
 
     #setTtsDefaults = (isActive, currentSpeakOptions) => {
         // set the object's values
