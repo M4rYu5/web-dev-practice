@@ -12,7 +12,7 @@ body {
     align-items: center;
     text-align: center;
     display: flex;
-    padding: 10px;
+    padding: 5px;
 }
 
 .chat-container {
@@ -119,7 +119,6 @@ body {
     border: 1px solid white;
     width: 100%;
     height: 100%;
-    margin: 20px, auto, 10px, auto;
     padding: 6px;
     box-sizing: border-box;
     color: white;
