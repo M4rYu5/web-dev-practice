@@ -97,7 +97,7 @@ export class TextToSpeach {
         document.getElementById("tts-turbo-toggle").checked = currentSpeakOptions.turbo;
         document.getElementById("tts-name-toggle").checked = currentSpeakOptions.includeDisplayName;
         document.getElementById("tts-speed-toggle").value = currentSpeakOptions.speed;
-        document.getElementById("tts-length-toggle").value = currentSpeakOptions.maxMessageLength;
+        document.getElementById("tts-max-length").value = currentSpeakOptions.maxMessageLength;
     }
 
     #setTtsOptionEvents = () => {
@@ -130,8 +130,7 @@ export class TextToSpeach {
             this.#defaultSpeakOptions.speed = document.getElementById("tts-speed-toggle").value;
             this.reset();
         });
-        document.getElementById("tts-length-toggle").addEventListener("input", (ev) => {
-            this.#defaultSpeakOptions.maxMessageLength = document.getElementById("tts-length-toggle").value;
+        document.getElementById("tts-max-length").addEventListener("input", (ev) => {
             this.reset();
         });
     }
