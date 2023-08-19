@@ -4,7 +4,7 @@ export class MessageSpeakOptions{
     mods = true;
     turbo = true;
     includeDisplayName = true;
-    speed = 1.2;
+    speed = 1;
     maxMessageLength = 150;
     languageName = null;
 }
