@@ -79,9 +79,11 @@ export class TextToSpeach {
             if (this.#fieldset.classList.contains("tts-closed")) {
                 this.#content.style.maxHeight = this.#content.scrollHeight + "px";
                 this.#fieldset.classList.remove("tts-closed");
+                document.getElementById("tts-arrow").textContent = "▲"
             } else {
                 this.#content.style.maxHeight = "0px";
                 this.#fieldset.classList.add("tts-closed");
+                document.getElementById("tts-arrow").textContent = "▼"
             }
         }
     }

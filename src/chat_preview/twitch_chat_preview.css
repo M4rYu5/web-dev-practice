@@ -62,9 +62,10 @@ body {
 
 
 #tts-arrow {
-    vertical-align: text-bottom;
+    vertical-align: bottom;
     padding-left: 6px;
     padding-right: 6px;
+    font-size: small;
 }
 
 #tts-arrow:hover{
