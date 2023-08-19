@@ -118,7 +118,7 @@ body {
 .title {
     border-bottom: 1px solid white;
     width: 100%;
-    height: 30px;
+    height: max-content;
     display: block;
     font-size: x-large;
     text-overflow: ellipsis;
