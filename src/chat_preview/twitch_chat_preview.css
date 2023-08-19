@@ -62,7 +62,18 @@ body {
 
 
 #tts-arrow {
-    vertical-align: text-top;
+    vertical-align: text-bottom;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+#tts-arrow:hover{
+    cursor: pointer;
+}
+
+#tts-active{
+    vertical-align: bottom;
+    margin-left: -1px;
 }
 
 #tts-content {

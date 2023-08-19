@@ -19,7 +19,7 @@ export class TextToSpeach {
         this.#setContentGrowHandler();
     }
 
-    
+
     isAvailable = () => {
         return this.#isAvailable;
     }
@@ -88,7 +88,7 @@ export class TextToSpeach {
 
     #setTtsDefaults = (isActive, currentSpeakOptions) => {
         // set the object's values
-        document.getElementById("tts-arrow").checked = isActive;
+        document.getElementById("tts-active").checked = isActive;
         document.getElementById("tts-viewer-toggle").checked = currentSpeakOptions.viewers;
         document.getElementById("tts-sub-toggle").checked = currentSpeakOptions.subscribers;
         document.getElementById("tts-mod-toggle").checked = currentSpeakOptions.mods;
@@ -100,8 +100,8 @@ export class TextToSpeach {
 
     #setTtsOptionEvents = () => {
         // events to change the tts state
-        document.getElementById("tts-arrow").addEventListener("input", (ev) => {
-            this.#isActive = document.getElementById("tts-arrow").checked;
+        document.getElementById("tts-active").addEventListener("input", (ev) => {
+            this.#isActive = document.getElementById("tts-active").checked;
             this.reset();
         });
         document.getElementById("tts-viewer-toggle").addEventListener("input", (ev) => {
