@@ -66,7 +66,7 @@ export class TextToSpeach {
     #messageComposer = (messageDTO, messageSpeakOptions) => {
         let message = "";
         if (messageSpeakOptions.includeDisplayName) {
-            message += messageDTO.userDisplayName;
+            message += messageDTO.userDisplayName + ": ";
         }
         message += messageDTO.message;
         return message;
