@@ -97,7 +97,7 @@ export class MessageUpdater {
         }
 
         if (this.#shoudScrollToLastMessage) {
-            this.#messageContainer.lastChild.scrollIntoView();
+            this.#messageContainer.scrollTop = this.#messageContainer.scrollHeight - this.#messageContainer.clientHeight;
         }
 
         this.onMessageReceived.trigger([messageDTO]);
