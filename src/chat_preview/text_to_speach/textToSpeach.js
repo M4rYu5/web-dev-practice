@@ -6,7 +6,7 @@ export class TextToSpeach {
     #isAvailable
     #ttsVoices = {}; // dictionary
     #isActive = false;
-    #defaultSpeakOptions = new MessageSpeakOptions();
+    #defaultSpeakOptions;
 
     #fieldset = document.getElementById("tts-fieldset");
     #content = document.getElementById("tts-content");
@@ -14,6 +14,15 @@ export class TextToSpeach {
 
     constructor() {
         this.#isAvailable = window.speechSynthesis != null;
+        try{
+            // localStorage.removeItem("ttsSpeakOptions");
+            this.#defaultSpeakOptions = Object.setPrototypeOf(JSON.parse(localStorage.ttsSpeakOptions), MessageSpeakOptions.prototype);
+        }
+        catch{
+            localStorage.clear("ttsSpeakOptions");
+            this.#defaultSpeakOptions = new MessageSpeakOptions();
+            localStorage.ttsSpeakOptions = JSON.stringify(this.#defaultSpeakOptions)
+        }
 
         this.#setTtsDefaults(this.#isActive, this.#defaultSpeakOptions);
         this.#setTtsOptionEvents();
@@ -113,36 +122,44 @@ export class TextToSpeach {
         });
         document.getElementById("tts-viewer-toggle").addEventListener("input", (ev) => {
             this.#defaultSpeakOptions.viewers = document.getElementById("tts-viewer-toggle").checked;
+            localStorage.ttsSpeakOptions = JSON.stringify(this.#defaultSpeakOptions);
             this.reset();
         });
         document.getElementById("tts-sub-toggle").addEventListener("input", (ev) => {
             this.#defaultSpeakOptions.subscribers = document.getElementById("tts-sub-toggle").checked;
+            localStorage.ttsSpeakOptions = JSON.stringify(this.#defaultSpeakOptions);
             this.reset();
         });
         document.getElementById("tts-mod-toggle").addEventListener("input", (ev) => {
             this.#defaultSpeakOptions.mods = document.getElementById("tts-mod-toggle").checked;
+            localStorage.ttsSpeakOptions = JSON.stringify(this.#defaultSpeakOptions);
             this.reset();
         });
         document.getElementById("tts-turbo-toggle").addEventListener("input", (ev) => {
             this.#defaultSpeakOptions.turbo = document.getElementById("tts-turbo-toggle").checked;
+            localStorage.ttsSpeakOptions = JSON.stringify(this.#defaultSpeakOptions);
             this.reset();
         });
         document.getElementById("tts-name-toggle").addEventListener("input", (ev) => {
             this.#defaultSpeakOptions.includeDisplayName = document.getElementById("tts-name-toggle").checked;
+            localStorage.ttsSpeakOptions = JSON.stringify(this.#defaultSpeakOptions);
             this.reset();
         });
         document.getElementById("tts-speed-toggle").addEventListener("input", (ev) => {
             this.#defaultSpeakOptions.speed = document.getElementById("tts-speed-toggle").value;
+            localStorage.ttsSpeakOptions = JSON.stringify(this.#defaultSpeakOptions);
             this.reset();
         });
         document.getElementById("tts-max-length").addEventListener("input", (ev) => {
             this.#defaultSpeakOptions.maxMessageLength = document.getElementById("tts-max-length").value;
+            localStorage.ttsSpeakOptions = JSON.stringify(this.#defaultSpeakOptions);
             this.reset();
         });
         document.getElementById("tts-voice-select").addEventListener("change", (ev) => {
             let element = document.getElementById("tts-voice-select");
             let name = element.options[element.selectedIndex].getAttribute("data-name");
             this.#defaultSpeakOptions.languageName = name;
+            localStorage.ttsSpeakOptions = JSON.stringify(this.#defaultSpeakOptions);
             this.reset();
         });
     }
