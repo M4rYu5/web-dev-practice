@@ -5,11 +5,24 @@ export class TextToSpeach {
 
     #isAvailable
     #ttsVoices = {}; // dictionary
-    #isActive = false;
     #defaultSpeakOptions;
 
     #fieldset = document.getElementById("tts-fieldset");
     #content = document.getElementById("tts-content");
+
+    get isActive(){
+        try{
+            return Object.setPrototypeOf(JSON.parse(localStorage.ttsIsActive), Boolean);
+        }
+        catch{
+            localStorage.ttsIsActive = JSON.stringify(false);
+            return false;
+        }
+    }
+
+    set isActive(value){
+        localStorage.ttsIsActive = JSON.stringify(value);
+    }
 
 
     constructor() {
@@ -24,7 +37,7 @@ export class TextToSpeach {
             localStorage.ttsSpeakOptions = JSON.stringify(this.#defaultSpeakOptions)
         }
 
-        this.#setTtsDefaults(this.#isActive, this.#defaultSpeakOptions);
+        this.#setTtsDefaults(this.isActive, this.#defaultSpeakOptions);
         this.#setTtsOptionEvents();
         this.#setContentGrowHandler();
         this.#fillLanguages();
@@ -33,10 +46,6 @@ export class TextToSpeach {
 
     isAvailable = () => {
         return this.#isAvailable;
-    }
-
-    isActive = () => {
-        return this.#isActive;
     }
 
     reset = () => {
@@ -49,7 +58,7 @@ export class TextToSpeach {
         if (!this.#isAvailable) {
             return;
         }
-        if (!this.#isActive) {
+        if (!this.isActive) {
             return;
         }
         if (!(messageDTO instanceof MessageDTO)) {
@@ -117,7 +126,7 @@ export class TextToSpeach {
     #setTtsOptionEvents = () => {
         // events to change the tts state
         document.getElementById("tts-active").addEventListener("input", (ev) => {
-            this.#isActive = document.getElementById("tts-active").checked;
+            this.isActive = document.getElementById("tts-active").checked;
             this.reset();
         });
         document.getElementById("tts-viewer-toggle").addEventListener("input", (ev) => {
