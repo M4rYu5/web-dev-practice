@@ -173,6 +173,8 @@ export class TextToSpeach {
 
             this.#ttsVoices[voice.name] = voice;
             option.setAttribute("data-name", voice.name);
+            if (voice.name == this.#defaultSpeakOptions.languageName)
+                option.selected = true;
             document.getElementById("tts-voice-select").appendChild(option);
         });
     }
