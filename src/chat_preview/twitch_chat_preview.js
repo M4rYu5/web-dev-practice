@@ -1,7 +1,16 @@
 import { MessageUpdater } from "./message_updater/messageUpdater.js";
 import { TextToSpeach } from "./text_to_speach/textToSpeach.js";
 
-let twitchStreamer = "xqc"
+
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const streamerUrlParam = urlParams.get("streamer");
+
+if(streamerUrlParam != null){
+    document.forms["streamer-form"].elements["streamer"].value = streamerUrlParam;
+}
+
+let twitchStreamer = streamerUrlParam ?? "xqc"
 
 let messageUpdater = new MessageUpdater(twitchStreamer);
 let tts = new TextToSpeach();
