@@ -127,9 +127,7 @@ export class MessageUpdater {
     /** set the chat text and links to the stream */
     #setLinks = () => {
         let textLink = document.getElementById("title-text-link");
-        let glyphLink = document.getElementById("title-glyph-link");
         textLink.href = "https://twitch.tv/" + this.#twitchStreamer;
-        glyphLink.href = "https://twitch.tv/" + this.#twitchStreamer;
         textLink.textContent = "twitch.tv/" + this.#twitchStreamer;
     }
 
