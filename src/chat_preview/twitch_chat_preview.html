@@ -49,9 +49,15 @@
         </div>
         <div class="chat">
             <div class="title">
-                <span>Chat:&nbsp</span>
-                <a id="title-text-link" target="_blank" class="title-channel" href="twitch.tv/...">twitch.tv/...&nbsp</a>
-                <a id="title-glyph-link" target="_blank" class="fa fa-external-link follow-link" href="twitch.tv/..." aria-hidden="true"></a>
+                <span class="title-chat">Chat:&nbsp</span>
+                <div class="title-channel w100p">
+                    <a id="title-text-link" target="_blank" class="title-channel" href="twitch.tv/...">twitch.tv/...&nbsp</a>
+                    <form id="streamer-form" class="inline-flex justify-content-center display-none w100p">
+                        <input type="text" name="streamer" placeholder="streamer" class="w60p"/>
+                        <button class="fa fa-angle-double-right title-form-submit-button"></button>
+                    </form>
+                </div>
+                <span id="title-gear">&nbsp<span class="fa fa-gear" aria-hidden="true"></span></span>
             </div>
             <div id="messages" class="messages">
                 <!-- here will be all messages -->

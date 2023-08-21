@@ -9,7 +9,7 @@ html {
 
 body {
     justify-content: center;
-    align-items: center;
+    align-items: start;
     text-align: center;
     display: flex;
     padding: 5px;
@@ -22,6 +22,38 @@ body {
     display: flex;
     flex-flow: column;
 }
+
+
+/* SHORTCUTS */
+
+.w100p {
+    width: 100%;
+}
+
+.w50p {
+    width: 50%;
+}
+
+.w60p {
+    width: 60%;
+}
+
+.inline {
+    display: inline;
+}
+
+.inline-flex {
+    display: inline-flex;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.display-none {
+    display: none
+}
+
 
 
 
@@ -68,11 +100,11 @@ body {
     font-size: small;
 }
 
-#tts-arrow:hover{
+#tts-arrow:hover {
     cursor: pointer;
 }
 
-#tts-active{
+#tts-active {
     vertical-align: bottom;
     margin-left: -1px;
 }
@@ -129,7 +161,7 @@ body {
 .title {
     border-bottom: 1px solid white;
     width: 100%;
-    height: max-content;
+    height: 32px;
     display: block;
     font-size: x-large;
     text-overflow: ellipsis;
@@ -142,32 +174,51 @@ body {
     justify-content: space-between;
 }
 
+.title-chat {
+    align-self: center;
+}
 
 .title-channel {
     color: white;
     text-decoration: none;
 
-    width: auto;
     font-size: x-large;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     justify-self: center;
+    align-self: center;
 }
 
 .title-channel:hover {
     text-decoration: underline;
 }
 
-.follow-link {
-    color: blueviolet;
-    text-decoration: none;
+.title-form-submit-button {
+    background-color: #4CAF50;
+    color: white;
+    border-width: 0px;
+    border-bottom: green solid 1px;
+    border-top: green solid 1px;
+    border-right: green solid 1px;
+}
 
+.title-form-submit-button:hover {
+    cursor: pointer;
+}
+
+#title-gear {
+    text-decoration: none;
     overflow: visible;
     font-size: x-large;
     align-self: center;
     justify-self: center;
 }
+
+#title-gear:hover {
+    cursor: pointer;
+}
+
 
 @media (min-width: 450px) {
     .chat {
