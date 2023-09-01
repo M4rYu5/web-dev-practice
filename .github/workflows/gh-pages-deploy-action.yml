@@ -14,7 +14,7 @@ jobs:
       - name: Set gh-pages as worktree
         run: |
           git fetch --all
-          git worktree add --track -b gh-pages2 scripts/temp-build origin/gh-pages
+          git worktree add --track -b gh-pages2 scripts/temp-pages origin/gh-pages
 
       - name: Build
         run: |
@@ -25,7 +25,8 @@ jobs:
           
       - name: Deploy to GitHub Pages
         run: |
-          cd scripts/temp-build
+          cd scripts/temp-pages
+          cp -r ../temp-build/. .
           git config --global user.email "build-and-deploy-action@example.com"
           git config --global user.name "build-and-deploy-action"
           git add .
