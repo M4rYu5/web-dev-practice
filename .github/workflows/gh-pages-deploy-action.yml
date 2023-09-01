@@ -19,6 +19,7 @@ jobs:
       - name: Build
         working-directory: scripts/
         run: |
+          tr -d '\15\32' < gh-pages-build.sh > gh-pages-build.sh
           chmod +x ./gh-pages-build.sh
           ./gh-pages-build.sh
           
