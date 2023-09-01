@@ -23,6 +23,8 @@ jobs:
       - name: Deploy to GitHub Pages
         working-directory: scripts/temp-build
         run: |
+          git config --global user.email "build-and-deploy-action@example.com"
+          git config --global user.name "build-and-deploy-action"
           git add .
           git commit --allow-empty -m "Deploy to GitHub Pages"
           git push origin HEAD:gh-pages --force
