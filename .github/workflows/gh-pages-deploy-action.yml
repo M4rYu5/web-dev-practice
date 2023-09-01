@@ -19,9 +19,9 @@ jobs:
       - name: Build
         run: |
           cd scripts
-          tr -d '\15\32' < gh-pages-build.sh > gh-pages-build.sh
-          chmod +x ./gh-pages-build.sh
-          ./gh-pages-build.sh
+          tr -d '\15\32' < gh-pages-build.sh > gh-pages-build-2.sh
+          chmod +x ./gh-pages-build-2.sh
+          ./gh-pages-build-2.sh
           
       - name: Deploy to GitHub Pages
         run: |
