@@ -17,15 +17,15 @@ jobs:
           git worktree add --track -b gh-pages2 scripts/temp-build origin/gh-pages
 
       - name: Build
-        working-directory: scripts/
         run: |
+          cd scripts
           tr -d '\15\32' < gh-pages-build.sh > gh-pages-build.sh
           chmod +x ./gh-pages-build.sh
           ./gh-pages-build.sh
           
       - name: Deploy to GitHub Pages
-        working-directory: scripts/temp-build
         run: |
+          cd scripts/temp-build
           git config --global user.email "build-and-deploy-action@example.com"
           git config --global user.name "build-and-deploy-action"
           git add .
