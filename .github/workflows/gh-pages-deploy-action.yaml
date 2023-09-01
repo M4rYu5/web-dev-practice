@@ -1,0 +1,26 @@
+name: Build and Deploy
+on: 
+  workflow_dispatch:
+  
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set gh-pages as worktree
+        run: git worktree add --track -b gh-pages2 scripts/temp-build origin/gh-pages
+
+      - name: Build
+        working-directory: scripts/
+        run: |
+          chmod +x ./gh-pages-build.sh
+          ./gh-pages-build.sh
+          
+      - name: Deploy to GitHub Pages
+        working-directory: scripts/temp-build
+        run: |
+          git add .
+          git commit --allow-empty -m "Deploy to GitHub Pages"
+          git push origin HEAD:gh-pages --force
