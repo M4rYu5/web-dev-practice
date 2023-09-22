@@ -19,7 +19,7 @@ const hoverMenuClasses =
 export default function SiteMenu() {
   return (
     <div className="shadow-orange-300 shadow-sm mb-2">
-      <nav className="flex justify-between container mx-auto px-8">
+      <nav className="flex justify-between container mx-auto sm:px-8 px-1">
         <div className="flex">
           <a href="/" className={"pt-4 pl-4 pr-4 pb-2 mb-2" + hoverMenuClasses}>
             Home

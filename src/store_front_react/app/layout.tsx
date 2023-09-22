@@ -19,7 +19,9 @@ export default function RootLayout({
     <html lang="en" style={{ minHeight: "100%" }}>
       <body className={inter.className}>
         <SiteMenu />
-        {children}
+        <div className="container mx-auto mt-5 sm:px-12 px-5">
+          {children}
+        </div>
       </body>
     </html>
   );
