@@ -14,14 +14,14 @@ function classNames(...classes: any[]) {
 }
 
 const hoverMenuClasses =
-  " border-transparent cursor-pointer border-b-2 hover:shadow hover:border-white hover:border-solid hover:border-b-2 hover:text-red-400 ";
+  " border-transparent cursor-pointer border-b-2 hover:border-fuchsia-50 hover:border-solid hover:border-b-2 hover:text-fuchsia-200 ";
 
 export default function SiteMenu() {
   return (
-    <div className="shadow-orange-300 shadow-sm mb-2">
+    <div className="shadow-sm mb-2  bg-gradient-to-t from-gray-800 to-black to-15%">
       <nav className="flex justify-between container mx-auto sm:px-8 px-1">
         <div className="flex">
-          <a href="/" className={"pt-4 pl-4 pr-4 pb-2 mb-2" + hoverMenuClasses}>
+          <a href="/" className={"pt-2 px-4 pb-2 my-2" + hoverMenuClasses}>
             Home
           </a>
         </div>
