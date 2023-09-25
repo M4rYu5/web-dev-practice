@@ -13,7 +13,15 @@ const Home = () => {
     getProducts(filter).then((x) => setProducts(x));
   }, [filter]);
 
-  return <div>{JSON.stringify(products)}</div>;
+  return (
+  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+    <div className="bg-white aspect-[.75] rounded-xl"></div>
+    <div className="bg-white aspect-[.75] rounded-xl"></div>
+    <div className="bg-white aspect-[.75] rounded-xl"></div>
+    <div className="bg-white aspect-[.75] rounded-xl"></div>
+    <div className="bg-white aspect-[.75] rounded-xl"></div>
+  </div>
+  );
 };
 
 export default Home;
