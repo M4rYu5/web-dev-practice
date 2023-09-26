@@ -5,15 +5,24 @@ const ImageCard: FunctionComponent<{
   name: string;
   price: number;
 }> = ({ imgUrl, name, price }) => {
+    const priceInteger: number = Math.trunc(price);
+    let dot: string = ".";
+    let priceFractional: number | string = Math.round((price % 1) * 100);
+
+    if (priceFractional === 0){
+        priceFractional = "";
+        dot = "";
+    }
+
   return (
     <div className="bg-white rounded-xl p-1 pb-4 space-y-2">
       <img className="rounded-t-xl" src={imgUrl}></img>
       <span className="block px-2 text-black font-bold">{name}</span>
       <div className="flex pl-4 pr-2">
         <span className="w-4/5 text-rose-600 font-bold self-center">
-          {Math.trunc(price)}.
+          {priceInteger}{dot}
           <span className="align-top text-[12px]">
-            {Math.round((price % 1) * 100)}
+            {priceFractional}
           </span>{" "}
           Lei
         </span>
