@@ -21,9 +21,15 @@ const ImageCard: FunctionComponent<{
   }
 
   return (
-    <div className="bg-white rounded-xl p-1 pb-4 space-y-2">
-      <img className="rounded-t-xl" src={imgUrl}></img>
-      <span className="block px-2 text-black font-bold">{name}</span>
+    <div className="bg-white rounded-xl p-1 pb-4 space-y-2 flex flex-col justify-between">
+      <div className="flex rounded-t-xl bg-red-300 h-[150px] m-0 overflow-clip justify-center">
+        <img
+          className="rounded-t-xl self-center w-full h-full object-cover"
+          src={imgUrl}
+        ></img>
+      </div>
+      <span className="block px-2 text-black font-bold min-h-[40px]">{name}</span>
+
       <div className="flex pl-4 pr-2">
         <span className="w-4/5 text-rose-600 font-bold self-center">
           {priceInteger}
