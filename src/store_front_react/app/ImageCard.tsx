@@ -29,7 +29,7 @@ const ImageCard: FunctionComponent<{
           src={imgUrl}
         ></img>
       </div>
-      <span className="px-2 text-black font-bold min-h-[40px] line-clamp-3">{name}</span>
+      <span title={name} className="px-2 text-black font-bold min-h-[40px] line-clamp-3">{name}</span>
 
       <div className="flex pl-4 pr-2">
         <span className="w-4/5 text-rose-600 font-bold self-center">
