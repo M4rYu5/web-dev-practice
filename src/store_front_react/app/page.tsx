@@ -8,7 +8,9 @@ import ImageCard from "./ImageCard";
 
 const Home = () => {
   let [filter, setFilter] = useState(new ProductFilter(0, 20));
-  let [products, setProducts]: [ProductPreview[] | null, any] = useState(null);
+  let [products, setProducts]: [ProductPreview[] | null, any] = useState<
+    ProductPreview[] | null
+  >(null);
 
   useEffect(() => {
     getProducts(filter).then((x) => setProducts(x));
