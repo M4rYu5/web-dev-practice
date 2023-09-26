@@ -20,6 +20,7 @@ const ImageCard: FunctionComponent<{
     priceFractional = priceFractional.toString().padStart(2, "0");
   }
 
+
   return (
     <div className="bg-white rounded-xl p-1 pb-4 space-y-2 flex flex-col justify-between">
       <div className="flex rounded-t-xl h-[150px] m-0 overflow-clip justify-center">
@@ -28,7 +29,7 @@ const ImageCard: FunctionComponent<{
           src={imgUrl}
         ></img>
       </div>
-      <span className="block px-2 text-black font-bold min-h-[40px]">{name}</span>
+      <span className="px-2 text-black font-bold min-h-[40px] line-clamp-3">{name}</span>
 
       <div className="flex pl-4 pr-2">
         <span className="w-4/5 text-rose-600 font-bold self-center">
