@@ -22,7 +22,7 @@ const ImageCard: FunctionComponent<{
 
   return (
     <div className="bg-white rounded-xl p-1 pb-4 space-y-2 flex flex-col justify-between">
-      <div className="flex rounded-t-xl bg-red-300 h-[150px] m-0 overflow-clip justify-center">
+      <div className="flex rounded-t-xl h-[150px] m-0 overflow-clip justify-center">
         <img
           className="rounded-t-xl self-center w-full h-full object-cover"
           src={imgUrl}
