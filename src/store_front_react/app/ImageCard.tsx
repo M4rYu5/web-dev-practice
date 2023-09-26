@@ -5,14 +5,20 @@ const ImageCard: FunctionComponent<{
   name: string;
   price: number;
 }> = ({ imgUrl, name, price }) => {
-    const priceInteger: number = Math.trunc(price);
-    let dot: string = ".";
-    let priceFractional: number | string = Math.round((price % 1) * 100);
+  price = Math.ceil(price * 100) / 100; // bump up the price 9.991 to 10 and 9.881 to 9.89
+  const priceInteger: number = Math.trunc(price); // extract integer part
+  let dot: string = "."; // decimal separator
+  let priceFractional: number | string = Math.round((price % 1) * 100); // fractional part of the price
 
-    if (priceFractional === 0){
-        priceFractional = "";
-        dot = "";
-    }
+  // hide fractional when 0
+  if (priceFractional === 0) {
+    priceFractional = "";
+    dot = "";
+  }
+  // show 0 before when fractional < 10; ex: 01 in 9.01
+  else {
+    priceFractional = priceFractional.toString().padStart(2, "0");
+  }
 
   return (
     <div className="bg-white rounded-xl p-1 pb-4 space-y-2">
@@ -20,11 +26,9 @@ const ImageCard: FunctionComponent<{
       <span className="block px-2 text-black font-bold">{name}</span>
       <div className="flex pl-4 pr-2">
         <span className="w-4/5 text-rose-600 font-bold self-center">
-          {priceInteger}{dot}
-          <span className="align-top text-[12px]">
-            {priceFractional}
-          </span>{" "}
-          Lei
+          {priceInteger}
+          {dot}
+          <span className="align-top text-[12px]">{priceFractional}</span> Lei
         </span>
         <span className="w-1/5 cursor-pointer text-white p-1 font-bold bg-blue-500 inline-block text-center rounded-xl">
           <svg
@@ -45,6 +49,5 @@ const ImageCard: FunctionComponent<{
     </div>
   );
 };
-
 
 export default ImageCard;
