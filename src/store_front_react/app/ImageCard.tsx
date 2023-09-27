@@ -1,10 +1,15 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
+import { BasketContext, BasketDispatchContext } from "./BasketProvider";
+import { updateBasket } from "@/data/repository";
 
 const ImageCard: FunctionComponent<{
+  id: number;
   imgUrl: string;
   name: string;
   price: number;
-}> = ({ imgUrl, name, price }) => {
+}> = ({ id, imgUrl, name, price }) => {
+  let basket = useContext(BasketContext);
+  let setBasket = useContext(BasketDispatchContext);
 
   price = Math.ceil(price * 100) / 100; // bump up the price 9.991 to 10 and 9.881 to 9.89
   let priceInteger: number | string = Math.trunc(price); // extract integer part
@@ -14,11 +19,11 @@ const ImageCard: FunctionComponent<{
 
   // group with dots
   {
-    let priceChars = priceInteger.toString().split('');
-    for (let i = priceChars.length - 3; i > 0; i -= 3){
+    let priceChars = priceInteger.toString().split("");
+    for (let i = priceChars.length - 3; i > 0; i -= 3) {
       priceChars.splice(i, 0, separator);
     }
-    priceInteger = priceChars.join('');
+    priceInteger = priceChars.join("");
   }
 
   // hide fractional when 0
@@ -31,7 +36,6 @@ const ImageCard: FunctionComponent<{
     priceFractional = priceFractional.toString().padStart(2, "0");
   }
 
-
   return (
     <div className="bg-white rounded-xl p-1 pb-4 space-y-2 flex flex-col justify-between">
       <div className="flex rounded-t-xl h-[150px] m-0 overflow-clip justify-center">
@@ -40,7 +44,12 @@ const ImageCard: FunctionComponent<{
           src={imgUrl}
         ></img>
       </div>
-      <span title={name} className="px-2 text-black font-bold min-h-[40px] line-clamp-3">{name}</span>
+      <span
+        title={name}
+        className="px-2 text-black font-bold min-h-[40px] line-clamp-3"
+      >
+        {name}
+      </span>
 
       <div className="flex pl-4 pr-2">
         <span className="w-4/5 text-rose-600 font-bold self-center text-lg">
@@ -48,7 +57,14 @@ const ImageCard: FunctionComponent<{
           {dot}
           <span className="align-super text-[12px]">{priceFractional}</span> Lei
         </span>
-        <span className="w-1/5 cursor-pointer text-white p-1 font-bold bg-blue-500 inline-block text-center rounded-xl">
+        <span
+          onClick={(e) => {
+            updateBasket([...basket.map((x) => x.id), id]).then(
+              (x) => setBasket && setBasket(x)
+            );
+          }}
+          className="w-1/5 cursor-pointer text-white p-1 font-bold bg-blue-500 inline-block text-center rounded-xl"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
