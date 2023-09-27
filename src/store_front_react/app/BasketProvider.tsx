@@ -1,6 +1,5 @@
 "use client";
 
-import { ProductPreview } from "@/data/ProductPreview";
 import { getBasket } from "@/data/repository";
 import {
   ReactNode,
@@ -11,15 +10,17 @@ import {
   experimental_useEffectEvent,
   useEffect,
 } from "react";
+import { BasketProduct } from "../data/BasketProduct";
 
 
-export const BasketContext = createContext<ProductPreview[]>([]);
+
+export const BasketContext = createContext<BasketProduct[]>([]);
 export const BasketDispatchContext = createContext<Dispatch<
-  SetStateAction<ProductPreview[]>
+  SetStateAction<BasketProduct[]>
 > | null>(null);
 
 const BasketProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [basket, setBasket] = useState<ProductPreview[]>([]);
+  const [basket, setBasket] = useState<BasketProduct[]>([]);
 
   useEffect(() => {
     getBasket().then(x => setBasket(x));

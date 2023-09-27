@@ -1,6 +1,8 @@
 import { FunctionComponent, useContext } from "react";
 import { BasketContext, BasketDispatchContext } from "./BasketProvider";
-import { updateBasket } from "@/data/repository";
+import { BasketProduct } from "../data/BasketProduct";
+import { getProductsById, updateBasket } from "@/data/repository";
+import { ProductPreview } from "@/data/ProductPreview";
 
 const ImageCard: FunctionComponent<{
   id: number;
@@ -59,9 +61,24 @@ const ImageCard: FunctionComponent<{
         </span>
         <span
           onClick={(e) => {
-            updateBasket([...basket.map((x) => x.id), id]).then(
-              (x) => setBasket && setBasket(x)
-            );
+            let product = basket.find(p => p.id == id)
+            if (product == null){
+              // new product
+              getProductsById([id]).then((newProducts: ProductPreview[]) => {
+                if (newProducts.length != 1){
+                  return;
+                }
+                let p = newProducts[0];
+                updateBasket([...basket, new BasketProduct(p.id, p.title, p.price, p.thumbnailUrl, 1)]).then(
+                  (x) => setBasket && setBasket(x)
+                );
+              })
+            }
+            else{
+              // update product
+              product.count += 1;
+              setBasket && setBasket([...basket])
+            }
           }}
           className="w-1/5 cursor-pointer text-white p-1 font-bold bg-blue-500 inline-block text-center rounded-xl"
         >
