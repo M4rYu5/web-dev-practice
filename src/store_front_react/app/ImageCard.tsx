@@ -32,7 +32,7 @@ const ImageCard: FunctionComponent<{
       <span title={name} className="px-2 text-black font-bold min-h-[40px] line-clamp-3">{name}</span>
 
       <div className="flex pl-4 pr-2">
-        <span className="w-4/5 text-rose-600 font-bold self-center">
+        <span className="w-4/5 text-rose-600 font-bold self-center text-lg">
           {priceInteger}
           {dot}
           <span className="align-top text-[12px]">{priceFractional}</span> Lei
