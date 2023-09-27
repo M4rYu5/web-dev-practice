@@ -1,4 +1,12 @@
 
+/**
+ * Needed informations for prodcut preview
+ * 
+ * @param id product's id
+ * @param title product's name
+ * @param price product's price
+ * @param thumbnailUrl product's URL of display image
+ */
 export class ProductPreview {
     id: number = -1;
     title: string = "";
