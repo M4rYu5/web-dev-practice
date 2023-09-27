@@ -10,10 +10,6 @@ const navigation = [
   { name: "Calendar", href: "#", current: false },
 ];
 
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(" ");
-}
-
 const hoverMenuClasses =
   " border-transparent cursor-pointer border-b-2 hover:border-fuchsia-50 hover:border-solid hover:border-b-2 hover:text-fuchsia-200 ";
 
