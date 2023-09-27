@@ -6,7 +6,6 @@ const ImageCard: FunctionComponent<{
   price: number;
 }> = ({ imgUrl, name, price }) => {
 
-  price = 99999.99
   price = Math.ceil(price * 100) / 100; // bump up the price 9.991 to 10 and 9.881 to 9.89
   let priceInteger: number | string = Math.trunc(price); // extract integer part
   let dot: string = ","; // decimal separator
