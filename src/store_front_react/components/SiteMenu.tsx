@@ -46,7 +46,7 @@ export default function SiteMenu() {
               />
             </svg>
 
-            <span className="absolute text-xs px-1 self-center translate-x-4 translate-y-3 rounded-md border-solid shadow shadow-red-900 bg-gradient-to-b from-orange-300 to-red-600 text-white">
+            <span className="absolute text-xs px-1 self-center translate-x-4 -translate-y-3 rounded-md border-solid shadow shadow-red-900 bg-gradient-to-b from-orange-300 to-red-600 text-white">
               22
             </span>
           </a>
