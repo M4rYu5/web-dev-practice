@@ -1,6 +1,7 @@
 "use client";
 
 import { BasketContext } from "@/app/BasketProvider";
+import ShopCartPreview from "@/app/ShopCartPreview";
 import { useContext } from "react";
 
 const navigation = [
@@ -24,7 +25,7 @@ export default function SiteMenu() {
             Home
           </a>
         </div>
-        <div className="flex my-2">
+        <div className="flex my-2 dropdown dropdown-hover dropdown-end dropdown-bottom">
           <a
             href="/checkout"
             className={
@@ -50,6 +51,7 @@ export default function SiteMenu() {
               </span>
             )}
           </a>
+          <ShopCartPreview className="dropdown-content z-[1]" />
         </div>
       </nav>
     </div>
