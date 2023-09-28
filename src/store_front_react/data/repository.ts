@@ -1,6 +1,6 @@
-import { BasketProduct } from "@/data/BasketProduct";
 import { ProductFilter } from "./ProductFilter";
-import { ProductPreview } from "./ProductPreview";
+import ProductPreview from "./ProductPreview";
+import BasketProduct from "./BasketProduct";
 import { BasketDTO } from "./BasketDTO";
 
 // ---------  PRODUCTS  ------------

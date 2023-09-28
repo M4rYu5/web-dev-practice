@@ -7,7 +7,7 @@
  * @param price product's price
  * @param thumbnailUrl product's URL of display image
  */
-export class ProductPreview {
+export default class ProductPreview {
     id: number = -1;
     title: string = "";
     price: number = Number.MAX_SAFE_INTEGER;

@@ -3,7 +3,7 @@
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { getProducts } from "./../data/repository";
 import { ProductFilter } from "@/data/ProductFilter";
-import { ProductPreview } from "@/data/ProductPreview";
+import ProductPreview from "@/data/ProductPreview";
 import ImageCard from "./ImageCard";
 
 const Home = () => {

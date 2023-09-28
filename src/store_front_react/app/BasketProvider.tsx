@@ -7,10 +7,9 @@ import {
   createContext,
   Dispatch,
   SetStateAction,
-  experimental_useEffectEvent,
   useEffect,
 } from "react";
-import { BasketProduct } from "../data/BasketProduct";
+import BasketProduct from "../data/BasketProduct";
 
 
 

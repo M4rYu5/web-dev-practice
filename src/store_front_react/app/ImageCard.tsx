@@ -1,8 +1,8 @@
 import { FunctionComponent, useContext } from "react";
 import { BasketContext, BasketDispatchContext } from "./BasketProvider";
-import { BasketProduct } from "../data/BasketProduct";
 import { getProductsById, updateBasket } from "@/data/repository";
-import { ProductPreview } from "@/data/ProductPreview";
+import ProductPreview from "@/data/ProductPreview";
+import BasketProduct from "../data/BasketProduct";
 
 const ImageCard: FunctionComponent<{
   id: number;

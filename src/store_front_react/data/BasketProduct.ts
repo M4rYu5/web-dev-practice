@@ -1,5 +1,6 @@
 "use client";
-import { ProductPreview } from "@/data/ProductPreview";
+
+import ProductPreview from "./ProductPreview";
 
 
 
@@ -12,7 +13,7 @@ import { ProductPreview } from "@/data/ProductPreview";
  * @param thumbnailUrl product's URL of display image
  * @param count the number of same products in the basket/cart
  */
-export class BasketProduct extends ProductPreview {
+export default class BasketProduct extends ProductPreview {
   /** number of units in the basket */
   count = 1;
 
