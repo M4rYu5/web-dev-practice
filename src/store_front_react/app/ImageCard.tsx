@@ -77,7 +77,9 @@ const ImageCard: FunctionComponent<{
             else{
               // update product
               product.count += 1;
-              setBasket && setBasket([...basket])
+              updateBasket([...basket]).then(
+                (x) => setBasket && setBasket(x)
+              );
             }
           }}
           className="w-1/5 cursor-pointer text-white p-1 font-bold bg-blue-500 inline-block text-center rounded-xl"
