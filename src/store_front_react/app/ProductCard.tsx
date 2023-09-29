@@ -3,6 +3,7 @@ import { BasketContext, BasketDispatchContext } from "./BasketProvider";
 import { getProductsById, updateBasket } from "@/data/repository";
 import ProductPreview from "@/data/ProductPreview";
 import BasketProduct from "../data/BasketProduct";
+import { formatPrice } from "./util/priceFormatter";
 
 const ProductCard: FunctionComponent<{
   id: number;
@@ -14,29 +15,11 @@ const ProductCard: FunctionComponent<{
   let setBasket = useContext(BasketDispatchContext);
 
   price = Math.ceil(price * 100) / 100; // bump up the price 9.991 to 10 and 9.881 to 9.89
-  let priceInteger: number | string = Math.trunc(price); // extract integer part
+
   let dot: string = ","; // decimal separator
   let separator: string = ".";
-  let priceFractional: number | string = Math.round((price % 1) * 100); // fractional part of the price
+  let {integerPart, fractionalPart} = formatPrice(price, separator)
 
-  // group with dots
-  {
-    let priceChars = priceInteger.toString().split("");
-    for (let i = priceChars.length - 3; i > 0; i -= 3) {
-      priceChars.splice(i, 0, separator);
-    }
-    priceInteger = priceChars.join("");
-  }
-
-  // hide fractional when 0
-  if (priceFractional === 0) {
-    priceFractional = "";
-    dot = "";
-  }
-  // show 0 before when fractional < 10; ex: 01 in 9.01
-  else {
-    priceFractional = priceFractional.toString().padStart(2, "0");
-  }
 
   return (
     <div className="bg-white rounded-xl p-1 pb-4 space-y-2 flex flex-col justify-between">
@@ -55,9 +38,9 @@ const ProductCard: FunctionComponent<{
 
       <div className="flex pl-4 pr-2">
         <span className="w-4/5 text-rose-600 font-bold self-center text-lg">
-          {priceInteger}
-          {dot}
-          <span className="align-super text-[12px]">{priceFractional}</span> Lei
+          {integerPart}
+          {fractionalPart != "" && dot}
+          <span className="align-super text-[12px]">{fractionalPart}</span> Lei
         </span>
         <span
           onClick={(e) => {
