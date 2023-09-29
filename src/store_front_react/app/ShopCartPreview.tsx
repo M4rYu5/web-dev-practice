@@ -30,7 +30,7 @@ const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
                   <span className="line-clamp-2 self-center">{x.title}</span>
                 </div>
                 <div className="flex items-center">
-                  <span className="text-gray-400 px-2 mr-2">{x.count}</span>
+                  <span className="text-gray-400 px-2 mr-2"><span className="text-xs">x</span>{x.count}</span>
                   <button
                     className="border border-gray-600 text-gray-400 rounded-full justify-around h-6 w-6 flex items-center"
                     onClick={(e) => {
