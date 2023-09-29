@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { getProducts } from "./../data/repository";
 import { ProductFilter } from "@/data/ProductFilter";
 import ProductPreview from "@/data/ProductPreview";
-import ImageCard from "./ImageCard";
+import ProductCard from "./ProductCard";
 
 const Home = () => {
   let [filter, setFilter] = useState(new ProductFilter(0, 20));
@@ -20,7 +20,7 @@ const Home = () => {
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
       {products?.map((x, i) => {
         return (
-          <ImageCard
+          <ProductCard
             key={x.id}
             id={x.id}
             imgUrl={x.thumbnailUrl}
