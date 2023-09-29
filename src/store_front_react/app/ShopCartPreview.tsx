@@ -24,7 +24,7 @@ const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
             <li key={x.id} className="px-4 py-2 hover:bg-gray-800">
               <div className="flex justify-between items-center  hover:text-white transition-colors duration-200">
                 <div className="flex flex-row justify-center">
-                  <div className="h-12 overflow-clip">
+                  <div className="h-12 overflow-clip flex-shrink-0">
                     <img
                       src={x.thumbnailUrl}
                       className="self-center w-20 h-full object-cover p-1 mr-1"
@@ -32,8 +32,11 @@ const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
                   </div>
                   <span className="line-clamp-2 self-center">{x.title}</span>
                 </div>
-                <div className="flex items-center">
-                  <span className="text-gray-400 px-2 mr-2"><span className="text-xs">x</span>{x.count}</span>
+                <div className="flex items-center flex-shrink-0">
+                  <div className="grid columns-1 flex-shrink-0 px-2 mr-2 text-center">
+                    <span className="text-gray-400"><span className="text-xs">x</span>{x.count}</span>
+                    <span className="text-sky-300">{x.price * x.count} Lei</span>
+                  </div>
                   <button
                     className="border border-gray-600 text-gray-400 rounded-full justify-around h-6 w-6 flex items-center"
                     onClick={(e) => {

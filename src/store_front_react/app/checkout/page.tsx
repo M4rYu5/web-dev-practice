@@ -9,10 +9,12 @@ const Checkout: React.FC = () => {
   metadata.title = "Checkout";
   const basket = useContext(BasketContext);
   const setBasket = useContext(BasketDispatchContext);
+  let totalPrice: number = 0;
+  basket.forEach(x => {totalPrice += x.price})
 
   return (
-<div className="rounded min-w-[400px] bg-base-100 py-2 lg:px-10">
-  <ul className="flex flex-col divide-y divide-gray-200">
+<div className="rounded min-w-[400px] py-2 lg:px-10">
+  <ul className="flex flex-col divide-y divide-gray-200 bg-base-100 rounded-xl">
     {basket.map((x) => (
       <li key={x.id} className="px-4 py-2 hover:bg-gray-800">
         <div className="flex justify-between items-center hover:text-white transition-colors duration-200">
@@ -25,8 +27,11 @@ const Checkout: React.FC = () => {
             </div>
             <span className="line-clamp-2 self-center lg:text-2xl">{x.title}</span>
           </div>
-          <div className="flex items-center">
-            <span className="text-gray-400 px-2 mr-2 lg:text-2xl lg:mr-6">x{x.count}</span>
+          <div className="flex items-center flex-shrink-0">
+            <div className="grid columns-1 flex-shrink-0 px-2 mr-2 lg:text-2xl lg:mr-6 text-center">
+              <span className="text-gray-400">x{x.count}</span>
+              <span className="text-sky-300">{x.price * x.count} Lei</span>
+            </div>
             <button
               className="border border-gray-600 text-gray-400 rounded-full justify-around h-6 w-6 lg:h-12 lg:w-12 flex items-center"
               onClick={(e) => {
@@ -55,6 +60,10 @@ const Checkout: React.FC = () => {
       </li>
     ))}
   </ul>
+  <div className="flex justify-between bg-base-100 mt-5 px-5 py-2 rounded-xl text-2xl xl:py-4 xl:px-12 xl:text-3xl">
+    <span className="self-start">Total:</span>
+    <span className="">{totalPrice} Lei</span>
+  </div>
 </div>
 
   );
