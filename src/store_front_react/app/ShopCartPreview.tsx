@@ -8,9 +8,10 @@ const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
 ) => {
   const basket = useContext(BasketContext);
   const setBasket = useContext(BasketDispatchContext);
+  let isCheckout = window.location.pathname == "/checkout";
 
   return (
-    basket.length > 0 && (
+    basket.length > 0 && !isCheckout && (
       <div
         {...attr}
         className={attr.className + " rounded min-w-[400px] bg-base-100 py-2"}
