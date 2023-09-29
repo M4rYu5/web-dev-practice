@@ -1,3 +1,5 @@
+"use client"
+
 import { HtmlProps } from "next/dist/shared/lib/html-context";
 import { Attributes, useContext, useEffect } from "react";
 import { BasketContext, BasketDispatchContext } from "./BasketProvider";
@@ -8,7 +10,8 @@ const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
 ) => {
   const basket = useContext(BasketContext);
   const setBasket = useContext(BasketDispatchContext);
-  let isCheckout = window.location.pathname == "/checkout";
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : '/';
+  let isCheckout = pathname == "/checkout";
 
   return (
     basket.length > 0 && !isCheckout && (
