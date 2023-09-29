@@ -4,7 +4,7 @@ import { getProductsById, updateBasket } from "@/data/repository";
 import ProductPreview from "@/data/ProductPreview";
 import BasketProduct from "../data/BasketProduct";
 
-const ImageCard: FunctionComponent<{
+const ProductCard: FunctionComponent<{
   id: number;
   imgUrl: string;
   name: string;
@@ -103,4 +103,4 @@ const ImageCard: FunctionComponent<{
   );
 };
 
-export default ImageCard;
+export default ProductCard;
