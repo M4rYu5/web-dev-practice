@@ -32,8 +32,8 @@ const Checkout: React.FC = () => {
   });
 
   return (
-    <div className="rounded min-w-[400px] py-2 lg:px-10">
-      <ul className="flex flex-col divide-y divide-gray-200 bg-base-100 rounded-xl">
+    <div className="min-w-[400px] py-2 lg:px-10">
+      <ul className="flex flex-col divide-y divide-neutral-content bg-base-100 rounded-xl overflow-clip">
         {basket.map((x) => {
           let price = Math.ceil(x.price * 100) / 100; // bump up the price 9.991 to 10 and 9.881 to 9.89
           let dot: string = ","; // decimal separator
@@ -41,8 +41,8 @@ const Checkout: React.FC = () => {
           let { integerPart, fractionalPart } = formatPrice(price, separator);
 
           return (
-            <li key={x.id} className="px-4 py-2 hover:bg-gray-800">
-              <div className="flex justify-between items-center hover:text-white transition-colors duration-200">
+            <li key={x.id} className="px-4 py-2 hover:bg-base-200">
+              <div className="flex justify-between items-center text-accent-content transition-colors duration-200">
                 <div className="flex flex-row justify-center">
                   <div className="inline-block h-20 lg:h-32 w-32 lg:w-48 overflow-clip flex-shrink-0 mr-2">
                     <img
@@ -57,7 +57,7 @@ const Checkout: React.FC = () => {
                 <div className="flex items-center flex-shrink-0">
                   <div className="grid columns-1 flex-shrink-0 px-2 mr-2 lg:text-xl lg:mr-6 text-center">
                     <div className="flex flex-row space-x-1 m-auto">
-                      <button className="rounded-full m-auto p-[2px] cursor-pointer hover:text-red-300"
+                      <button className="rounded-full m-auto p-[2px] cursor-pointer hover:text-secondary"
                         onClick={e => increaseCount(basket, setBasket, x.id, -1)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -75,25 +75,25 @@ const Checkout: React.FC = () => {
                         </svg>
                       </button>
                       <span className="text-gray-400">x{x.count}</span>
-                      <button className="rounded-full m-auto p-[2px] cursor-pointer hover:text-red-300"
+                      <button className="rounded-full m-auto p-[2px] cursor-pointer hover:text-secondary"
                         onClick={e => increaseCount(basket, setBasket, x.id, 1)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"
-                          stroke-width="1.5"
+                          strokeWidth="1.5"
                           stroke="currentColor"
                           className="w-5 h-5"
                         >
                           <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                             d="M8.25 4.5l7.5 7.5-7.5 7.5"
                           />
                         </svg>
                       </button>
                     </div>
-                    <span className="text-sky-300">
+                    <span className="text-accent">
                       {integerPart}
                       {fractionalPart != "" && dot}
                       <span className="align-super text-[12px]">
@@ -103,7 +103,7 @@ const Checkout: React.FC = () => {
                     </span>
                   </div>
                   <button
-                    className="border border-gray-600 text-gray-400 rounded-full justify-around h-6 w-6 lg:h-12 lg:w-12 flex items-center"
+                    className="border border-error/30 text-error rounded-full justify-around h-6 w-6 lg:h-12 lg:w-12 flex items-center"
                     onClick={(e) => {
                       Repository.updateBasket(basket.filter((y) => y.id != x.id)).then(
                         (y) => setBasket && setBasket(y)
@@ -131,7 +131,7 @@ const Checkout: React.FC = () => {
           );
         })}
       </ul>
-      <div className="flex justify-between bg-base-100 mt-5 px-5 py-2 rounded-xl text-2xl xl:py-4 xl:px-12 xl:text-3xl">
+      <div className="flex justify-between bg-base-100 text-accent-content mt-5 px-5 py-2 rounded-xl text-2xl xl:py-4 xl:px-12 xl:text-3xl">
         <span className="self-start">Total:</span>
         <span className="">{totalPrice} Lei</span>
       </div>
