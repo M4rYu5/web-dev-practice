@@ -43,12 +43,12 @@ const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
                   </div>
                   <div className="flex items-center flex-shrink-0">
                     <div className="grid columns-1 flex-shrink-0 px-2 mr-2 text-center">
-                      <span className="text-gray-400">
+                    <span className="text-gray-400 text-sm">
                         <span className="text-xs">x</span>
                         {x.count}
                       </span>
                       <span className="text-accent">
-                        <span className="w-4/5 font-bold self-center text-lg">
+                        <span className=" font-semibold self-center text-md">
                           {integerPart}
                           {fractionalPart != "" && dot}
                           <span className="align-super text-[12px]">
