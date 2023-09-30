@@ -1,6 +1,6 @@
 import { FunctionComponent, useContext } from "react";
 import { BasketContext, BasketDispatchContext } from "./BasketProvider";
-import { getProductsById, updateBasket } from "@/data/repository";
+import * as Repository from "@/data/repository";
 import ProductPreview from "@/data/ProductPreview";
 import BasketProduct from "../data/BasketProduct";
 import { formatPrice } from "./util/priceFormatter";
@@ -18,8 +18,7 @@ const ProductCard: FunctionComponent<{
 
   let dot: string = ","; // decimal separator
   let separator: string = ".";
-  let {integerPart, fractionalPart} = formatPrice(price, separator)
-
+  let { integerPart, fractionalPart } = formatPrice(price, separator);
 
   return (
     <div className="bg-white rounded-xl p-1 pb-4 space-y-2 flex flex-col justify-between">
@@ -44,23 +43,31 @@ const ProductCard: FunctionComponent<{
         </span>
         <span
           onClick={(e) => {
-            let product = basket.find(p => p.id == id)
-            if (product == null){
+            let product = basket.find((p) => p.id == id);
+            if (product == null) {
               // new product
-              getProductsById([id]).then((newProducts: ProductPreview[]) => {
-                if (newProducts.length != 1){
-                  return;
+              Repository.getProductsById([id]).then(
+                (newProducts: ProductPreview[]) => {
+                  if (newProducts.length != 1) {
+                    return;
+                  }
+                  let p = newProducts[0];
+                  Repository.updateBasket([
+                    ...basket,
+                    new BasketProduct(
+                      p.id,
+                      p.title,
+                      p.price,
+                      p.thumbnailUrl,
+                      1
+                    ),
+                  ]).then((x) => setBasket && setBasket(x));
                 }
-                let p = newProducts[0];
-                updateBasket([...basket, new BasketProduct(p.id, p.title, p.price, p.thumbnailUrl, 1)]).then(
-                  (x) => setBasket && setBasket(x)
-                );
-              })
-            }
-            else{
+              );
+            } else {
               // update product
               product.count += 1;
-              updateBasket([...basket]).then(
+              Repository.updateBasket([...basket]).then(
                 (x) => setBasket && setBasket(x)
               );
             }

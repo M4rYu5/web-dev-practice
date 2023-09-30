@@ -3,7 +3,7 @@
 import { HtmlProps } from "next/dist/shared/lib/html-context";
 import { Attributes, useContext, useEffect } from "react";
 import { BasketContext, BasketDispatchContext } from "./BasketProvider";
-import { updateBasket } from "@/data/repository";
+import * as Repository from "@/data/repository";
 import { formatPrice } from "./util/priceFormatter";
 
 const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
@@ -61,7 +61,7 @@ const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
                     <button
                       className="border border-gray-600 text-gray-400 rounded-full justify-around h-6 w-6 flex items-center"
                       onClick={(e) => {
-                        updateBasket(basket.filter((y) => y.id != x.id)).then(
+                        Repository.updateBasket(basket.filter((y) => y.id != x.id)).then(
                           (y) => setBasket && setBasket(y)
                         );
                       }}
