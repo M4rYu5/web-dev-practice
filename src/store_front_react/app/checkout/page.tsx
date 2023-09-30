@@ -37,7 +37,7 @@ const Checkout: React.FC = () => {
 
   return (
     <div className="min-w-[400px] py-2 lg:px-10">
-      <ul className="flex flex-col divide-y divide-neutral-content bg-base-100 rounded-xl overflow-clip">
+      <ul className="flex flex-col divide-y divide-neutral-content bg-base-100 rounded-xl overflow-clip shadow-md">
         {basket.map((x) => {
           let price = Math.ceil(x.price * x.count * 100) / 100; // bump up the price 9.991 to 10 and 9.881 to 9.89
           let dot: string = ","; // decimal separator
@@ -143,7 +143,7 @@ const Checkout: React.FC = () => {
           );
         })}
       </ul>
-      <div className="flex justify-between bg-base-100 text-accent-content mt-5 px-5 py-2 rounded-xl text-2xl xl:py-4 xl:px-12 xl:text-3xl">
+      <div className="flex justify-between bg-base-100 text-accent-content mt-5 px-5 py-2 rounded-xl text-2xl xl:py-4 xl:px-12 xl:text-3xl  shadow-md">
         <span className="self-start">Total:</span>
         <span className="">
           {totalPriceInteger}
