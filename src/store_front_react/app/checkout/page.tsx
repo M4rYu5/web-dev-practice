@@ -32,7 +32,10 @@ const Checkout: React.FC = () => {
     totalPrice += x.price * x.count;
   });
 
-  const [totalPriceInteger, totalPriceFractional] = formatPrice(totalPrice, ".");
+  const [totalPriceInteger, totalPriceFractional] = formatPrice(
+    totalPrice,
+    "."
+  );
   let dot = totalPriceFractional != "" ? "," : "";
 
   return (
@@ -67,20 +70,7 @@ const Checkout: React.FC = () => {
                           increaseCount(basket, setBasket, x.id, -1)
                         }
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="currentColor"
-                          className="w-5 h-5"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M15.75 19.5L8.25 12l7.5-7.5"
-                          />
-                        </svg>
+                        {arrowLeftSvg()}
                       </button>
                       <span className="text-gray-400">x{x.count}</span>
                       <button
@@ -89,20 +79,7 @@ const Checkout: React.FC = () => {
                           increaseCount(basket, setBasket, x.id, 1)
                         }
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="currentColor"
-                          className="w-5 h-5"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                          />
-                        </svg>
+                        {arrowRightSvg()}
                       </button>
                     </div>
                     <span className="text-accent">
@@ -122,20 +99,7 @@ const Checkout: React.FC = () => {
                       ).then((y) => setBasket && setBasket(y));
                     }}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
+                    {roundXSvg()}
                   </button>
                 </div>
               </div>
@@ -157,5 +121,62 @@ const Checkout: React.FC = () => {
     </div>
   );
 };
+
+function arrowLeftSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth="1.5"
+      stroke="currentColor"
+      className="w-5 h-5"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M15.75 19.5L8.25 12l7.5-7.5"
+      />
+    </svg>
+  );
+}
+
+function arrowRightSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth="1.5"
+      stroke="currentColor"
+      className="w-5 h-5"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M8.25 4.5l7.5 7.5-7.5 7.5"
+      />
+    </svg>
+  );
+}
+
+function roundXSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-4 w-4"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M6 18L18 6M6 6l12 12"
+      />
+    </svg>
+  );
+}
 
 export default Checkout;
