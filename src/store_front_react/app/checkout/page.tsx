@@ -93,7 +93,7 @@ const Checkout: React.FC = () => {
                         </svg>
                       </button>
                     </div>
-                    <span className="text-info">
+                    <span className="text-accent">
                       {integerPart}
                       {fractionalPart != "" && dot}
                       <span className="align-super text-[12px]">

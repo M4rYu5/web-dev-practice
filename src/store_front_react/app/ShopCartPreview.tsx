@@ -47,7 +47,7 @@ const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
                         <span className="text-xs">x</span>
                         {x.count}
                       </span>
-                      <span className="text-info">
+                      <span className="text-accent">
                         <span className="w-4/5 font-bold self-center text-lg">
                           {integerPart}
                           {fractionalPart != "" && dot}
