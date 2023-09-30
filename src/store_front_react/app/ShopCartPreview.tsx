@@ -15,6 +15,17 @@ const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
     typeof window !== "undefined" ? window.location.pathname : "/";
   let isCheckout = pathname == "/checkout";
 
+  let totalPrice: number = 0;
+  basket.forEach((x) => {
+    totalPrice += x.price * x.count;
+  });
+  const [totalPriceInteger, totalPriceFractional] = formatPrice(
+    totalPrice,
+    "."
+  );
+  let dot = totalPriceFractional != "" ? "," : "";
+
+
   return (
     basket.length > 0 &&
     !isCheckout && (
@@ -87,6 +98,17 @@ const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
             );
           })}
         </ul>
+        <div className="flex flex-row justify-around text-accent-content w-full border-t border-neutral-content">
+        <span className="self-center">Total:</span>
+        <span className="self-center">
+          {totalPriceInteger}
+          {dot}
+          <span className="text-lg self-center align-super mr-3">
+            {totalPriceFractional}
+          </span>
+          Lei
+        </span>
+      </div>
       </div>
     )
   );
