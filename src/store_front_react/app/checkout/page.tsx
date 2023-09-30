@@ -32,6 +32,9 @@ const Checkout: React.FC = () => {
     totalPrice += x.price;
   });
 
+  const [totalPriceInteger, totalPriceFractional] = formatPrice(totalPrice, ".");
+  let dot = totalPriceFractional != "" ? "," : "";
+
   return (
     <div className="min-w-[400px] py-2 lg:px-10">
       <ul className="flex flex-col divide-y divide-neutral-content bg-base-100 rounded-xl overflow-clip">
@@ -142,7 +145,14 @@ const Checkout: React.FC = () => {
       </ul>
       <div className="flex justify-between bg-base-100 text-accent-content mt-5 px-5 py-2 rounded-xl text-2xl xl:py-4 xl:px-12 xl:text-3xl">
         <span className="self-start">Total:</span>
-        <span className="">{totalPrice} Lei</span>
+        <span className="">
+          {totalPriceInteger}
+          {dot}
+          <span className="text-lg align-super mr-3">
+            {totalPriceFractional}
+          </span>
+          Lei
+        </span>
       </div>
     </div>
   );
