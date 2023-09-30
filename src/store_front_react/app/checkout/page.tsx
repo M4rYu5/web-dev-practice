@@ -3,8 +3,24 @@
 import React, { useContext } from "react";
 import { metadata } from "../layout";
 import { BasketContext, BasketDispatchContext } from "../BasketProvider";
-import { updateBasket } from "@/data/repository";
+import * as Repository from "@/data/repository";
 import { formatPrice } from "../util/priceFormatter";
+import BasketProduct from "@/data/BasketProduct";
+
+
+function increaseCount(bag: BasketProduct[], setBag:  React.Dispatch<React.SetStateAction<BasketProduct[]>> | null, index: number, amount: number){
+  const _product = bag.filter(x => x.id == index);
+  if (_product == null)
+    return
+  const product =  _product[0];
+  if (product.count + amount < 1)
+    return;
+  product.count = product.count + amount;
+  let b = [...bag];
+  Repository.updateBasket(b);
+  setBag && setBag(b);
+}
+
 
 const Checkout: React.FC = () => {
   metadata.title = "Checkout";
@@ -19,7 +35,6 @@ const Checkout: React.FC = () => {
     <div className="rounded min-w-[400px] py-2 lg:px-10">
       <ul className="flex flex-col divide-y divide-gray-200 bg-base-100 rounded-xl">
         {basket.map((x) => {
-          
           let price = Math.ceil(x.price * 100) / 100; // bump up the price 9.991 to 10 and 9.881 to 9.89
           let dot: string = ","; // decimal separator
           let separator: string = ".";
@@ -40,8 +55,44 @@ const Checkout: React.FC = () => {
                   </span>
                 </div>
                 <div className="flex items-center flex-shrink-0">
-                  <div className="grid columns-1 flex-shrink-0 px-2 mr-2 lg:text-2xl lg:mr-6 text-center">
-                    <span className="text-gray-400">x{x.count}</span>
+                  <div className="grid columns-1 flex-shrink-0 px-2 mr-2 lg:text-xl lg:mr-6 text-center">
+                    <div className="flex flex-row space-x-1 m-auto">
+                      <button className="rounded-full m-auto p-[2px] cursor-pointer hover:text-red-300"
+                        onClick={e => increaseCount(basket, setBasket, x.id, -1)}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="currentColor"
+                          className="w-5 h-5"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M15.75 19.5L8.25 12l7.5-7.5"
+                          />
+                        </svg>
+                      </button>
+                      <span className="text-gray-400">x{x.count}</span>
+                      <button className="rounded-full m-auto p-[2px] cursor-pointer hover:text-red-300"
+                        onClick={e => increaseCount(basket, setBasket, x.id, 1)}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          className="w-5 h-5"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                          />
+                        </svg>
+                      </button>
+                    </div>
                     <span className="text-sky-300">
                       {integerPart}
                       {fractionalPart != "" && dot}
@@ -54,7 +105,7 @@ const Checkout: React.FC = () => {
                   <button
                     className="border border-gray-600 text-gray-400 rounded-full justify-around h-6 w-6 lg:h-12 lg:w-12 flex items-center"
                     onClick={(e) => {
-                      updateBasket(basket.filter((y) => y.id != x.id)).then(
+                      Repository.updateBasket(basket.filter((y) => y.id != x.id)).then(
                         (y) => setBasket && setBasket(y)
                       );
                     }}
