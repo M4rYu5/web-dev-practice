@@ -22,7 +22,7 @@ const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
         {...attr}
         className={attr.className + " rounded min-w-[400px] bg-base-100 py-2"}
       >
-        <ul className="flex flex-col divide-y divide-gray-200">
+        <ul className="flex flex-col divide-y divide-neutral-content">
           {basket.map((x) => {
             let price = Math.ceil(x.price * 100) / 100; // bump up the price 9.991 to 10 and 9.881 to 9.89
             let dot: string = ","; // decimal separator
@@ -30,8 +30,8 @@ const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
             let { integerPart, fractionalPart } = formatPrice(price, separator);
 
             return (
-              <li key={x.id} className="px-4 py-2 hover:bg-gray-800">
-                <div className="flex justify-between items-center  hover:text-white transition-colors duration-200">
+              <li key={x.id} className="px-4 py-2 hover:bg-base-200">
+                <div className="flex justify-between items-center transition-colors duration-200">
                   <div className="flex flex-row justify-center">
                     <div className="h-12 overflow-clip flex-shrink-0">
                       <img
@@ -47,8 +47,8 @@ const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
                         <span className="text-xs">x</span>
                         {x.count}
                       </span>
-                      <span className="text-sky-300">
-                        <span className="w-4/5 text-rose-600 font-bold self-center text-lg">
+                      <span className="text-info">
+                        <span className="w-4/5 font-bold self-center text-lg">
                           {integerPart}
                           {fractionalPart != "" && dot}
                           <span className="align-super text-[12px]">
@@ -59,7 +59,7 @@ const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
                       </span>
                     </div>
                     <button
-                      className="border border-gray-600 text-gray-400 rounded-full justify-around h-6 w-6 flex items-center"
+                      className="border  border-error/30 text-error rounded-full justify-around h-6 w-6 flex items-center"
                       onClick={(e) => {
                         Repository.updateBasket(basket.filter((y) => y.id != x.id)).then(
                           (y) => setBasket && setBasket(y)
