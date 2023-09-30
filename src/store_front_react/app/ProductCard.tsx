@@ -33,7 +33,7 @@ const ProductCard: FunctionComponent<{
       </span>
 
       <div className="flex pl-4 pr-2">
-        <span className="w-4/5 text-rose-600 font-bold self-center text-lg">
+        <span className="w-4/5 text-rose-600 font-medium self-center text-lg">
           {integerPart}
           {fractionalPart != "" && dot}
           <span className="align-super text-[12px]">{fractionalPart}</span> Lei
