@@ -4,7 +4,7 @@
  * @param price the number wanted to be formated
  * @param separator the character used to separate the integer part in groups of 3
  */
-export function formatPrice(price: number, separator: string): {integerPart: string, fractionalPart: string}{
+export function formatPrice(price: number, separator: string): [integerPart: string, fractionalPart: string] {
     let priceInteger: number | string = Math.trunc(price); // extract integer part
     let priceFractional: number | string = Math.round((price % 1) * 100); // fractional part of the price
   
@@ -26,5 +26,5 @@ export function formatPrice(price: number, separator: string): {integerPart: str
       priceFractional = priceFractional.toString().padStart(2, "0");
     }
 
-    return {integerPart: priceInteger, fractionalPart: priceFractional}
+    return [priceInteger, priceFractional]
 }
