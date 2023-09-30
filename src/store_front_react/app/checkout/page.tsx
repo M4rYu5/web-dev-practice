@@ -39,7 +39,7 @@ const Checkout: React.FC = () => {
     <div className="min-w-[400px] py-2 lg:px-10">
       <ul className="flex flex-col divide-y divide-neutral-content bg-base-100 rounded-xl overflow-clip">
         {basket.map((x) => {
-          let price = Math.ceil(x.price * 100) / 100; // bump up the price 9.991 to 10 and 9.881 to 9.89
+          let price = Math.ceil(x.price * x.count * 100) / 100; // bump up the price 9.991 to 10 and 9.881 to 9.89
           let dot: string = ","; // decimal separator
           let separator: string = ".";
           let [integerPart, fractionalPart] = formatPrice(price, separator);
