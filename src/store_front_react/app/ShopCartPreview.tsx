@@ -27,7 +27,7 @@ const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
             let price = Math.ceil(x.price * x.count * 100) / 100; // bump up the price 9.991 to 10 and 9.881 to 9.89
             let dot: string = ","; // decimal separator
             let separator: string = ".";
-            let { integerPart, fractionalPart } = formatPrice(price, separator);
+            let [integerPart, fractionalPart] = formatPrice(price, separator);
 
             return (
               <li key={x.id} className="px-4 py-2 hover:bg-base-200">
@@ -43,7 +43,7 @@ const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
                   </div>
                   <div className="flex items-center flex-shrink-0">
                     <div className="grid columns-1 flex-shrink-0 px-2 mr-2 text-center">
-                    <span className="text-gray-400 text-sm">
+                      <span className="text-gray-400 text-sm">
                         <span className="text-xs">x</span>
                         {x.count}
                       </span>
@@ -61,9 +61,9 @@ const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
                     <button
                       className="border  border-error/30 text-error rounded-full justify-around h-6 w-6 flex items-center"
                       onClick={(e) => {
-                        Repository.updateBasket(basket.filter((y) => y.id != x.id)).then(
-                          (y) => setBasket && setBasket(y)
-                        );
+                        Repository.updateBasket(
+                          basket.filter((y) => y.id != x.id)
+                        ).then((y) => setBasket && setBasket(y));
                       }}
                     >
                       <svg
