@@ -29,7 +29,7 @@ const Checkout: React.FC = () => {
   const setBasket = useContext(BasketDispatchContext);
   let totalPrice: number = 0;
   basket.forEach((x) => {
-    totalPrice += x.price;
+    totalPrice += x.price * x.count;
   });
 
   const [totalPriceInteger, totalPriceFractional] = formatPrice(totalPrice, ".");
