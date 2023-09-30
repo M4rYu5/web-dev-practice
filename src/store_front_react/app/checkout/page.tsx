@@ -108,11 +108,11 @@ const Checkout: React.FC = () => {
         })}
       </ul>
       <div className="flex justify-between bg-base-100 text-accent-content mt-5 px-5 py-2 rounded-xl text-2xl xl:py-4 xl:px-12 xl:text-3xl  shadow-md">
-        <span className="self-start">Total:</span>
-        <span className="">
+        <span className="self-center">Total:</span>
+        <span className="self-center">
           {totalPriceInteger}
           {dot}
-          <span className="text-lg align-super mr-3">
+          <span className="text-lg self-center align-super mr-3">
             {totalPriceFractional}
           </span>
           Lei
