@@ -64,6 +64,14 @@ jobs:
       - name: Set gh-pages as worktree
         run: |
           git fetch --all
+          if ! git show-ref --quiet refs/remotes/origin/gh-pages; then
+            git config --global user.email "build-and-deploy-action@example.com"
+            git config --global user.name "build-and-deploy-action"
+            git checkout --orphan gh-pages
+            git reset --hard
+            git commit --allow-empty -m "Initializing gh-pages branch"
+            git push origin gh-pages
+          fi
           git worktree add --track -b gh-pages2 temp-pages origin/gh-pages
 
       - name: Download pagination-practice artifact artifact
