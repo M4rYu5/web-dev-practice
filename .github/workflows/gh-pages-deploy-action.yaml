@@ -1,0 +1,94 @@
+name: gh-Pages Build and Deploy
+on: 
+  workflow_dispatch:
+  
+  
+jobs:
+  copy-pagination-parctice:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Upload pagination-practice artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: pagination-practice-artifact
+          path: src/pagination_practice
+          retention-days: 7
+
+  copy-chat-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Upload chat-preview artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: chat-preview-artifact
+          path: src/chat_preview
+          retention-days: 7
+
+  build-store-front-react:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build store-front-react project
+        run: |
+          cd src/store_front_react
+          npm ci
+          npm run build
+
+      - name: Upload store-front-react artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: store-front-react-artifact
+          path: src/store_front_react/out
+          retention-days: 7
+
+  deploy-to-gh-pages:
+    needs: 
+      - copy-chat-preview
+      - copy-pagination-parctice
+      - build-store-front-react
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set gh-pages as worktree
+        run: |
+          git fetch --all
+          git worktree add --track -b gh-pages2 temp-pages origin/gh-pages
+
+      - name: Download pagination-practice artifact artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: pagination-practice-artifact
+          path: temp-pages/pagination_practice
+          
+      - name: Download chat-preview artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: chat-preview-artifact
+          path: temp-pages/chat_preview
+
+      - name: Download store-front-react artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: store-front-react-artifact
+          path: temp-pages/store_front_react
+
+      - name: Deploy to GitHub Pages
+        run: |
+          cd temp-pages
+          git config --global user.email "build-and-deploy-action@example.com"
+          git config --global user.name "build-and-deploy-action"
+          git add .
+          git commit --allow-empty -m "Deploy to GitHub Pages" -m "commit: $GITHUB_SHA"
+          git push origin HEAD:gh-pages --force
