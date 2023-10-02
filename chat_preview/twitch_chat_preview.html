@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Practicing JavaScript by building a twitch chat preview</title>
+    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAiElEQVR4nO2UUQ6DMAxDfTzgQvtkt2m8Y5WDeNrHtH1QKYUECYGl/DV+UpwUuOWVQZNBCyF5yqClQGMPwG3OX1U34NuU9R7XBdAbfhSArfCjRsSWz2EA7rwDBgLqCxq6AQbNGaPDmnk04NnVEHWAtu0T9AMKNH4CTQP0iNAjFfAPQabYWJhz6g3Oj5YOlfldoQAAAABJRU5ErkJggg==">
+    
+    <link rel="stylesheet" type="text/css" href="./libraries/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="twitch_chat_preview.css" />
+</head>
+
+<body>
+    <div id="chat-container" class="chat-container">
+        <div class="tts">
+            <fieldset id="tts-fieldset" class="tts-closed">
+                <legend>Text to Speach <input id="tts-active" type="checkbox" /><span id="tts-arrow">▼</span></legend>
+                <div id="tts-content">
+                    <div>
+                        <input type="checkbox" id="tts-viewer-toggle" />
+                        <label>Viewers</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="tts-sub-toggle" />
+                        <label>Subscribers</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="tts-mod-toggle" />
+                        <label>Moderators</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="tts-turbo-toggle" />
+                        <label>Turbo</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="tts-name-toggle" checked/>
+                        <label>Names</label>
+                    </div>
+                    <div style="display: flex; flex-flow: row; flex-wrap: nowrap;">
+                        <input type="range" id="tts-speed-toggle" min="0.5" max="3" step="0.1" style="width: 60%;"/>
+                        <label>Speed</label>
+                    </div>
+                    <div style="display: flex; flex-flow: row; flex-wrap: nowrap;">
+                        <input type="number" id="tts-max-length" min="0" style="width: 3em;"/>
+                        <label>Max Length</label>
+                    </div>
+                    <select id="tts-voice-select" style="width: 100%;"></select>
+                </div>
+            </fieldset>
+        </div>
+        <div class="chat">
+            <div class="title">
+                <span class="title-chat">Chat:&nbsp</span>
+                <div class="title-channel w100p">
+                    <a id="title-text-link" target="_blank" class="title-channel" href="twitch.tv/...">twitch.tv/...&nbsp</a>
+                    <form id="streamer-form" class="inline-flex justify-content-center display-none w100p">
+                        <input type="text" name="streamer" placeholder="streamer" class="w60p"/>
+                        <button class="fa fa-angle-double-right title-form-submit-button"></button>
+                    </form>
+                </div>
+                <span id="title-gear">&nbsp<span class="fa fa-gear" aria-hidden="true"></span></span>
+            </div>
+            <div id="messages" class="messages">
+                <!-- here will be all messages -->
+                <!-- <div class="message-line">
+                    <span class="chatter">Name</span>
+                    <span class="chatter-message">Hello world 1</span>
+                </div> -->
+
+            </div>
+        </div>
+    </div>
+    <script src="libraries/tmi.js/tmi.min.js"></script>
+    <script src="twitch_chat_preview.js" type="module"></script>
+</body>
+
+
+</html>
