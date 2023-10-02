@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import { metadata } from "../layout";
 import { BasketContext, BasketDispatchContext } from "../BasketProvider";
 import * as Repository from "@/data/repository";
-import { formatPrice } from "../util/priceFormatter";
+import { formatPrice } from "../../util/priceFormatter";
 import BasketProduct from "@/data/BasketProduct";
 
 function increaseCount(
