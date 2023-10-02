@@ -52,7 +52,7 @@ const SiteMenu: React.FC<{
               </li>
               <li>
                 <button className="flex flex-row py-2 px-4 btn-accent w-full rounded-lg"
-                onClick={e => setTheme("auto")}>
+                onClick={e => setTheme("system")}>
                   {computer()}&nbsp;System
                 </button>
               </li>

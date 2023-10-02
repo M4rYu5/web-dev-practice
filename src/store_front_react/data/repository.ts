@@ -34,6 +34,7 @@ export function getProductsById(ids: number[]): Promise<ProductPreview[]> {
 // ---------  BASKET  ------------
 
 export function getBasket(): Promise<BasketProduct[]> {
+  if (window == null) return Promise.resolve([]);
   let jsonBasket = localStorage.getItem("user_basket");
   if (jsonBasket == null) {
     return Promise.resolve([]);
@@ -60,6 +61,7 @@ export function getBasket(): Promise<BasketProduct[]> {
 export function updateBasket(
   products: BasketProduct[]
 ): Promise<BasketProduct[]> {
+  if (typeof window === 'undefined') return Promise.resolve(products);
   localStorage.setItem(
     "user_basket",
     JSON.stringify(products.map((x) => new BasketDTO(x.id, x.count)))

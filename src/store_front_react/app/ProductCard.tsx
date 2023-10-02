@@ -3,7 +3,7 @@ import { BasketContext, BasketDispatchContext } from "./BasketProvider";
 import * as Repository from "@/data/repository";
 import ProductPreview from "@/data/ProductPreview";
 import BasketProduct from "../data/BasketProduct";
-import { formatPrice } from "./util/priceFormatter";
+import { formatPrice } from "../util/priceFormatter";
 
 const ProductCard: FunctionComponent<{
   id: number;
