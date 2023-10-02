@@ -61,27 +61,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Set gh-pages as worktree
+        run: |
+          git fetch --all
+          git worktree add --track -b gh-pages2 temp-pages origin/gh-pages
+
       - name: Download pagination-practice artifact artifact
         uses: actions/download-artifact@v3
         with:
           name: pagination-practice-artifact
-          path: scripts/temp-build/pagination_practice
+          path: temp-pages/pagination_practice
           
       - name: Download chat-preview artifact
         uses: actions/download-artifact@v3
         with:
           name: chat-preview-artifact
-          path: scripts/temp-build/chat_preview
+          path: temp-pages/chat_preview
 
       # - name: Download store-front-react artifact
       #   uses: actions/download-artifact@v3
       #   with:
       #     name: store-front-react-artifact
-      #     path: scripts/temp-build/store_front_react
+      #     path: temp-pages/store_front_react
 
       - name: Deploy to GitHub Pages
         run: |
-          cd scripts/temp-build
+          cd temp-pages
           git config --global user.email "build-and-deploy-action@example.com"
           git config --global user.name "build-and-deploy-action"
           git add .
