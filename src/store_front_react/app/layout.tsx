@@ -2,18 +2,12 @@
 
 import SiteMenu from "@/components/SiteMenu";
 import "./globals.css";
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import BasketProvider, { BasketContext } from "./BasketProvider";
 import { useContext, useEffect, useImperativeHandle, useState } from "react";
 import { getTheme } from "@/util/theme";
 
 const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Store Front in React",
-  description: "E-Commerce front-end written in React",
-};
 
 export default function RootLayout({
   children,
@@ -27,6 +21,12 @@ export default function RootLayout({
     if (typeof window === "undefined") return;
     setTeme(theme);
   }, [theme]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      document.title = "Store Front in React";
+    }
+  }, []);
 
   return (
     <html

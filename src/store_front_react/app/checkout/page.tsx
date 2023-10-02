@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useContext } from "react";
-import { metadata } from "../layout";
+import React, { useContext, useEffect } from "react";
 import { BasketContext, BasketDispatchContext } from "../BasketProvider";
 import * as Repository from "@/data/repository";
 import { formatPrice } from "../../util/priceFormatter";
@@ -24,7 +23,6 @@ function increaseCount(
 }
 
 const Checkout: React.FC = () => {
-  metadata.title = "Checkout";
   const basket = useContext(BasketContext);
   const setBasket = useContext(BasketDispatchContext);
   let totalPrice: number = 0;
@@ -37,6 +35,12 @@ const Checkout: React.FC = () => {
     "."
   );
   let dot = totalPriceFractional != "" ? "," : "";
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      document.title = "Checkout";
+    }
+  }, []);
 
   return (
     <div className="min-w-[400px] py-2 lg:px-10">
