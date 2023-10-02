@@ -30,30 +30,30 @@ jobs:
           path: src/chat_preview
           retention-days: 7
 
-  # build-store-front-react:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
+  build-store-front-react:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-  #     - name: Build store-front-react project
-  #       run: |
-  #         cd src/store_front_react
-  #         npm ci
-  #         npm run build
+      - name: Build store-front-react project
+        run: |
+          cd src/store_front_react
+          npm ci
+          npm run build
 
-  #     - name: Upload store-front-react artifact
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: store-front-react-artifact
-  #         path: src/store_front_react/out
-  #         retention-days: 7
+      - name: Upload store-front-react artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: store-front-react-artifact
+          path: src/store_front_react/out
+          retention-days: 7
 
   deploy-to-gh-pages:
     needs: 
       - copy-chat-preview
       - copy-pagination-parctice
-      # - build-store-front-react
+      - build-store-front-react
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -78,11 +78,11 @@ jobs:
           name: chat-preview-artifact
           path: temp-pages/chat_preview
 
-      # - name: Download store-front-react artifact
-      #   uses: actions/download-artifact@v3
-      #   with:
-      #     name: store-front-react-artifact
-      #     path: temp-pages/store_front_react
+      - name: Download store-front-react artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: store-front-react-artifact
+          path: temp-pages/store_front_react
 
       - name: Deploy to GitHub Pages
         run: |
