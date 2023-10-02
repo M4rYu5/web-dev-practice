@@ -14,6 +14,7 @@ jobs:
         with:
           name: pagination-practice-artifact
           path: src/pagination_practice
+          retention-days: 7
 
   copy-chat-preview:
     runs-on: ubuntu-latest
@@ -26,6 +27,7 @@ jobs:
         with:
           name: chat-preview-artifact
           path: src/chat_preview
+          retention-days: 7
 
   build-store-front-react:
     runs-on: ubuntu-latest
@@ -44,3 +46,4 @@ jobs:
         with:
           name: store-front-react-artifact
           path: src/store_front_react/out
+          retention-days: 7
