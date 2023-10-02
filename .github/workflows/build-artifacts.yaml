@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Upload pagination artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: pagination-practice-artifact
           path: src/pagination_practice
@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Upload twitch chat artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: chat-preview-artifact
           path: src/chat_preview
@@ -40,7 +40,7 @@ jobs:
           npm run build
 
       - name: Upload store-front-react build artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: store-front-react-artifact
           path: src/store_front_react/out
