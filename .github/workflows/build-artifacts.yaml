@@ -1,0 +1,46 @@
+name: Build Artifacts
+on: 
+  workflow_dispatch:
+  
+jobs:
+  copy-pagination-parctice:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Upload pagination artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: pagination-practice-artifact
+          path: src/pagination_practice
+
+  copy-chat-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Upload twitch chat artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: chat-preview-artifact
+          path: src/chat_preview
+
+  build-store-front-react:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build store-front-react project
+        run: |
+          cd src/store_front_react
+          npm ci
+          npm run build
+
+      - name: Upload store-front-react build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: store-front-react-artifact
+          path: src/store_front_react/out
