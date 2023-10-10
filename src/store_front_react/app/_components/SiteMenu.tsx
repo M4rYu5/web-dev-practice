@@ -3,21 +3,16 @@
 import { BasketContext } from "@/app/_components/BasketProvider";
 import ShopCartPreview from "@/app/_components/ShopCartPreview";
 import { Dispatch, SetStateAction, useContext } from "react";
+import * as ThemeUtil from "../_util/theme";
 
-const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
-];
 
 const hoverMenuClasses =
   " border-transparent cursor-pointer border-b-2 hover:border-accent hover:border-solid hover:border-b-2 hover:text-accent ";
 
 const SiteMenu: React.FC<{
   theme: string;
-  setTheme: Dispatch<SetStateAction<string>>;
-}> = ({theme, setTheme}) => {
+  setTheme: Dispatch<SetStateAction<ThemeUtil.Theme>>;
+}> = ({ theme, setTheme: setTheme }) => {
   let basket = useContext(BasketContext);
 
   return (
@@ -33,26 +28,37 @@ const SiteMenu: React.FC<{
         </div>
         <div className="flex my-2">
           <div className=" self-center justify-center mr-4 dropdown dropdown-bottom text-base-content font-semibold">
-            <span tabIndex={0} className={hoverMenuClasses + "hover:border-b-0"}>{currentThemeIcon(theme)}</span>
+            <span
+              tabIndex={0}
+              className={hoverMenuClasses + "hover:border-b-0"}
+            >
+              {currentThemeIcon(theme)}
+            </span>
             <ul
               tabIndex={0}
               className="dropdown-content right-[-20px] z-[1] p-2 space-y-1 bg-base-100 shadow border border-base-300 rounded-xl"
             >
               <li>
-                <button className="flex flex-row py-2 px-4 btn-accent w-full rounded-lg"
-                onClick={e => setTheme("light")}>
+                <button
+                  className="flex flex-row py-2 px-4 btn-accent w-full rounded-lg"
+                  onClick={(e) => setTheme("light")}
+                >
                   {sun()}&nbsp;<span className="inline-block">Light</span>
                 </button>
               </li>
               <li>
-                <button className="flex flex-row py-2 px-4 btn-accent w-full rounded-lg"
-                  onClick={e => setTheme("dark")}>
+                <button
+                  className="flex flex-row py-2 px-4 btn-accent w-full rounded-lg"
+                  onClick={(e) => setTheme("dark")}
+                >
                   {moon()}&nbsp;Dark
                 </button>
               </li>
               <li>
-                <button className="flex flex-row py-2 px-4 btn-accent w-full rounded-lg"
-                onClick={e => setTheme("system")}>
+                <button
+                  className="flex flex-row py-2 px-4 btn-accent w-full rounded-lg"
+                  onClick={(e) => setTheme("system")}
+                >
                   {computer()}&nbsp;System
                 </button>
               </li>
@@ -96,7 +102,7 @@ const SiteMenu: React.FC<{
 function currentThemeIcon(theme: string) {
   if (theme == "light") return sun();
   if (theme == "dark") return moon();
-  let sysDefault = window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
+  let sysDefault = ThemeUtil.getSystemTheme();
   return currentThemeIcon(sysDefault);
 }
 
