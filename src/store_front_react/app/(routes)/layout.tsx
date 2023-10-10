@@ -1,7 +1,7 @@
 "use client";
 
 import SiteMenu from "@/app/_components/SiteMenu";
-import "./globals.css";
+import "../globals.css";
 import { Inter } from "next/font/google";
 import BasketProvider, { BasketContext } from "../_components/BasketProvider";
 import { useContext, useEffect, useImperativeHandle, useState } from "react";
