@@ -1,11 +1,11 @@
 "use client";
 
-import SiteMenu from "@/components/SiteMenu";
+import SiteMenu from "@/app/_components/SiteMenu";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import BasketProvider, { BasketContext } from "./BasketProvider";
+import BasketProvider, { BasketContext } from "../_components/BasketProvider";
 import { useContext, useEffect, useImperativeHandle, useState } from "react";
-import { getTheme } from "@/util/theme";
+import { getTheme } from "@/app/_util/theme";
 
 const inter = Inter({ subsets: ["latin"] });
 

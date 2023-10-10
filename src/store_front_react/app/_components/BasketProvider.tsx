@@ -1,6 +1,6 @@
 "use client";
 
-import { getBasket } from "@/data/repository";
+import { getBasket } from "@/app/_data/repository";
 import {
   ReactNode,
   useState,
@@ -9,7 +9,7 @@ import {
   SetStateAction,
   useEffect,
 } from "react";
-import BasketProduct from "../data/BasketProduct";
+import BasketProduct from "../_data/types/BasketProduct";
 
 
 

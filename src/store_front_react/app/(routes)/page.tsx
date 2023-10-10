@@ -1,10 +1,10 @@
 "use client";
 
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
-import { getProducts } from "./../data/repository";
-import { ProductFilter } from "@/data/ProductFilter";
-import ProductPreview from "@/data/ProductPreview";
-import ProductCard from "./ProductCard";
+import { getProducts } from "../_data/repository";
+import { ProductFilter } from "@/app/_data/types/ProductFilter";
+import ProductPreview from "@/app/_data/types/ProductPreview";
+import ProductCard from "../_components/ProductCard";
 
 const Home = () => {
   let [filter, setFilter] = useState(new ProductFilter(0, 20));

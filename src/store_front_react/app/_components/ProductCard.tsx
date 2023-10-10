@@ -1,9 +1,9 @@
 import { Dispatch, FunctionComponent, SetStateAction, useContext } from "react";
 import { BasketContext, BasketDispatchContext } from "./BasketProvider";
-import * as Repository from "@/data/repository";
-import ProductPreview from "@/data/ProductPreview";
-import BasketProduct from "../data/BasketProduct";
-import { formatPrice } from "../util/priceFormatter";
+import * as Repository from "@/app/_data/repository";
+import ProductPreview from "@/app/_data/types/ProductPreview";
+import BasketProduct from "../_data/types/BasketProduct";
+import { formatPrice } from "../_util/priceFormatter";
 
 const ProductCard: FunctionComponent<{
   id: number;

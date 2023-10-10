@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useContext, useEffect } from "react";
-import { BasketContext, BasketDispatchContext } from "../BasketProvider";
-import * as Repository from "@/data/repository";
-import { formatPrice } from "../../util/priceFormatter";
-import BasketProduct from "@/data/BasketProduct";
+import { BasketContext, BasketDispatchContext } from "../../_components/BasketProvider";
+import * as Repository from "@/app/_data/repository";
+import { formatPrice } from "../../_util/priceFormatter";
+import BasketProduct from "@/app/_data/types/BasketProduct";
 
 function increaseCount(
   bag: BasketProduct[],

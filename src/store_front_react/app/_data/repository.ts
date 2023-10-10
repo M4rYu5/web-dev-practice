@@ -1,7 +1,7 @@
-import { ProductFilter } from "./ProductFilter";
-import ProductPreview from "./ProductPreview";
-import BasketProduct from "./BasketProduct";
-import { BasketDTO } from "./BasketDTO";
+import { ProductFilter } from "./types/ProductFilter";
+import ProductPreview from "./types/ProductPreview";
+import BasketProduct from "./types/BasketProduct";
+import { BasketDTO } from "./types/BasketDTO";
 
 // ---------  PRODUCTS  ------------
 

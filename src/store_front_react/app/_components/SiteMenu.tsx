@@ -1,7 +1,7 @@
 "use client";
 
-import { BasketContext } from "@/app/BasketProvider";
-import ShopCartPreview from "@/app/ShopCartPreview";
+import { BasketContext } from "@/app/_components/BasketProvider";
+import ShopCartPreview from "@/app/_components/ShopCartPreview";
 import { Dispatch, SetStateAction, useContext } from "react";
 
 const navigation = [
