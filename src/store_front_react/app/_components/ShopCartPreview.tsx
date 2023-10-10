@@ -3,8 +3,8 @@
 import { HtmlProps } from "next/dist/shared/lib/html-context";
 import { Attributes, useContext, useEffect } from "react";
 import { BasketContext, BasketDispatchContext } from "./BasketProvider";
-import * as Repository from "@/data/repository";
-import { formatPrice } from "../util/priceFormatter";
+import * as Repository from "@/app/_data/repository";
+import { formatPrice } from "../_util/priceFormatter";
 
 const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
   attr
