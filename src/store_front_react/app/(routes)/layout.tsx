@@ -3,9 +3,9 @@
 import SiteMenu from "@/app/_components/SiteMenu";
 import "../globals.css";
 import { Inter } from "next/font/google";
-import BasketProvider, { BasketContext } from "../_components/BasketProvider";
-import { useContext, useEffect, useImperativeHandle, useState } from "react";
-import { getTheme } from "@/app/_util/theme";
+import BasketProvider from "../_components/BasketProvider";
+import { useEffect, useState } from "react";
+import * as ThemeUtil from "@/app/_util/theme";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,12 +14,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  let currentTheme: string = getTheme();
-  let [theme, setTeme] = useState(currentTheme);
+  // Note: the run dev mode will render the page on server, even if the output is set to export, and so
+  //   the currentTheme will be "light", even if the console.log(currentTheme) will print the actual value
+  let currentTheme: ThemeUtil.Theme = ThemeUtil.getConcreteTheme();
+  let [theme, setTheme] = useState<ThemeUtil.Theme>(currentTheme);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    setTeme(theme);
+    ThemeUtil.saveTheme(theme);
   }, [theme]);
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-theme={theme}
+      data-theme={ThemeUtil.convertTheme(theme)}
       style={{ minHeight: "100%" }}
       className="bg-base-300 bg-gradient-to-tr from-base-300"
     >
@@ -43,7 +44,7 @@ export default function RootLayout({
         style={{ minHeight: "100%" }}
       >
         <BasketProvider>
-          <SiteMenu theme={theme} setTheme={setTeme} />
+          <SiteMenu theme={theme} setTheme={setTheme} />
           <div className="container mx-auto mt-5 sm:px-12 px-5">{children}</div>
         </BasketProvider>
       </body>
