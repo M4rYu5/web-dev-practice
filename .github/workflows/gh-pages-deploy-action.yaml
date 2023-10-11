@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: chat-preview-artifact
-          path: src/chat_preview
+          path: src/chat_preview/src
           retention-days: 7
 
   build-store-front-react:
