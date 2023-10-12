@@ -1,8 +1,24 @@
-FROM debian:buster-slim
+FROM node:20.8.0 as build
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+
+
+FROM debian:12.2-slim
+
+WORKDIR /app
 
 RUN apt-get update && apt-get install -y apache2
 
-COPY ./out /var/www/html/
+COPY --from=build /app/out /var/www/html/
+# COPY ./out /var/www/html/
 
 EXPOSE 80
 
