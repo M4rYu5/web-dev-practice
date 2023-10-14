@@ -15,7 +15,7 @@ const SiteMenu: React.FC<{
   let basket = useContext(BasketContext);
 
   return (
-    <div className="shadow-sm mb-2  bg-gradient-to-t from-base-100 to-base-300 to-15%">
+    <div className="bg-base-300 shadow-md shadow-base-content/10 sticky top-0 z-50">
       <nav className="flex justify-between container mx-auto sm:px-8 px-1">
         <div className="flex">
           <a
