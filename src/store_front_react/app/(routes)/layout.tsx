@@ -34,12 +34,12 @@ export default function RootLayout({
       lang="en"
       data-theme={ThemeUtil.convertTheme(theme)}
       style={{ minHeight: "100%" }}
-      className="bg-base-300 bg-gradient-to-tr from-base-300"
+      className="bg-base-300"
     >
       <body
         className={
           inter.className +
-          " bg-transparent bg-gradient-to-tr from-transparent text-base-content font-semibold"
+          "text-base-content font-semibold"
         }
         style={{ minHeight: "100%" }}
       >
