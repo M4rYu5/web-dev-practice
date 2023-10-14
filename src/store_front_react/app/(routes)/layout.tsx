@@ -14,8 +14,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Note: the run dev mode will render the page on server, even if the output is set to export, and so
-  //   the currentTheme will be "light", even if the console.log(currentTheme) will print the actual value
+  // to remove the initial theme change (because the server will compile first frame)
+  // initial theme is also set by <ThemeUtil.ThemeInitialSetScript />
   let currentTheme: ThemeUtil.Theme = ThemeUtil.getConcreteTheme();
   let [theme, setTheme] = useState<ThemeUtil.Theme>(currentTheme);
 
@@ -43,6 +43,8 @@ export default function RootLayout({
         }
         style={{ minHeight: "100%" }}
       >
+        {/* solves the initial theme change by applying it in JavaScript*/}
+        <ThemeUtil.ThemeInitialSetScript />
         <BasketProvider>
           <SiteMenu theme={theme} setTheme={setTheme} />
           <div className="container mx-auto mt-5 sm:px-12 px-5">{children}</div>
