@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace MovieTrackerMVC.Areas.Identity.Data
+namespace MovieTrackerMVC.Models
 {
     public class User : IdentityUser
     {
