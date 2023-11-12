@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MovieTrackerMVC.Areas.Identity.Data;
 using MovieTrackerMVC.Data;
 namespace MovieTrackerMVC
 {
@@ -12,7 +13,7 @@ namespace MovieTrackerMVC
 
             builder.Services.AddDbContext<IdentityDbContext>(options => options.UseSqlite(connectionString));
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IdentityDbContext>();
+            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IdentityDbContext>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
