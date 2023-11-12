@@ -14,7 +14,12 @@ namespace MovieTrackerMVC
 
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connectionString));
 
-            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddDefaultIdentity<User>(
+                options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = !builder.Environment.IsDevelopment();
+                })
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
