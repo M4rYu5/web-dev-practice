@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using MovieTrackerMVC.Data;
 namespace MovieTrackerMVC
 {
     public class Program
@@ -5,6 +8,11 @@ namespace MovieTrackerMVC
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var connectionString = builder.Configuration.GetConnectionString("IdentityDbContextConnection") ?? throw new InvalidOperationException("Connection string 'IdentityDbContextConnection' not found.");
+
+            builder.Services.AddDbContext<IdentityDbContext>(options => options.UseSqlite(connectionString));
+
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IdentityDbContext>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
