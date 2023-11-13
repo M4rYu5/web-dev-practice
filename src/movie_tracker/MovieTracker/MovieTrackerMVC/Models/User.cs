@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 
 namespace MovieTrackerMVC.Models
 {
-    public class User : IdentityUser
+    public class User : IdentityUser<long>
     {
     }
 }
