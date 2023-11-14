@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieTrackerMVC.Data;
 
@@ -10,9 +11,11 @@ using MovieTrackerMVC.Data;
 namespace MovieTrackerMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231113232419_FirstContextSpecificModels")]
+    partial class FirstContextSpecificModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -294,44 +297,6 @@ namespace MovieTrackerMVC.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserMediaStatus");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = -100L,
-                            Color = -16744448,
-                            Name = "Now"
-                        },
-                        new
-                        {
-                            Id = -90L,
-                            Color = -16776961,
-                            Name = "Finished"
-                        },
-                        new
-                        {
-                            Id = -80L,
-                            Color = -8388480,
-                            Name = "Interested"
-                        },
-                        new
-                        {
-                            Id = -70L,
-                            Color = -256,
-                            Name = "On Hold"
-                        },
-                        new
-                        {
-                            Id = -60L,
-                            Color = -65536,
-                            Name = "Dropped"
-                        },
-                        new
-                        {
-                            Id = -50L,
-                            Color = -8355712,
-                            Name = "Uninterested"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>
