@@ -81,7 +81,7 @@ namespace MovieTrackerMVC.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                NewEmail = email,
+                NewEmail = "",
             };
 
             IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
