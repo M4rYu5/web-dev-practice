@@ -34,6 +34,18 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<long>, 
 
         builder.Entity<UserMedia>()
             .HasKey(x => new { x.UserId, x.MediaId });
+
+        builder.Entity<UserMediaStatus>()
+            .HasData(
+                // You should not need to change this. If you do, read the limitations of seed data
+                // https://learn.microsoft.com/en-us/ef/core/modeling/data-seeding#limitations-of-model-seed-data
+                // hint: Id values; hint2: careful on DELETE, make sure appropiate fields get updated
+                new UserMediaStatus { Id = -100, Name = "Now", Color = ColorTranslator.FromHtml("#008000") },
+                new UserMediaStatus { Id = -90, Name = "Finished", Color = ColorTranslator.FromHtml("#0000FF") },
+                new UserMediaStatus { Id = -80, Name = "Interested", Color = ColorTranslator.FromHtml("#800080") },
+                new UserMediaStatus { Id = -70, Name = "On Hold", Color = ColorTranslator.FromHtml("#FFFF00") },
+                new UserMediaStatus { Id = -60, Name = "Dropped", Color = ColorTranslator.FromHtml("#FF0000") },
+                new UserMediaStatus { Id = -50, Name = "Uninterested", Color = ColorTranslator.FromHtml("#808080") });
     }
 
 
