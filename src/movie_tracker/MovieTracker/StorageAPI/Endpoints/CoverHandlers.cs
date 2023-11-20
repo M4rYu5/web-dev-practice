@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using StorageAPI.AppConfig.Attributes;
+using System.Diagnostics;
 
 namespace StorageAPI.Endpoints
 {
@@ -22,17 +23,11 @@ namespace StorageAPI.Endpoints
             return Results.Ok();
         }
 
-        internal static async Task<IResult> PutCover(HttpContext context, ApiKey apiKey, string id, IFormFile file)
+        [ApiKeyAuthorization]
+        internal static async Task<IResult> PutCover(string id, IFormFile file)
         {
             if (ValidId(id, out var badResult))
                 return badResult ?? throw new UnreachableException();
-
-            if (apiKey == null)
-                return Results.StatusCode(StatusCodes.Status500InternalServerError);
-
-            var providedKey = context.Request.Headers["api-key"];
-            if (string.IsNullOrEmpty(providedKey) || providedKey != apiKey.Key)
-                return Results.Unauthorized();
 
             var fileSizeInKb = file.Length;
             if (fileSizeInKb > MAX_UPLOAD_IMAGE_SIZE)

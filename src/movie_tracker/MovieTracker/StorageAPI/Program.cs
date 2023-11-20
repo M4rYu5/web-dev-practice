@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
+using StorageAPI.AppConfig;
 using System.Diagnostics;
 using System.Text.Json.Serialization;
 
@@ -18,6 +19,8 @@ namespace StorageAPI
             builder.Services.AddSingleton(key);
 
             var app = builder.Build();
+
+            app.UseMiddleware<ApiKeyAuthorizationMiddleware>();
 
             app.MapPut("/cover/{id}", Endpoints.CoverHandlers.PutCover).DisableAntiforgery();
             app.MapDelete("/cover/{id}", Endpoints.CoverHandlers.DeleteCover);
