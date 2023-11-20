@@ -19,7 +19,7 @@ namespace StorageAPI
 
             var app = builder.Build();
 
-            app.MapPut("/cover/{id}", Endpoints.CoverHandlers.PutCover);
+            app.MapPut("/cover/{id}", Endpoints.CoverHandlers.PutCover).DisableAntiforgery();
             app.MapDelete("/cover/{id}", Endpoints.CoverHandlers.DeleteCover);
             app.UseStaticFiles("/cover");
 
