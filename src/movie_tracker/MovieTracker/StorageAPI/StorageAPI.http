@@ -1,0 +1,15 @@
+@StorageAPI_HostAddress = http://localhost:5087
+@file = ""
+
+PUT {{StorageAPI_HostAddress}}/cover/1
+api-key: this client is allowed
+
+{
+    file: ???
+}
+###
+
+PUT {{StorageAPI_HostAddress}}/cover/1
+api-key: this client not allowed
+
+###
