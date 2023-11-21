@@ -19,6 +19,7 @@ namespace MovieTrackerMVC
                 {
                     options.SignIn.RequireConfirmedAccount = !builder.Environment.IsDevelopment();
                 })
+                .AddRoles<IdentityRole<long>>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             // Add services to the container.
