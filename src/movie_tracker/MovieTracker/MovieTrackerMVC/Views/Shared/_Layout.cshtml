@@ -26,8 +26,15 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
-                    <div>
-                        <partial name="_LoginPartial" />
+                    <div class="d-flex flex-sm-row flex-column-reverse">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <span type="button" class="btn dropdown-toggle me-auto my-auto" data-bs-toggle="dropdown">Admin</span>
+                            <div class="dropdown-menu dropdown dropdown-menu dropdown-menu-start dropdown-menu-sm-end">
+                                <a asp-controller="Media" class="dropdown-item">Movies</a>
+                            </div>
+                        }
+                        <partial class="bg-primary" name="_LoginPartial" />
                     </div>
                 </div>
             </div>
