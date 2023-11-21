@@ -1,0 +1,36 @@
+﻿@model MovieTrackerMVC.Models.Media
+
+@{
+    ViewData["Title"] = "Media Details";
+}
+
+<h1>Media Details</h1>
+
+<div class="mb-4">
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+<div>
+    <div class="fs-3">Media:</div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+    </dl>
+    <hr />
+    <div class="fs-3">
+        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+    </div>
+</div>
+
