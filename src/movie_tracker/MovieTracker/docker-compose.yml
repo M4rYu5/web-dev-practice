@@ -3,13 +3,22 @@ version: '3.4'
 services:
   movietrackermvc:
     image: ${DOCKER_REGISTRY-}movietrackermvc
+    ports: 
+        - "5099:80"
     build:
       context: .
       dockerfile: MovieTrackerMVC/Dockerfile
+    environment:
+        - STORAGE__API__KEY=This is the storage api key
+        - STORAGE__ADDRESS=http://host.docker.internal:5043
 
   storageapi:
     image: ${DOCKER_REGISTRY-}storageapi
+    ports: 
+        - "5043:8080"
     build:
       context: .
       dockerfile: StorageAPI/Dockerfile
+    environment:
+        - API__KEY=This is the storage api key
 
