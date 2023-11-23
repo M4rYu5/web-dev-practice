@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  movietrackermvc:
+    image: ${DOCKER_REGISTRY-}movietrackermvc
+    build:
+      context: .
+      dockerfile: MovieTrackerMVC/Dockerfile
+
+  storageapi:
+    image: ${DOCKER_REGISTRY-}storageapi
+    build:
+      context: .
+      dockerfile: StorageAPI/Dockerfile
+
