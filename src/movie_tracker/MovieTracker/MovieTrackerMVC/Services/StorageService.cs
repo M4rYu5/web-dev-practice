@@ -19,5 +19,18 @@ namespace MovieTrackerMVC.Services
             this.httpClient.DefaultRequestHeaders.Add("API-KEY", appConfig.Value.StorageKey);
         }
 
+        public async Task UploadCover()
+        {
+            using var fileStream = File.OpenRead("test.png");
+            using var fileContent = new StreamContent(fileStream);
+            new FileExtensionContentTypeProvider().TryGetContentType("test.png", out var contentType);
+            fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(contentType);
+
+            using var formData = new MultipartFormDataContent();
+            formData.Add(fileContent, "file", "test.png");
+
+            var res = await httpClient.PutAsync("cover/1", formData);
+
+        }
     }
 }
