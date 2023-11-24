@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MovieTrackerMVC.Data;
 using MovieTrackerMVC.Models;
+using MovieTrackerMVC.Services;
 
 namespace MovieTrackerMVC
 {
@@ -17,6 +18,8 @@ namespace MovieTrackerMVC
                 option.StorageAddress = builder.Configuration["STORAGE:ADDRESS"] ?? throw new InvalidOperationException("The STORAGE:ADDRESS env variable is not set");
                 option.StorageKey = builder.Configuration["STORAGE:API:KEY"] ?? throw new InvalidOperationException("The STORAGE:API:KEY env variable is not set");
             });
+
+            builder.Services.AddHttpClient<StorageService>();
 
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseLazyLoadingProxies().UseSqlite(connectionString));
 
