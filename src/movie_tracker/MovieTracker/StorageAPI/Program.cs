@@ -28,11 +28,17 @@ namespace StorageAPI
             app.MapPut("/put_cover/{id}", Endpoints.CoverHandlers.PutCover).DisableAntiforgery();
             app.MapDelete("/delete_cover/{id}", Endpoints.CoverHandlers.DeleteCover).DisableAntiforgery();
 
+            app.UseMiddleware<HandleMissingFileMiddleware>();
             app.UseOutputCache();
             app.UseStaticFiles(new StaticFileOptions()
             {
                 FileProvider = new PhysicalFileProvider("/storage/cover"),
                 RequestPath = "/cover",
+            });
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "StaticFiles")),
+                RequestPath = "/static",
             });
 
             app.Run();
