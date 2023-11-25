@@ -29,7 +29,7 @@ namespace MovieTrackerMVC.Services
             using var formData = new MultipartFormDataContent();
             formData.Add(fileContent, "file", "test.png");
 
-            var res = await httpClient.PutAsync("cover/1", formData);
+            var res = await httpClient.PutAsync("put_cover/2", formData);
 
         }
     }
