@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using StorageAPI.AppConfig.Attributes;
+using System.Text;
 
 namespace StorageAPI.AppConfig
 {
@@ -22,10 +23,17 @@ namespace StorageAPI.AppConfig
                 return;
             }
 
+            // remove last /, if existent
+            var filteredPath = context.Request.Path.Value.EndsWith('/') ? context.Request.Path.Value[..^1] : context.Request.Path.Value;
+
             // add .png if needed
-            if (!(context.Request.Path.Value.EndsWith(".png") || context.Request.Path.Value.EndsWith(".png/")))
+            if (!filteredPath.EndsWith(".png", StringComparison.InvariantCultureIgnoreCase))
             {
-                context.Request.Path += ".png";
+                context.Request.Path = filteredPath + ".png";
+            }
+            else
+            {
+                context.Request.Path = filteredPath;
             }
 
             await _next(context);
