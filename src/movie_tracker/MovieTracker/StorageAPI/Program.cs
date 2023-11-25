@@ -28,6 +28,7 @@ namespace StorageAPI
 
             app.UseMiddleware<ApiKeyAuthorizationMiddleware>();
 
+            Directory.CreateDirectory("/storage/cover");
             app.MapPut("/cover/{id}", Endpoints.CoverHandlers.PutCover).DisableAntiforgery();
             app.MapDelete("/cover/{id}", Endpoints.CoverHandlers.DeleteCover);
 
