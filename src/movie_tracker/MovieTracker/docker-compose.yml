@@ -14,6 +14,14 @@ services:
 
   storageapi:
     image: ${DOCKER_REGISTRY-}storageapi
+    # user: root
+    # to use --mount (named) volume I would have to set user/group management for my containers
+    # I've found tools like https://github.com/boxboat/fixuid that can help
+    # but as of now, I don't plan to learn more about sysadmin stuff
+    # so I'm going to use a simple volume; read more here:
+    # https://docs.docker.com/storage/volumes/#choose-the--v-or---mount-flag
+    volumes:
+        - ./.storage:/storage
     ports: 
         - "5043:8080"
     build:
