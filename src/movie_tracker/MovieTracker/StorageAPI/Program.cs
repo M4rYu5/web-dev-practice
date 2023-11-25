@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Primitives;
 using StorageAPI.AppConfig;
 using System.Diagnostics;
@@ -28,7 +29,11 @@ namespace StorageAPI
             app.MapDelete("/cover/{id}", Endpoints.CoverHandlers.DeleteCover);
 
             app.UseOutputCache();
-            app.UseStaticFiles("/cover");
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider("/storage/cover"),
+                RequestPath = "/cover",
+            });
 
             app.Run();
         }
