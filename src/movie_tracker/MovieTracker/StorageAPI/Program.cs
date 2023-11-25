@@ -40,6 +40,7 @@ namespace StorageAPI
 
     public class ApiKey
     {
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public string? Key { get; set; }
     }
 }
