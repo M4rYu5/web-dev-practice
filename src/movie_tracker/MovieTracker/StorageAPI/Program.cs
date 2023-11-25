@@ -16,10 +16,8 @@ namespace StorageAPI
             var builder = WebApplication.CreateSlimBuilder(args);
 
             builder.Services.Configure<ApiKey>(option => option.Key = builder.Configuration["Api:Key"]);
-            builder.Services.AddOutputCache(options =>
-            {
-                options.AddBasePolicy(builder => builder.Expire(TimeSpan.FromMinutes(5)));
-            });
+            
+            builder.Services.AddOutputCache(options => options.AddBasePolicy(builder => builder.Expire(TimeSpan.FromMinutes(5))));
 
             var app = builder.Build();
 
