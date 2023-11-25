@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace StorageAPI.Endpoints
 {
-    public static class CoverHandlers
+    public class CoverHandlers
     {
 
         public const long MAX_UPLOAD_IMAGE_SIZE = 200 * 1024; // 200KB
@@ -24,9 +24,9 @@ namespace StorageAPI.Endpoints
         }
 
         [ApiKeyAuthorization]
-        internal static async Task<IResult> PutCover(string id, IFormFile file)
+        internal static async Task<IResult> PutCover(string id, IFormFile file, ILogger<CoverHandlers> logger)
         {
-            if (ValidId(id, out var badResult))
+            if (!ValidId(id, out var badResult))
                 return badResult ?? throw new UnreachableException();
 
             var fileSizeInKb = file.Length;
@@ -42,9 +42,16 @@ namespace StorageAPI.Endpoints
                 mimeType != "image/png")
                 return Results.BadRequest("Wrong mime type; Expected image/x-png or image/png.");
 
-
-            using var toFileStream = new FileStream("/cover/id" + fileExtension, FileMode.Create);
-            await file.CopyToAsync(toFileStream);
+            try
+            {
+                using var toFileStream = new FileStream($"/storage/cover/{id}" + fileExtension, FileMode.Create);
+                await file.CopyToAsync(toFileStream);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, "Could not save cover for media with id: {mediaId}.", id);
+                return Results.StatusCode(StatusCodes.Status500InternalServerError);
+            }
 
             return Results.Ok();
         }
