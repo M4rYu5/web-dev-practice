@@ -3,13 +3,84 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
+    "compounds": [
+        {
+            "name": "[ALL] Movie Tracker",
+            "configurations": ["Run MovieTrackerMVC", "Run StorageAPI"],
+            "stopAll": true,
+            "presentation": {
+                "hidden": false,
+                "group": "MovieTracker",
+                "order": 1
+            }
+        }
+    ],
     "configurations": [
         {
+            "name": "Store Fron React",
+            "presentation": {
+                "hidden": false,
+                "group": "React",
+                "order": 1
+            },
             "type": "chrome",
             "request": "launch",
-            "name": "client store_front_react chrome",
             "url": "http://localhost:3000",
             "webRoot": "${workspaceFolder}\\src\\store_front_react\\"
+        },
+        {
+            "name": "Run MovieTrackerMVC",
+            "presentation": {
+                "hidden": false,
+                "group": "MovieTracker",
+                "order": 2
+            },
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-MovieTrackerMVC",
+            "program": "${workspaceFolder}/src/movie_tracker/MovieTracker/MovieTrackerMVC/bin/Debug/net7.0/MovieTrackerMVC.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/movie_tracker/MovieTracker/MovieTrackerMVC",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "debugWithChrome",
+                "pattern": "^\\s*Now listening on:\\s+(https?://\\S+)",
+                "killOnServerStop": true,
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://127.0.0.1:7016/",
+                "STORAGE__API__KEY": "This is the storage api key used for development",
+                "STORAGE__ADDRESS": "http://127.0.0.1:5044/",
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views",
+                "/Areas": "${workspaceFolder}/Areas"
+            }
+        },
+        {
+            "name": "Run StorageAPI",
+            "presentation": {
+                "hidden": false,
+                "group": "MovieTracker",
+                "order": 2
+            },
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-StorageAPI",
+            "program": "${workspaceFolder}/src/movie_tracker/MovieTracker/StorageAPI/bin/Debug/net8.0/StorageAPI.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/movie_tracker/MovieTracker/StorageAPI",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "API__KEY": "This is the storage api key used for development",
+                "ASPNETCORE_URLS": "http://127.0.0.1:5044/"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
         }
-    ]
+    ],
+
 }
