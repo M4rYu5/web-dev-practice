@@ -1,6 +1,7 @@
 {
     "version": "2.0.0",
     "tasks": [
+
         {
             "label": "build-MovieTrackerMVC",
             "command": "dotnet",
@@ -14,6 +15,50 @@
             "type": "process",
             "args": ["build", "${workspaceFolder}/src/movie_tracker/MovieTracker/StorageAPI/StorageAPI.csproj"],
             "problemMatcher": "$msCompile",
+        },
+
+        // --------------------------------------------------------------------------------
+
+        {
+            "label": "watch - MovieTrackerMVC",
+            "command": "dotnet",
+            "isBackground": false,
+            "type": "process",
+            "args": [
+                "watch", 
+                "run", 
+                "--project",
+                "${workspaceFolder}/src/movie_tracker/MovieTracker/MovieTrackerMVC/MovieTrackerMVC.csproj",
+                "--urls", "http://127.0.0.1:7016",
+                "--STORAGE:API:KEY", "This is the storage api key used for development",
+                "--STORAGE:ADDRESS", "http://127.0.0.1:5044/",
+            ],
+            "problemMatcher": "$msCompile",
+        },
+        {
+            "label": "watch - StorageAPI",
+            "command": "dotnet",
+            "isBackground": false,
+            "type": "process",
+            "args": [
+                "watch", 
+                "run", 
+                "--project",
+                "${workspaceFolder}/src/movie_tracker/MovieTracker/StorageAPI/StorageAPI.csproj",
+                "--urls", "http://127.0.0.1:5044",
+                "--API:KEY", "This is the storage api key used for development",
+            ],
+            "problemMatcher": "$msCompile",
+        },
+        {
+            "label": "watch - MovieTracker - [ALL]",
+            "dependsOn": ["watch - MovieTrackerMVC", "watch - StorageAPI"],
+            "dependsOrder": "parallel",
+            "problemMatcher": "$msCompile",
         }
+
+        // --------------------------------------------------------------------------------
+
+        
     ]
 }
