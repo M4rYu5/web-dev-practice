@@ -5,8 +5,8 @@
     "version": "0.2.0",
     "compounds": [
         {
-            "name": "[ALL] Movie Tracker",
-            "configurations": ["Run MovieTrackerMVC", "Run StorageAPI"],
+            "name": "[ALL] Movie Tracker - debug",
+            "configurations": ["MovieTrackerMVC - debug", "StorageAPI - debug"],
             "stopAll": true,
             "presentation": {
                 "hidden": false,
@@ -29,7 +29,7 @@
             "webRoot": "${workspaceFolder}\\src\\store_front_react\\"
         },
         {
-            "name": "Run MovieTrackerMVC",
+            "name": "MovieTrackerMVC - debug",
             "presentation": {
                 "hidden": false,
                 "group": "MovieTracker",
@@ -59,7 +59,7 @@
             }
         },
         {
-            "name": "Run StorageAPI",
+            "name": "StorageAPI - debug",
             "presentation": {
                 "hidden": false,
                 "group": "MovieTracker",

@@ -4,14 +4,14 @@
         {
             "label": "build-MovieTrackerMVC",
             "command": "dotnet",
-            "type": "shell",
+            "type": "process",
             "args": ["build", "${workspaceFolder}/src/movie_tracker/MovieTracker/MovieTrackerMVC/MovieTrackerMVC.csproj"],
             "problemMatcher": "$msCompile",
         },
         {
             "label": "build-StorageAPI",
             "command": "dotnet",
-            "type": "shell",
+            "type": "process",
             "args": ["build", "${workspaceFolder}/src/movie_tracker/MovieTracker/StorageAPI/StorageAPI.csproj"],
             "problemMatcher": "$msCompile",
         }
