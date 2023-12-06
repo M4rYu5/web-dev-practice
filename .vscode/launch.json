@@ -50,8 +50,8 @@
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
                 "ASPNETCORE_URLS": "http://127.0.0.1:7016/",
-                "STORAGE__API__KEY": "This is the storage api key used for development",
-                "STORAGE__ADDRESS": "http://127.0.0.1:5044/",
+                "STORAGE_API_KEY": "This is the storage api key used for development",
+                "STORAGE_ADDRESS": "http://127.0.0.1:5044/",
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views",
@@ -74,8 +74,8 @@
             "stopAtEntry": false,
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "API__KEY": "This is the storage api key used for development",
-                "ASPNETCORE_URLS": "http://127.0.0.1:5044/"
+                "ASPNETCORE_URLS": "http://127.0.0.1:5044/",
+                "API_KEY": "This is the storage api key used for development",
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
