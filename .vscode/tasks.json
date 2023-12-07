@@ -64,10 +64,23 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "open chrome for movie tracker mvc",
+            "hide": true,
+            "type": "shell",
+            // open a browser on windows, after 3 seconds.
+            "windows": {
+                // I want it to open chrome, if you don't then change the command.
+                // note that it's running in PowerShell;
+                "command": "Start-Sleep -Seconds 4; Start-Process 'chrome.exe' 'http://127.0.0.1:7016'"
+            },
+            "problemMatcher": [],
+        },
+        {
             "label": "watch - MovieTracker - [ALL]",
             "dependsOn": [
                 "watch - MovieTrackerMVC",
                 "watch - StorageAPI",
+                "open chrome for movie tracker mvc"
             ],
             "dependsOrder": "parallel",
             "problemMatcher": "$msCompile",
