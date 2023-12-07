@@ -41,6 +41,7 @@
                 "This is the storage api key used for development",
                 "--STORAGE:ADDRESS",
                 "http://127.0.0.1:5044/",
+                "--no-launch-profile"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -58,6 +59,7 @@
                 "http://127.0.0.1:5044",
                 "--API:KEY",
                 "This is the storage api key used for development",
+                "--no-launch-profile"
             ],
             "problemMatcher": "$msCompile"
         },
