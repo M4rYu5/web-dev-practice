@@ -1,39 +1,49 @@
 {
     "version": "2.0.0",
     "tasks": [
-
         {
             "label": "build-MovieTrackerMVC",
             "command": "dotnet",
             "type": "process",
-            "args": ["build", "${workspaceFolder}/src/movie_tracker/MovieTracker/MovieTrackerMVC/MovieTrackerMVC.csproj"],
-            "problemMatcher": "$msCompile",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/movie_tracker/MovieTracker/MovieTrackerMVC/MovieTrackerMVC.csproj"
+            ],
+            "problemMatcher": "$msCompile"
         },
         {
             "label": "build-StorageAPI",
             "command": "dotnet",
             "type": "process",
-            "args": ["build", "${workspaceFolder}/src/movie_tracker/MovieTracker/StorageAPI/StorageAPI.csproj"],
-            "problemMatcher": "$msCompile",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/movie_tracker/MovieTracker/StorageAPI/StorageAPI.csproj"
+            ],
+            "problemMatcher": "$msCompile"
         },
 
-        // --------------------------------------------------------------------------------
+        // ----------------------------------------------------------
 
+        
         {
             "label": "watch - MovieTrackerMVC",
             "command": "dotnet",
             "isBackground": false,
             "type": "process",
             "args": [
-                "watch", 
-                "run", 
+                "watch",
+                "run",
                 "--project",
                 "${workspaceFolder}/src/movie_tracker/MovieTracker/MovieTrackerMVC/MovieTrackerMVC.csproj",
-                "--urls", "http://127.0.0.1:7016",
-                "--STORAGE:API:KEY", "This is the storage api key used for development",
-                "--STORAGE:ADDRESS", "http://127.0.0.1:5044/",
+                "--urls",
+                "http://127.0.0.1:7016",
+                "--STORAGE:API:KEY",
+                "This is the storage api key used for development",
+                "--STORAGE:ADDRESS",
+                "http://127.0.0.1:5044/",
+                "--no-launch-profile"
             ],
-            "problemMatcher": "$msCompile",
+            "problemMatcher": "$msCompile"
         },
         {
             "label": "watch - StorageAPI",
@@ -41,23 +51,42 @@
             "isBackground": false,
             "type": "process",
             "args": [
-                "watch", 
-                "run", 
+                "watch",
+                "run",
                 "--project",
                 "${workspaceFolder}/src/movie_tracker/MovieTracker/StorageAPI/StorageAPI.csproj",
-                "--urls", "http://127.0.0.1:5044",
-                "--API:KEY", "This is the storage api key used for development",
+                "--urls",
+                "http://127.0.0.1:5044",
+                "--API:KEY",
+                "This is the storage api key used for development",
+                "--no-launch-profile"
             ],
-            "problemMatcher": "$msCompile",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "open chrome for movie tracker mvc",
+            "hide": true,
+            "type": "shell",
+            // open a browser on windows, after 3 seconds.
+            "windows": {
+                // I want it to open chrome, if you don't then change the command.
+                // note that it's running in PowerShell;
+                "command": "Start-Sleep -Seconds 4; Start-Process 'chrome.exe' 'http://127.0.0.1:7016'"
+            },
+            "problemMatcher": [],
         },
         {
             "label": "watch - MovieTracker - [ALL]",
-            "dependsOn": ["watch - MovieTrackerMVC", "watch - StorageAPI"],
+            "dependsOn": [
+                "watch - MovieTrackerMVC",
+                "watch - StorageAPI",
+                "open chrome for movie tracker mvc"
+            ],
             "dependsOrder": "parallel",
             "problemMatcher": "$msCompile",
         }
-
-        // --------------------------------------------------------------------------------
+        
+        // ----------------------------------------------------------
 
         
     ]
