@@ -1,0 +1,34 @@
+.file-upload{
+  height: 300px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: dashed 7px #00ffff99;
+  cursor: pointer;
+  background-color: #00ffff22;
+}
+
+.file-drag-hover{
+  border: dashed 7px #00ffffFF;
+  background-color: #00ffff77;
+}
+
+.file-uplaod-text-container{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  font-size: xx-large;
+  font-weight: 800;
+  text-align: center;
+}
+
+.file-upload > img {
+  width: auto;
+  height: 100%;
+  display: inline-block;
+  object-fit: contain;
+}
