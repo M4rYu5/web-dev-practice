@@ -60,15 +60,20 @@ namespace MovieTrackerMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title")] Media media)
+        public async Task<IActionResult> Create([Bind("Id,Title")] Media media, IFormFile? cover)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(media);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Json(new { success = true, redirectUrl = Url.Action("Index", "Media") });
             }
-            return View(media);
+
+            // constructing errors.
+            var firstErrorOfEachModel = ModelState.Where(x => x.Value?.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
+                .Select(x => new {id = x.Key, text = x.Value?.Errors.FirstOrDefault()?.ErrorMessage});
+            
+            return Json(new {success = false, modelErrors = firstErrorOfEachModel});
         }
 
         // GET: Media/Edit/5

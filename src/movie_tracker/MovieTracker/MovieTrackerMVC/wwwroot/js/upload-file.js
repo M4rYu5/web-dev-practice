@@ -10,6 +10,7 @@ const cover_input = $("<input>").attr("type", "file").attr("accept", "image/*");
 $().ready(() => {
     const uploadElement = $(".file-upload");
     uploadElement.addClass("file-upload-empty");
+    formCreateAction();
 
     $("#remove-cover").on("click", () => setCover(null))
 
@@ -140,4 +141,52 @@ function checkFiles(files) {
     }
 
     return null;
+}
+
+
+
+function formCreateAction() {
+    $('form').on('submit', function (event) {
+        event.preventDefault();
+
+        var formData = new FormData(this);
+        if (cover != null)
+            formData.append('cover', cover);
+
+        $.ajax({
+            url: '/Media/Create',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                console.log(response);
+                if (response.success == true) {
+                    document.location.href = response.redirectUrl;
+                    return;
+                }
+
+                // most of the time the errors will be caught in browser
+                // cover image isn't included
+                if (response.modelErrors != null){
+                    response.modelErrors.forEach(error => {
+                        console.log(error);
+                        $("" + error.id + "-error").text("running")
+                    });
+                }
+
+                // something happened
+                if (response.modelErrors == null){
+                    $("form-server-error-message").removeClass("d-none");
+                }
+                else{
+                    $("form-server-error-message").addClass("d-none");
+                }
+            },
+            error: function (response) {
+                // if something happens I'm probably gonna be contacted.
+                $("form-communication-error-message").removeClass("d-none");
+            }
+        });
+    });
 }
