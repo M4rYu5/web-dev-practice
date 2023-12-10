@@ -9,6 +9,8 @@ const cover_input = $("<input>").attr("type", "file").attr("accept", "image/*");
 
 $().ready(() => {
     const uploadElement = $(".file-upload");
+    uploadElement.addClass("file-upload-empty");
+
 
     // click the upload cover
     uploadElement.on("click", (e) => {
@@ -97,6 +99,7 @@ function updateCoverImageView(cover) {
     if (cover == null) {
         $(".file-uplaod-text-container").removeClass("d-none");
         $("#test-image").addClass("d-none");
+        $(".file-upload").addClass("file-upload-empty");
     }
     else {
         let reader = new FileReader();
@@ -107,7 +110,8 @@ function updateCoverImageView(cover) {
 
         $(".file-uplaod-text-container").addClass("d-none");
         $("#test-image").removeClass("d-none");
-    }
+        $(".file-upload").removeClass("file-upload-empty");
+         }
 }
 
 

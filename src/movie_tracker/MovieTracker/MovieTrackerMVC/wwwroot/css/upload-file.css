@@ -4,8 +4,11 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border: dashed 7px #00ffff99;
   cursor: pointer;
+}
+
+.file-upload-empty{
+  border: dashed 7px #00ffff99;
   background-color: #00ffff22;
 }
 
