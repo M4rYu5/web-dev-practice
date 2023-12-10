@@ -11,6 +11,7 @@ $().ready(() => {
     const uploadElement = $(".file-upload");
     uploadElement.addClass("file-upload-empty");
 
+    $("#remove-cover").on("click", () => setCover(null))
 
     // click the upload cover
     uploadElement.on("click", (e) => {
@@ -73,6 +74,8 @@ function fileDropped(dragEvent) {
  */
 function setCover(files) {
     if (files == null) {
+        cover = null;
+        updateCoverImageView(cover);
         return;
     }
 
@@ -86,7 +89,7 @@ function setCover(files) {
         $("#image-validation").text(error);
     }
 
-    updateCoverImageView(cover)
+    updateCoverImageView(cover);
 }
 
 
@@ -100,6 +103,7 @@ function updateCoverImageView(cover) {
         $(".file-uplaod-text-container").removeClass("d-none");
         $("#test-image").addClass("d-none");
         $(".file-upload").addClass("file-upload-empty");
+        $("#remove-cover").addClass("d-none");
     }
     else {
         let reader = new FileReader();
@@ -111,7 +115,8 @@ function updateCoverImageView(cover) {
         $(".file-uplaod-text-container").addClass("d-none");
         $("#test-image").removeClass("d-none");
         $(".file-upload").removeClass("file-upload-empty");
-         }
+        $("#remove-cover").removeClass("d-none");
+    }
 }
 
 
@@ -136,5 +141,3 @@ function checkFiles(files) {
 
     return null;
 }
-
-

@@ -1,4 +1,4 @@
-﻿@model MovieTrackerMVC.Models.Media
+@model MovieTrackerMVC.Models.Media
 
 @{
     ViewData["Title"] = "Create Media";
@@ -32,9 +32,10 @@
                     <div>OR</div>
                     <div>CLICK TO SELECT AN IMAGE</div>
                 </div>
-                <img id="test-image" class="d-none" src="http://127.0.0.1:5044/static/cover-default-1000.png"></img>
+                <img id="test-image" class="d-none" src="http://127.0.0.1:5044/static/cover-default-1000.png"/>
             </div>
             <span id="image-validation" class="text-danger"></span>
+            <button id="remove-cover" type="button" class="btn btn-danger mt-2 d-none" style="margin-bottom: -1.5rem;">Remove Cover</button>
         </div>
         <div class="form-group d-flex mb-4">
             <input type="submit" value="Create" class="btn btn-primary d-inline-block me-1 ms-auto"/>
