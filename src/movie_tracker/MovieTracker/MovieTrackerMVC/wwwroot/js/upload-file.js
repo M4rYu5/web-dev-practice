@@ -101,19 +101,19 @@ function setCover(files) {
 function updateCoverImageView(cover) {
     if (cover == null) {
         $(".file-uplaod-text-container").removeClass("d-none");
-        $("#test-image").addClass("d-none");
+        $("#cover-image").addClass("d-none");
         $(".file-upload").addClass("file-upload-empty");
         $("#remove-cover").addClass("d-none");
     }
     else {
         let reader = new FileReader();
         reader.onload = () => {
-            $('#test-image').attr('src', reader.result)
+            $('#cover-image').attr('src', reader.result)
         };
         reader.readAsDataURL(cover);
 
         $(".file-uplaod-text-container").addClass("d-none");
-        $("#test-image").removeClass("d-none");
+        $("#cover-image").removeClass("d-none");
         $(".file-upload").removeClass("file-upload-empty");
         $("#remove-cover").removeClass("d-none");
     }
