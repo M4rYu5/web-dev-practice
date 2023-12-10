@@ -8,26 +8,28 @@ const cover_input = $("<input>").attr("type", "file").attr("accept", "image/*");
 
 
 $().ready(() => {
+    const uploadElement = $(".file-upload");
+
     // click the upload cover
-    $(".file-upload").on("click", (e) => {
+    uploadElement.on("click", (e) => {
         cover_input.click();
     });
 
     // modify the look of drag region when drag over
-    $(".file-upload").on("dragover", (e) => {
-        $(".file-upload").addClass("file-drag-hover");
+    uploadElement.on("dragover", (e) => {
+        uploadElement.addClass("file-drag-hover");
         e.preventDefault();
         e.stopPropagation()
     });
-    $(".file-upload").on("dragleave", (e) => {
-        $(".file-upload").removeClass("file-drag-hover");
+    uploadElement.on("dragleave", (e) => {
+        uploadElement.removeClass("file-drag-hover");
         e.preventDefault();
         e.stopPropagation();
     });
 
     // manage file uploads by drag
-    $(".file-upload").on("drop", (e) => {
-        $(".file-upload").removeClass("file-drag-hover");
+    uploadElement.on("drop", (e) => {
+        uploadElement.removeClass("file-drag-hover");
         e.preventDefault();
         e.stopPropagation();
         fileDropped(e);
@@ -39,6 +41,19 @@ $().ready(() => {
         setCover(files);
     });
 })
+
+
+// handle paste of an image file
+document.onpaste = function (event) {
+    var items = (event.clipboardData || event.originalEvent.clipboardData).items;
+    for (index in items) {
+        var item = items[index];
+        if (item.type != null && item.type.startsWith('image/')) {
+            var blob = item.getAsFile();
+            setCover([blob]);
+        }
+    }
+}
 
 
 /**
