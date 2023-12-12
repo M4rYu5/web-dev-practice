@@ -34,11 +34,16 @@
                 </div>
                 <img id="cover-image" class="d-none"/>
             </div>
-            <button id="remove-cover" type="button" class="btn btn-danger mt-2 d-none">Remove Cover</button>
+            <div class="d-flex flex-column">
+                <span data-valmsg-for="Cover" class="text-danger"></span>
+                <div>
+                    <button id="remove-cover" type="button" class="btn btn-danger mt-2 d-none">Remove Cover</button>
+                </div>
+            </div>
         </div>
         <div class="form-group mb-4 d-flex flex-column">
             <span id="form-server-error-message" class="text-danger d-none">
-                An error happened on the server.
+                Internal server error.
             </span>
             <span id="form-communication-error-message" class="text-danger d-none">
                 Communication error.
