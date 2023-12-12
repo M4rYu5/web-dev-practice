@@ -6,7 +6,7 @@
     <title>@ViewData["Title"] - MovieTrackerMVC</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MovieTrackerMVC.styles.css" asp-append-version="true" />
+    @RenderSection("Header", required: false)
 </head>
 <body>
     <header>

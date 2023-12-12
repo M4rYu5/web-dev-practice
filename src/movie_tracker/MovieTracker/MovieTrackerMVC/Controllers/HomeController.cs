@@ -1,17 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieTrackerMVC.Models;
+using MovieTrackerMVC.Services;
 using System.Diagnostics;
 
 namespace MovieTrackerMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
 
         public IActionResult Index()
         {

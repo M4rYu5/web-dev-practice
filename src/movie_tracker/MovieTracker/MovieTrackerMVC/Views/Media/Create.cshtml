@@ -4,30 +4,62 @@
     ViewData["Title"] = "Create Media";
 }
 
-<h1>Create Media</h1>
 
-<div class="mb-4">
-    <a asp-action="Index">Back to List</a>
-</div>
+@section Header {
+    <link rel="stylesheet" href="~/css/upload-file.css" asp-append-version="true">
+}
 
+<div class="col-12 col-sm-11 col-md-9 col-lg-8 mx-auto">
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label fs-4"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group mt-4">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    <h1>Create Media</h1>
+
+    <div class="mb-4">
+        <a asp-action="Index">Back to List</a>
     </div>
+
+
+    <form asp-antiforgery="true">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group mb-4">
+            <label asp-for="Title" class="control-label fs-4"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="mb-4">
+            <div  class="file-upload">
+                <div class="file-uplaod-text-container">
+                    <div>DRAG & DROP</div>
+                    <div>OR</div>
+                    <div>CLICK TO SELECT AN IMAGE</div>
+                </div>
+                <img id="cover-image" class="d-none"/>
+            </div>
+            <div class="d-flex flex-column">
+                <span data-valmsg-for="Cover" class="text-danger"></span>
+                <div>
+                    <button id="remove-cover" type="button" class="btn btn-danger mt-2 d-none">Remove Cover</button>
+                </div>
+            </div>
+        </div>
+        <div class="form-group mb-4 d-flex flex-column">
+            <span id="form-server-error-message" class="text-danger d-none">
+                Internal server error.
+            </span>
+            <span id="form-communication-error-message" class="text-danger d-none">
+                Communication error.
+            </span>
+            <div class="d-flex justify-content-end ">
+                <input type="submit" value="Create" class="btn btn-primary"/>
+            </div>
+        </div>
+    </form>
 </div>
+
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script src="~/js/upload-file.js" asp-append-version="true"></script>
+    }
 }
