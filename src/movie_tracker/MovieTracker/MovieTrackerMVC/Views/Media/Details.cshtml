@@ -1,4 +1,9 @@
-﻿@model MovieTrackerMVC.Models.Media
+﻿@using Microsoft.Extensions.Options;
+@using MovieTrackerMVC.Services
+
+@model MovieTrackerMVC.Models.Media
+
+@inject IOptions<StorageOptions> storageOption
 
 @{
     ViewData["Title"] = "Media Details";
@@ -14,20 +19,27 @@
 <div>
     <div class="fs-3">Media:</div>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-    </dl>
+    <div class="row">
+        <div class="col-6 d-flex justify-content-center" style="max-height: 500px;">
+            <img style="object-fit: contain; width: 100%; height: auto"  src="@{@storageOption.Value.StorageAddress}cover/@{@Model.Id}-full.png">
+        </div>
+        <div class="col-6">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Id)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Id)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+            </dl>
+        </div>
+    </div>
     <hr />
     <div class="fs-3">
         <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
