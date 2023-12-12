@@ -38,6 +38,7 @@ namespace StorageAPI.AppConfig
             // return default cover if nothing was found
             if (context.Response.StatusCode == 404 && is_get_cover)
             {
+                context.Response.Clear();
                 context.Request.Path = filteredPath.EndsWith("-full.png") ? "/static/cover-default-1000.png" : "/static/cover-default-150.png";
                 await _next(context);
             }
