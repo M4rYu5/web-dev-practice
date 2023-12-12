@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  movietrackermvc:
+    image: ${DOCKER_REGISTRY-}movietrackermvc
+    ports: 
+        - "5099:8080"
+    build:
+      context: .
+      dockerfile: MovieTrackerMVC/Dockerfile
+    environment:
+        - STORAGE__API__KEY=This is the storage api key
+        - STORAGE__ADDRESS=http://host.docker.internal:5043
+
+  storageapi:
+    image: ${DOCKER_REGISTRY-}storageapi
+    # user: root
+    # to use --mount (named) volume I would have to set user/group management for my containers
+    # I've found tools like https://github.com/boxboat/fixuid that can help
+    # but as of now, I don't plan to learn more about sysadmin stuff
+    # so I'm going to use a simple volume; read more here:
+    # https://docs.docker.com/storage/volumes/#choose-the--v-or---mount-flag
+    volumes:
+        - ./.storage:/storage
+    ports: 
+        - "5043:8080"
+    build:
+      context: .
+      dockerfile: StorageAPI/Dockerfile
+    environment:
+        - API__KEY=This is the storage api key
+

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MovieTrackerMVC.Data;
 using MovieTrackerMVC.Models;
+using MovieTrackerMVC.Services;
 
 namespace MovieTrackerMVC
 {
@@ -12,6 +13,14 @@ namespace MovieTrackerMVC
             var builder = WebApplication.CreateBuilder(args);
             var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
 
+            builder.Services.Configure<StorageOptions>((option) =>
+            {
+                option.StorageAddress = builder.Configuration["STORAGE:ADDRESS"] ?? throw new InvalidOperationException("The STORAGE:ADDRESS env variable is not set");
+                option.StorageKey = builder.Configuration["STORAGE:API:KEY"] ?? throw new InvalidOperationException("The STORAGE:API:KEY env variable is not set");
+            });
+
+            builder.Services.AddHttpClient<StorageService>();
+
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseLazyLoadingProxies().UseSqlite(connectionString));
 
             builder.Services.AddDefaultIdentity<User>(
@@ -19,6 +28,7 @@ namespace MovieTrackerMVC
                 {
                     options.SignIn.RequireConfirmedAccount = !builder.Environment.IsDevelopment();
                 })
+                .AddRoles<IdentityRole<long>>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             // Add services to the container.
