@@ -8,8 +8,10 @@ using System.Transactions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MovieTrackerMVC.Controllers.CustomModels;
 using MovieTrackerMVC.Data;
 using MovieTrackerMVC.Models;
 using MovieTrackerMVC.Services;
@@ -72,10 +74,14 @@ namespace MovieTrackerMVC.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var firstErrorOfEachModel = ModelState.Where(x => x.Value?.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
-                    .Select(x => new CreateMediaErrorDTO { id = x.Key, text = x.Value?.Errors.FirstOrDefault()?.ErrorMessage });
+                var firstErrorOfEachModel = ModelError<ModelErrorDTO>.FromModelState(ModelState,
+                    x => new ModelErrorDTO
+                    {
+                        Id = x.Key,
+                        Text = x.Value?.Errors.FirstOrDefault()?.ErrorMessage
+                    });
 
-                return Json(new CreateMediaModelError(success: false, modelErrors: firstErrorOfEachModel));
+                return Json(firstErrorOfEachModel);
             }
 
             using var transaction = _context.Database.BeginTransaction();
@@ -100,43 +106,20 @@ namespace MovieTrackerMVC.Controllers
                 // cover wasn't saved
                 transaction.Rollback();
                 _logger.LogError("StorageService.UploadCover unsuccessful in MediaController.Create. Changes were rolled back.");
-                var coverError = new CreateMediaErrorDTO()
+                var coverError = new ModelErrorDTO()
                 {
-                    id = "Cover",
-                    text = "The cover could not be saved. Retry, use another cover or try to resize the current one."
+                    Id = "Cover",
+                    Text = "The cover could not be saved. Retry, use another cover or try to resize the current one."
                 };
-                return Json(new CreateMediaModelError(success: false, modelErrors: [coverError]));
+                return Json(new ModelError<ModelErrorDTO>(success: false, modelErrors: [coverError]));
             }
             catch (Exception ex)
             {
                 transaction.Rollback();
                 _logger.LogError("Exception raised while trying to save a media; Exception: {Exception}", ex);
-                return Json(new CreateMediaModelError(success: false, []));
+                return Json(new ModelError<ModelErrorDTO>(success: false, []));
             }
         }
-
-        private struct CreateMediaErrorDTO
-        {
-            [JsonInclude]
-            public string id;
-            [JsonInclude]
-            public string? text;
-        }
-
-        private class CreateMediaModelError
-        {
-            [JsonInclude]
-            public readonly bool success;
-            [JsonInclude]
-            public readonly IEnumerable<CreateMediaErrorDTO> modelErrors;
-
-            public CreateMediaModelError(bool success, IEnumerable<CreateMediaErrorDTO> modelErrors)
-            {
-                this.success = success;
-                this.modelErrors = modelErrors;
-            }
-        }
-
 
 
         // GET: Media/Edit/5
@@ -232,4 +215,72 @@ namespace MovieTrackerMVC.Controllers
             return (_context.Media?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
+
+
+
+    namespace CustomModels
+    {
+        /// <summary>
+        /// ModelError data transfer object <br/>
+        /// Keeps data about the error provieded by the model.
+        /// </summary>
+        public readonly struct ModelErrorDTO
+        {
+            /// <summary>
+            /// the model's id (usually name)
+            /// </summary>
+            [JsonInclude]
+            [JsonPropertyName("id")]
+            public string Id { get; init; }
+
+            /// <summary>
+            /// the error text
+            /// </summary>
+            [JsonInclude]
+            [JsonPropertyName("text")]
+            public string? Text { get; init; }
+        }
+
+        /// <summary>
+        /// Return message, containing the success status, and a list of errors.
+        /// </summary>
+        public sealed class ModelError<T>
+        {
+            /// <summary>
+            /// Status
+            /// </summary>
+            [JsonInclude]
+            [JsonPropertyName("success")]
+            public bool Success { get; init; }
+            /// <summary>
+            /// Keep a list of errors to be sent to client
+            /// </summary>
+            [JsonInclude]
+            [JsonPropertyName("modelErrors")]
+            public IEnumerable<T> ModelErrors { get; init; }
+
+            /// <summary>
+            /// Create a new ModelError response
+            /// </summary>
+            /// <param name="success"></param>
+            /// <param name="modelErrors"></param>
+            public ModelError(bool success, IEnumerable<T> modelErrors)
+            {
+                this.Success = success;
+                this.ModelErrors = modelErrors;
+            }
+
+
+            public static ModelError<T> FromModelState(ModelStateDictionary ModelState, Func<KeyValuePair<string, ModelStateEntry?>, T> extractor)
+            {
+                var selected = ModelState.Where(x => x.Value?.ValidationState == ModelValidationState.Invalid).Select(extractor);
+                return new ModelError<T>(success: false, modelErrors: selected);
+            }
+
+        }
+
+    }
+
+
+
 }
