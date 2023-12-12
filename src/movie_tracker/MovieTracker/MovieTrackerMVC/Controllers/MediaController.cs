@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Transactions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MovieTrackerMVC.Data;
 using MovieTrackerMVC.Models;
+using MovieTrackerMVC.Services;
 
 namespace MovieTrackerMVC.Controllers
 {
@@ -16,10 +20,14 @@ namespace MovieTrackerMVC.Controllers
     public class MediaController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly StorageService _storage;
+        private readonly ILogger<MediaController> _logger;
 
-        public MediaController(ApplicationDbContext context)
+        public MediaController(ApplicationDbContext context, StorageService storage, ILogger<MediaController> logger)
         {
             _context = context;
+            this._storage = storage;
+            this._logger = logger;
         }
 
         // GET: Media
@@ -62,19 +70,74 @@ namespace MovieTrackerMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title")] Media media, IFormFile? cover)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+            {
+                var firstErrorOfEachModel = ModelState.Where(x => x.Value?.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
+                    .Select(x => new CreateMediaErrorDTO { id = x.Key, text = x.Value?.Errors.FirstOrDefault()?.ErrorMessage });
+
+                return Json(new CreateMediaModelError(success: false, modelErrors: firstErrorOfEachModel));
+            }
+
+            using var transaction = _context.Database.BeginTransaction();
+            try
             {
                 _context.Add(media);
                 await _context.SaveChangesAsync();
-                return Json(new { success = true, redirectUrl = Url.Action("Index", "Media") });
-            }
 
-            // constructing errors.
-            var firstErrorOfEachModel = ModelState.Where(x => x.Value?.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
-                .Select(x => new {id = x.Key, text = x.Value?.Errors.FirstOrDefault()?.ErrorMessage});
-            
-            return Json(new {success = false, modelErrors = firstErrorOfEachModel});
+                if (cover == null)
+                {
+                    transaction.Commit();
+                    return Json(new { success = true, redirectUrl = Url.Action("Index", "Media") });
+                }
+
+                var saved = await _storage.UploadCover(media.Id.ToString(), cover, _logger);
+                if (saved)
+                {
+                    transaction.Commit();
+                    return Json(new { success = true, redirectUrl = Url.Action("Index", "Media") });
+                }
+
+                // cover wasn't saved
+                transaction.Rollback();
+                _logger.LogError("StorageService.UploadCover unsuccessful in MediaController.Create. Changes were rolled back.");
+                var coverError = new CreateMediaErrorDTO()
+                {
+                    id = "Cover",
+                    text = "The cover could not be saved. Retry, use another cover or try to resize the current one."
+                };
+                return Json(new CreateMediaModelError(success: false, modelErrors: [coverError]));
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                _logger.LogError("Exception raised while trying to save a media; Exception: {Exception}", ex);
+                return Json(new CreateMediaModelError(success: false, []));
+            }
         }
+
+        private struct CreateMediaErrorDTO
+        {
+            [JsonInclude]
+            public string id;
+            [JsonInclude]
+            public string? text;
+        }
+
+        private class CreateMediaModelError
+        {
+            [JsonInclude]
+            public readonly bool success;
+            [JsonInclude]
+            public readonly IEnumerable<CreateMediaErrorDTO> modelErrors;
+
+            public CreateMediaModelError(bool success, IEnumerable<CreateMediaErrorDTO> modelErrors)
+            {
+                this.success = success;
+                this.modelErrors = modelErrors;
+            }
+        }
+
+
 
         // GET: Media/Edit/5
         public async Task<IActionResult> Edit(long? id)
