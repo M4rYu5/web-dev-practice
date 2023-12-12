@@ -29,19 +29,16 @@ namespace StorageAPI.AppConfig
             // add .png if needed
             if (!filteredPath.EndsWith(".png", StringComparison.InvariantCultureIgnoreCase))
             {
-                context.Request.Path = filteredPath + ".png";
+                filteredPath += ".png";
             }
-            else
-            {
-                context.Request.Path = filteredPath;
-            }
+            context.Request.Path = filteredPath;
 
             await _next(context);
 
             // return default cover if nothing was found
             if (context.Response.StatusCode == 404 && is_get_cover)
             {
-                context.Request.Path = "/static/cover-default-150.png";
+                context.Request.Path = filteredPath.EndsWith("-full.png") ? "/static/cover-default-1000.png" : "/static/cover-default-150.png";
                 await _next(context);
             }
         }
