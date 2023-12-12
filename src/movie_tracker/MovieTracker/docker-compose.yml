@@ -4,7 +4,7 @@ services:
   movietrackermvc:
     image: ${DOCKER_REGISTRY-}movietrackermvc
     ports: 
-        - "5099:80"
+        - "5099:8080"
     build:
       context: .
       dockerfile: MovieTrackerMVC/Dockerfile
