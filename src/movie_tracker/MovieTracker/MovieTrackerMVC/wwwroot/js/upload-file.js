@@ -171,7 +171,7 @@ function formCreateAction() {
                 if (response.modelErrors != null){
                     response.modelErrors.forEach(error => {
                         console.log(error);
-                        $("" + error.id + "-error").text("running")
+                        $("span[data-valmsg-for='" + error.id + "']").text(error.text);
                     });
                 }
 
