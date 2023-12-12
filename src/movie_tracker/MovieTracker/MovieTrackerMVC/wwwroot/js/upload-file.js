@@ -148,6 +148,7 @@ function checkFiles(files) {
 function formCreateAction() {
     $('form').on('submit', function (event) {
         event.preventDefault();
+        $("input[type='submit']").prop("disabled", true);
 
         var formData = new FormData(this);
         if (cover != null)
@@ -160,7 +161,6 @@ function formCreateAction() {
             processData: false,
             contentType: false,
             success: function (response) {
-                console.log(response);
                 if (response.success == true) {
                     document.location.href = response.redirectUrl;
                     return;
@@ -182,10 +182,12 @@ function formCreateAction() {
                 else{
                     $("form-server-error-message").addClass("d-none");
                 }
+                $("input[type='submit']").prop("disabled", false);
             },
             error: function (response) {
                 // if something happens I'm probably gonna be contacted.
                 $("form-communication-error-message").removeClass("d-none");
+                $("input[type='submit']").prop("disabled", false);
             }
         });
     });
