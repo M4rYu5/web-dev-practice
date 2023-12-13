@@ -33,13 +33,35 @@ namespace MovieTrackerMVC.Controllers
         }
 
         // GET: Media
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-
-            return _context.Media != null ?
-                        View(await _context.Media.ToListAsync()) :
-                        Problem("Entity set 'ApplicationDbContext.Media'  is null.");
+            return View();
         }
+
+
+        [HttpPost]
+        [Route("media/media-table-api")]
+        public async Task<IActionResult> MediaTableApi(int draw, int start, int length, string search)
+        {
+            var recordsTotal = _context.Media.Count();
+            var recordsFiltered = _context.Media.Count(x => string.IsNullOrEmpty(search) || x.Title.ToLower().Contains(search.ToLower()));
+#pragma warning disable CA1862 // Use the 'StringComparison' method overloads to perform case-insensitive string comparisons
+            var data = await _context.Media
+                .Where(m => string.IsNullOrEmpty(search) || m.Title.ToLower().Contains(search.ToLower()))
+                .Skip(start)
+                .Take(length)
+                .ToListAsync();
+#pragma warning restore CA1862 // Use the 'StringComparison' method overloads to perform case-insensitive string comparisons
+
+            return Ok(new
+            {
+                draw,
+                recordsTotal,
+                recordsFiltered,
+                data
+            });
+        }
+
 
         // GET: Media/Details/5
         public async Task<IActionResult> Details(long? id)
