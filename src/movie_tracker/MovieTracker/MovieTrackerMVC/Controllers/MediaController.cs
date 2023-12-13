@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,13 +33,14 @@ namespace MovieTrackerMVC.Controllers
         }
 
         // GET: Media
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-
-            return _context.Media != null ?
-                        View(await _context.Media.ToListAsync()) :
-                        Problem("Entity set 'ApplicationDbContext.Media'  is null.");
+            return View();
         }
+
+
+        }
+
 
         // GET: Media/Details/5
         public async Task<IActionResult> Details(long? id)
