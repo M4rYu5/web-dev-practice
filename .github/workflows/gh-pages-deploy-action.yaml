@@ -91,6 +91,9 @@ jobs:
         with:
           name: store-front-react-artifact
           path: temp-pages/store_front_react
+      
+      - name: Stop removing _next by Jekill in store-front-react
+        run: touch temp-pages/.nojekyll
 
       - name: Deploy to GitHub Pages
         run: |
