@@ -4,6 +4,7 @@ import { BasketContext } from "@/app/_components/BasketProvider";
 import ShopCartPreview from "@/app/_components/ShopCartPreview";
 import { Dispatch, SetStateAction, useContext } from "react";
 import * as ThemeUtil from "../_util/theme";
+import { url_p } from "../_util/url_t";
 
 const hoverMenuClasses =
   " border-transparent cursor-pointer border-b-2 hover:border-accent hover:border-solid hover:border-b-2 hover:text-accent ";
@@ -19,7 +20,7 @@ const SiteMenu: React.FC<{
       <nav className="flex justify-between container mx-auto sm:px-8 px-1">
         <div className="flex">
           <a
-            href="/"
+            href={url_p("/")}
             className={"pt-2 px-4 pb-2 my-2 font-semibold" + hoverMenuClasses}
           >
             Home
@@ -66,7 +67,7 @@ const SiteMenu: React.FC<{
           </div>
           <div className="flex self-center dropdown dropdown-hover dropdown-end dropdown-bottom">
             <a
-              href="/checkout"
+              href={url_p("/checkout")}
               className={
                 "flex w-16 h-full content-center px-4" + hoverMenuClasses
               }
