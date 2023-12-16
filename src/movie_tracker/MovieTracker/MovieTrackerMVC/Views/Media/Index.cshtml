@@ -69,10 +69,10 @@
                 }
             },
             "columns": [
-                { "data": "id", "name": "Id", "autoWidth": true },
+                { "data": "id", "name": "Id", "title": "Id", "autoWidth": true },
                 {
                     "data": "id",
-                    "title": "Id",
+                    "title": "Cover",
                     "render": function (data, type, row) {
                         return '<div class="media-table-image-container"><img src="' + storageAddr + data + "-150.png" + '" class="media-table-image"/></div>';
                     },
@@ -89,7 +89,7 @@
                 },
                 {
                     "data": "id",
-                    "title": "Cover",
+                    "title": "Options",
                     "render": function (data, type, row) {
                         const container = $("<div class='d-flex flex-column'/>");
                         container.append($("<a class='btn btn-primary mb-1' href='/media/edit/" + data + "'>Edit</a>"));
