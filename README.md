@@ -1,5 +1,5 @@
 # About
-I use this repository to learn and practice web development.
+I use this repository to learn and practice web development. Most of them are found on [github pages](https://m4ryu5.github.io/web-dev-practice/).
 
 ## [📁 pagination_practice](./src/pagination_practice)
 - [☁ _Website_](https://m4ryu5.github.io/web-dev-practice/pagination_practice/pagination.html)
