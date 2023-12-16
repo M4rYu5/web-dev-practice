@@ -38,4 +38,4 @@ I use this repository to learn and practice web development. Most of them are fo
   - debug tooling: _docker compose_ for VS and multiple _tasks_ and _launch settings_ for _vsCode_.
 
 
-  ![image](https://github.com/M4rYu5/web-dev-practice/assets/30922014/cdc943d8-4783-4ab4-9574-bcff767202f1)
+  ![image](./content/media_tracker_0001-2227.gif)
