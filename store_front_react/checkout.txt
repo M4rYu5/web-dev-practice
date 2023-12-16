@@ -1,4 +1,4 @@
-0:["p2Gqk1R_xVdOiqnrlDAaI",[[["",{"children":["(routes)",{"children":["checkout",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true]}],"$L1",[[],"$L2"]]]]
+0:["i1Rd5ZxsU9J3exj5GQWJM",[[["",{"children":["(routes)",{"children":["checkout",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true]}],"$L1",[[],"$L2"]]]]
 3:HL["/web-dev-practice/store_front_react/_next/static/media/c9a5bc6a7c948fb0-s.p.woff2",{"as":"font","type":"font/woff2"}]
 4:HL["/web-dev-practice/store_front_react/_next/static/css/c51379a95277a853.css",{"as":"style"}]
 5:I{"id":7767,"chunks":["272:static/chunks/webpack-5389a9b54b453b57.js","971:static/chunks/fd9d1056-5f5f19ad8331c260.js","596:static/chunks/596-5c4cfb4f90e01c53.js"],"name":"default","async":false}
