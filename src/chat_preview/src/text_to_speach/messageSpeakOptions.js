@@ -7,4 +7,5 @@ export class MessageSpeakOptions{
     speed = 1;
     maxMessageLength = 150;
     languageName = null;
+    volume = 1;
 }
