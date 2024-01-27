@@ -59,6 +59,16 @@ body {
 
 /* TTS (Text to speach) */
 
+#speechSynthesisNotSupportedMessage{
+    color: rgb(121, 121, 121);
+    font-size: medium;
+    text-align: start;
+    padding-left: 0.75rem;
+    margin-bottom: 1px;
+    margin-top: -4px;
+    cursor: pointer;
+}
+
 .tts {
     width: 100%;
     color: white;
