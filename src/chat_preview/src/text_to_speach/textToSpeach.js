@@ -71,12 +71,14 @@ export class TextToSpeach {
             return;
         }
 
-        var noPerks = !(messageDTO.subscriber || messageDTO.mod || messageDTO.turbo);
+        const noPerks = !(messageDTO.subscriber || messageDTO.mod || messageDTO.turbo);
+        const approvedLength = messageSpeakOptions.maxMessageLength <= 0 
+                    || messageDTO.message.length <= messageSpeakOptions.maxMessageLength;
         let canSpeak = (noPerks && messageSpeakOptions.viewers
             || messageDTO.subscriber && messageSpeakOptions.subscribers
             || messageDTO.mod && messageSpeakOptions.mods
             || messageDTO.turbo && messageSpeakOptions.turbo)
-            && messageDTO.message.length <= messageSpeakOptions.maxMessageLength;
+            && approvedLength;
         if (!canSpeak) {
             return;
         }
