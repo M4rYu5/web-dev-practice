@@ -17,6 +17,22 @@ let tts = new TextToSpeach();
 messageUpdater.onMessageReceived.add(null, (message) => tts.speak(message));
 
 
+// hide tts if not available
+if (!tts.isAvailable()){
+    document.getElementsByClassName("tts")[0].classList.add("display-none");
+
+    // display tts not supported message
+    if (localStorage.displaySpeechSynthesisNotSupportedMessage == undefined){
+        document.getElementById("speechSynthesisNotSupportedMessage").classList.remove("display-none");
+    
+        document.getElementById("speechSynthesisNotSupportedMessage").onclick = () => {
+            localStorage.displaySpeechSynthesisNotSupportedMessage = false;
+            document.getElementById("speechSynthesisNotSupportedMessage").classList.add("display-none");
+        };
+
+    }
+}
+
 
 document.getElementById("title-gear").onclick = (ev) =>{
     document.getElementById("title-text-link").classList.toggle("display-none");
