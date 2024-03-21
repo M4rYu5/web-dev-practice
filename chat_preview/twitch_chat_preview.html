@@ -11,6 +11,7 @@
 
 <body>
     <div id="chat-container" class="chat-container">
+        <div id="speechSynthesisNotSupportedMessage" class="display-none">TTS (Speech Synthesis) not supported by browser.</div>
         <div class="tts">
             <fieldset id="tts-fieldset" class="tts-closed">
                 <legend>Text to Speach <input id="tts-active" type="checkbox" /><span id="tts-arrow">▼</span></legend>
@@ -36,12 +37,16 @@
                         <label>Names</label>
                     </div>
                     <div style="display: flex; flex-flow: row; flex-wrap: nowrap;">
-                        <input type="range" id="tts-speed-toggle" min="0.5" max="3" step="0.1" style="width: 60%;"/>
-                        <label>Speed</label>
+                        <input type="range" id="tts-volume" min="0.0" max="1.0" step="0.05" style="width: 60%;"/>
+                        <label>Volume</label>
                     </div>
                     <div style="display: flex; flex-flow: row; flex-wrap: nowrap;">
                         <input type="number" id="tts-max-length" min="0" style="width: 3em;"/>
                         <label>Max Length</label>
+                    </div>
+                    <div style="display: flex; flex-flow: row; flex-wrap: nowrap;">
+                        <input type="range" id="tts-speed-toggle" min="0.5" max="3" step="0.1" style="width: 60%;"/>
+                        <label>Speed</label>
                     </div>
                     <select id="tts-voice-select" style="width: 100%;"></select>
                 </div>

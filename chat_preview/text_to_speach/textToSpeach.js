@@ -28,8 +28,11 @@ export class TextToSpeach {
     constructor() {
         this.#isAvailable = window.speechSynthesis != null;
         try{
-            // localStorage.removeItem("ttsSpeakOptions");
-            this.#defaultSpeakOptions = Object.setPrototypeOf(JSON.parse(localStorage.ttsSpeakOptions), MessageSpeakOptions.prototype);
+            const parsedTts = JSON.parse(localStorage.ttsSpeakOptions);
+            // keeping the defaults when new property is added in MessageSpeakOptions
+            const ttsWithDefautls = {...(new MessageSpeakOptions()), ...parsedTts}
+            // setting object type
+            this.#defaultSpeakOptions = Object.setPrototypeOf(ttsWithDefautls, MessageSpeakOptions.prototype);
         }
         catch{
             localStorage.clear("ttsSpeakOptions");
@@ -68,18 +71,21 @@ export class TextToSpeach {
             return;
         }
 
-        var noPerks = !(messageDTO.subscriber || messageDTO.mod || messageDTO.turbo);
+        const noPerks = !(messageDTO.subscriber || messageDTO.mod || messageDTO.turbo);
+        const approvedLength = messageSpeakOptions.maxMessageLength <= 0 
+                    || messageDTO.message.length <= messageSpeakOptions.maxMessageLength;
         let canSpeak = (noPerks && messageSpeakOptions.viewers
             || messageDTO.subscriber && messageSpeakOptions.subscribers
             || messageDTO.mod && messageSpeakOptions.mods
             || messageDTO.turbo && messageSpeakOptions.turbo)
-            && messageDTO.message.length <= messageSpeakOptions.maxMessageLength;
+            && approvedLength;
         if (!canSpeak) {
             return;
         }
 
         let message = new SpeechSynthesisUtterance(this.#messageComposer(messageDTO, messageSpeakOptions));
         message.rate = messageSpeakOptions.speed;
+        message.volume = messageSpeakOptions.volume;
         if (messageSpeakOptions.languageName != null) {
             message.voice = this.#ttsVoices[messageSpeakOptions.languageName];
         }
@@ -121,6 +127,7 @@ export class TextToSpeach {
         document.getElementById("tts-name-toggle").checked = currentSpeakOptions.includeDisplayName;
         document.getElementById("tts-speed-toggle").value = currentSpeakOptions.speed;
         document.getElementById("tts-max-length").value = currentSpeakOptions.maxMessageLength;
+        document.getElementById("tts-volume").value = currentSpeakOptions.volume;
     }
 
     #setTtsOptionEvents = () => {
@@ -131,48 +138,49 @@ export class TextToSpeach {
         });
         document.getElementById("tts-viewer-toggle").addEventListener("input", (ev) => {
             this.#defaultSpeakOptions.viewers = document.getElementById("tts-viewer-toggle").checked;
-            localStorage.ttsSpeakOptions = JSON.stringify(this.#defaultSpeakOptions);
-            this.reset();
+            this.#saveDefaultSpeakOptionsInLocalStorage();
         });
         document.getElementById("tts-sub-toggle").addEventListener("input", (ev) => {
             this.#defaultSpeakOptions.subscribers = document.getElementById("tts-sub-toggle").checked;
-            localStorage.ttsSpeakOptions = JSON.stringify(this.#defaultSpeakOptions);
-            this.reset();
+            this.#saveDefaultSpeakOptionsInLocalStorage();
         });
         document.getElementById("tts-mod-toggle").addEventListener("input", (ev) => {
             this.#defaultSpeakOptions.mods = document.getElementById("tts-mod-toggle").checked;
-            localStorage.ttsSpeakOptions = JSON.stringify(this.#defaultSpeakOptions);
-            this.reset();
+            this.#saveDefaultSpeakOptionsInLocalStorage();
         });
         document.getElementById("tts-turbo-toggle").addEventListener("input", (ev) => {
             this.#defaultSpeakOptions.turbo = document.getElementById("tts-turbo-toggle").checked;
-            localStorage.ttsSpeakOptions = JSON.stringify(this.#defaultSpeakOptions);
-            this.reset();
+            this.#saveDefaultSpeakOptionsInLocalStorage();
         });
         document.getElementById("tts-name-toggle").addEventListener("input", (ev) => {
             this.#defaultSpeakOptions.includeDisplayName = document.getElementById("tts-name-toggle").checked;
-            localStorage.ttsSpeakOptions = JSON.stringify(this.#defaultSpeakOptions);
-            this.reset();
+            this.#saveDefaultSpeakOptionsInLocalStorage();
         });
         document.getElementById("tts-speed-toggle").addEventListener("input", (ev) => {
             this.#defaultSpeakOptions.speed = document.getElementById("tts-speed-toggle").value;
-            localStorage.ttsSpeakOptions = JSON.stringify(this.#defaultSpeakOptions);
-            this.reset();
+            this.#saveDefaultSpeakOptionsInLocalStorage();
         });
         document.getElementById("tts-max-length").addEventListener("input", (ev) => {
             this.#defaultSpeakOptions.maxMessageLength = document.getElementById("tts-max-length").value;
-            localStorage.ttsSpeakOptions = JSON.stringify(this.#defaultSpeakOptions);
-            this.reset();
+            this.#saveDefaultSpeakOptionsInLocalStorage();
         });
         document.getElementById("tts-voice-select").addEventListener("change", (ev) => {
             let element = document.getElementById("tts-voice-select");
             let name = element.options[element.selectedIndex].getAttribute("data-name");
             this.#defaultSpeakOptions.languageName = name;
-            localStorage.ttsSpeakOptions = JSON.stringify(this.#defaultSpeakOptions);
-            this.reset();
+            this.#saveDefaultSpeakOptionsInLocalStorage();
+        });
+        document.getElementById("tts-volume").addEventListener("input", (ev) => {
+            this.#defaultSpeakOptions.volume = document.getElementById("tts-volume").value;
+            this.#saveDefaultSpeakOptionsInLocalStorage();
         });
     }
 
+    #saveDefaultSpeakOptionsInLocalStorage = () =>{
+        localStorage.ttsSpeakOptions = JSON.stringify(this.#defaultSpeakOptions);
+        this.reset();
+    }
+    
     #fillLanguages = () => {
         if (!this.isAvailable()) {
             return;
