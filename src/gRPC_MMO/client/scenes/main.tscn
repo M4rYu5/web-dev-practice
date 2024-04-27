@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://bd8bkuf5440kg"]
+
+[ext_resource type="Script" path="res://scenes/Map.cs" id="1_50ufi"]
+[ext_resource type="Texture2D" uid="uid://clwbv1f41uwxa" path="res://icon.svg" id="1_s0xgl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2t2xe"]
+albedo_texture = ExtResource("1_s0xgl")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_fu28y"]
+material = SubResource("StandardMaterial3D_2t2xe")
+size = Vector2(200, 200)
+
+[node name="Map" type="Node3D"]
+script = ExtResource("1_50ufi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_fu28y")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.535827, 0.844328, 0, -0.844328, 0.535827, 0, 116, 95)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.94728, -0.0194184, -0.319818, 0.254151, 0.653362, 0.713109, 0.19511, -0.756796, 0.623852, 0, 125, 31)
