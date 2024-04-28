@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "google/protobuf/empty.proto";
+
 option csharp_namespace = "ProximitySync";
 
 package greet;
@@ -7,7 +9,23 @@ package greet;
 // The greeting service definition.
 service Greeter {
   // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply);
+  rpc SayHello (HelloRequest) returns (stream HelloReply);
+  // sends new players positions to all clients
+  rpc UpdatePlayers(google.protobuf.Empty) returns (stream Players);
+}
+
+message Players{
+	repeated Player players = 1;
+}
+
+message Player{
+	string name = 1;
+	Position2D position = 2;
+}
+
+message Position2D{
+	double x = 1;
+	double y = 2;
 }
 
 // The request message containing the user's name.

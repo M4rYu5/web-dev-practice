@@ -1,3 +1,4 @@
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using ProximitySync;
 
@@ -11,12 +12,24 @@ public class GreeterService : Greeter.GreeterBase
         _logger = logger;
     }
 
-    public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
+
+    public override async Task SayHello(HelloRequest request, IServerStreamWriter<HelloReply> responseStream, ServerCallContext context)
     {
-        Console.WriteLine("Hello sent from server");
-        return Task.FromResult(new HelloReply
+        while (true)
         {
-            Message = "Hello " + request.Name
-        });
+            await Task.Delay(500);
+            await responseStream.WriteAsync(new HelloReply() { Message = "Hello" });
+        }
+    }
+
+    public override async Task UpdatePlayers(Empty request, IServerStreamWriter<Players> responseStream, ServerCallContext context)
+    {
+        while (true)
+        {
+            await Task.Delay(500);
+            var players = new Players();
+            players.Players_.Add(new Player() { Name = "Test 1", Position = new Position2D { X = 0, Y = 0 } });
+            await responseStream.WriteAsync(players);
+        }
     }
 }
