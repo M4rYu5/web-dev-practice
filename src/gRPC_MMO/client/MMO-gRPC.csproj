@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="../shared/Protos/greet.proto" GrpcServices="Client" />
+    <Protobuf Include="../shared/Protos/proximity_updater.proto" GrpcServices="Client" />
   </ItemGroup>
 
   <ItemGroup>

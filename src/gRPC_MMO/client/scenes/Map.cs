@@ -15,13 +15,13 @@ public partial class Map : Node3D
 	{
 		// The port number must match the port of the gRPC server.
 		using var channel = GrpcChannel.ForAddress("https://localhost:7197");
-		var client = new Greeter.GreeterClient(channel);
-		
+		var client = new ProximityUpdater.ProximityUpdaterClient(channel);
+
 		//var reply = client.SayHello(new HelloRequest { Name = "GreeterClient" });
-  //      await foreach (var response in reply.ResponseStream.ReadAllAsync())
-  //      {
+		//await foreach (var response in reply.ResponseStream.ReadAllAsync())
+		//{
 		//	GD.Print("Greeting: " + response.Message);
-  //      }
+		//}
 
 		var positionUpdater = client.UpdatePlayers(new Google.Protobuf.WellKnownTypes.Empty());
 		await foreach (var response  in positionUpdater.ResponseStream.ReadAllAsync())

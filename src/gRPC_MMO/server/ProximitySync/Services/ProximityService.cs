@@ -4,23 +4,14 @@ using ProximitySync;
 
 namespace ProximitySync.Services;
 
-public class GreeterService : Greeter.GreeterBase
+public class ProximityService : ProximityUpdater.ProximityUpdaterBase
 {
-    private readonly ILogger<GreeterService> _logger;
-    public GreeterService(ILogger<GreeterService> logger)
+    private readonly ILogger<ProximityService> _logger;
+    public ProximityService(ILogger<ProximityService> logger)
     {
         _logger = logger;
     }
 
-
-    public override async Task SayHello(HelloRequest request, IServerStreamWriter<HelloReply> responseStream, ServerCallContext context)
-    {
-        while (true)
-        {
-            await Task.Delay(500);
-            await responseStream.WriteAsync(new HelloReply() { Message = "Hello" });
-        }
-    }
 
     public override async Task UpdatePlayers(Empty request, IServerStreamWriter<Players> responseStream, ServerCallContext context)
     {
