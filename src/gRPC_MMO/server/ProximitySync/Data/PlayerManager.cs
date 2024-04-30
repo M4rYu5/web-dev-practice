@@ -1,34 +1,38 @@
-﻿namespace ProximitySync.Data
+﻿using System.Collections.Concurrent;
+
+namespace ProximitySync.Data
 {
     public class PlayerManager
     {
         public static readonly PlayerManager Instance = new();
 
-        private readonly Dictionary<string, Player> _players = [];
+        private readonly ConcurrentDictionary<string, Player> _players = [];
 
 
         private PlayerManager() { }
 
 
-        public IEnumerable<Player> GetPlayers()
+        public int Count {  get => _players.Count; }
+
+
+        public ICollection<Player> GetPlayers()
         {
             return _players.Values;
         }
 
+        /// <summary>
+        /// Note: Doesn't handle multiple connection at the same time
+        /// </summary>
         public void AddPlayer(Player player)
         {
-            if(_players.ContainsKey(player.Name))
-            {
-                _players[player.Name] = player;
-            }
-            _players.Add(player.Name, player);
+            _players.AddOrUpdate(player.Name, (string key) => player, (string key, Player p) => player);
         }
 
         public void RemovePlayer(string playerName)
         {
             if(_players.ContainsKey(playerName))
             {
-                _players.Remove(playerName);
+                _players.Remove(playerName, out _);
             }
         }
 
@@ -37,6 +41,21 @@
         public bool Contains(string playerName)
         {
             return _players.ContainsKey(playerName);
+        }
+
+        public void Update(Player request)
+        {
+            _players.AddOrUpdate(request.Name, request, (key, oldValue) => request);
+        }
+
+        public void Clear()
+        {
+            _players.Clear();
+        }
+
+        internal Player[] ToArray()
+        {
+            return _players.Values.ToArray();
         }
     }
 }
