@@ -20,6 +20,9 @@ namespace ProximitySync.Data
             return _players.Values;
         }
 
+        /// <summary>
+        /// Adds or updates the player
+        /// </summary>
         public void AddPlayer(Player player)
         {
             _players.AddOrUpdate(player.Name, (string key) => player, (string key, Player p) => player);
@@ -37,6 +40,9 @@ namespace ProximitySync.Data
             return _players.ContainsKey(playerName);
         }
 
+        /// <summary>
+        /// Updates or add the player
+        /// </summary>
         public void Update(Player request)
         {
             _players.AddOrUpdate(request.Name, request, (key, oldValue) => request);
