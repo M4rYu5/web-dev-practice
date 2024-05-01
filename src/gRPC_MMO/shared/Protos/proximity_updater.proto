@@ -9,9 +9,13 @@ package proximity_updater;
 
 // The greeting service definition.
 service ProximityUpdater {
-  // sends new players positions to all clients
+  // server sends new players positions to all clients
   rpc UpdatePlayers(google.protobuf.Empty) returns (stream Players);
+  // the server receives update about each player
+  rpc PlayerUpdate(Player) returns (UpdateResponse);
+
 }
+
 
 message Players{
 	repeated Player players = 1;
@@ -25,4 +29,7 @@ message Player{
 message Position2D{
 	double x = 1;
 	double y = 2;
+}
+
+message UpdateResponse{
 }
