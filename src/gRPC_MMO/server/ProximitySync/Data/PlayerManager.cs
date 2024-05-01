@@ -20,9 +20,6 @@ namespace ProximitySync.Data
             return _players.Values;
         }
 
-        /// <summary>
-        /// Note: Doesn't handle multiple connection at the same time
-        /// </summary>
         public void AddPlayer(Player player)
         {
             _players.AddOrUpdate(player.Name, (string key) => player, (string key, Player p) => player);
