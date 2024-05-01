@@ -27,10 +27,7 @@ namespace ProximitySync.Data
 
         public void RemovePlayer(string playerName)
         {
-            if(_players.ContainsKey(playerName))
-            {
-                _players.Remove(playerName, out _);
-            }
+            _players.TryRemove(playerName, out _);
         }
 
         public bool Contains(Player player) => Contains(player.Name);
