@@ -15,3 +15,10 @@ mesh = SubResource("CapsuleMesh_dq2w7")
 transform = Transform3D(0.0199343, -0.562124, 0, 0.562124, 0.0199343, 0, 0, 0, 1.32648, 0, 2, 0)
 mesh = SubResource("CapsuleMesh_dq2w7")
 skeleton = NodePath("../body")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.93069, 0)
+billboard = 1
+text = "Test"
+font_size = 100
+outline_size = 30

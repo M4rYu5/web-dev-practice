@@ -16,14 +16,20 @@ public partial class PlayersUpdater : Node
 
 	private PackedScene _playerPackedScene = (PackedScene)GD.Load("res://scenes/player.tscn");
 
+	private string currentPlayerName = "";
+
 
 	public override void _EnterTree()
 	{
-
 		ConnectionManager.Instance.PlayersStateUpdated += PlayersStateUpdated;
 	}
 
-	public override void _ExitTree()
+    public override void _Ready()
+    {
+		currentPlayerName = GetNode<PlayerNode>("../Player").PlayerName;
+    }
+
+    public override void _ExitTree()
 	{
 		ConnectionManager.Instance.PlayersStateUpdated -= PlayersStateUpdated;
 	}
@@ -38,6 +44,11 @@ public partial class PlayersUpdater : Node
 			foreach (var player in updates.Players_)
 			{
 				var name = player.Name;
+				if (name == currentPlayerName)
+				{
+					continue;
+				}
+
 				if (playersNodes.ContainsKey(name))
 				{
 					playersNodes[name].Update((float)player.Position.X, (float)player.Position.Y);
@@ -47,6 +58,7 @@ public partial class PlayersUpdater : Node
 				{
 					PlayerNode newPlayer = _playerPackedScene.Instantiate<PlayerNode>();
 					newPlayer.Name = name;
+					newPlayer.PlayerName = name;
 					newPlayer.Update((float)player.Position.X, (float)player.Position.Y);
 					AddChild(newPlayer);
 				}

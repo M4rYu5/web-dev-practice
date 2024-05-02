@@ -1,6 +1,8 @@
 using Godot;
+using MMOgRPC.Services;
 using ProximitySync;
 using System;
+using System.Linq;
 
 namespace Game;
 
@@ -16,11 +18,26 @@ public partial class PlayerNode : Node3D
     private Vector3 velocity = new();
     private float speed = 5.0f;
     private Camera3D camera;
+    private string _playerName = "";
+
+    public string PlayerName
+    {
+        get { return _playerName; }
+        set
+        {
+            _playerName = value;
+            GetNode<Label3D>("Label3D").Text = PlayerName;
+        }
+    }
 
 
     public override void _Ready()
     {
         camera = GetNode<Camera3D>("Camera3D");
+        if (isUser)
+        {
+            PlayerName = "Player" + Random.Shared.Next().ToString()[0..5] + "t";
+        }
     }
 
 
@@ -50,6 +67,8 @@ public partial class PlayerNode : Node3D
 
         // Adjust the position directly since we don't have MoveAndSlide
         TranslateObjectLocal((velocity * (float)delta));
+
+        ConnectionManager.Instance.SetPlayerState(new Player() { Name = PlayerName, Position = new Position2D() { X = Position.X, Y = Position.Z } });
     }
 
     public override void _Input(InputEvent @event)

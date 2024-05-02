@@ -16,10 +16,10 @@ size = Vector2(200, 200)
 [node name="Map" type="Node3D"]
 script = ExtResource("1_50ufi")
 
-[node name="Node3D" parent="." instance=ExtResource("2_rqxqf")]
+[node name="Player" parent="." instance=ExtResource("2_rqxqf")]
 isUser = true
 
-[node name="Camera3D" type="Camera3D" parent="Node3D"]
+[node name="Camera3D" type="Camera3D" parent="Player"]
 transform = Transform3D(-1, -4.88952e-15, 8.74228e-08, 5.87301e-09, 0.997741, 0.0671795, -8.72253e-08, 0.0671795, -0.997741, 0, 5.69519, -11.2148)
 metadata/_edit_lock_ = true
 
