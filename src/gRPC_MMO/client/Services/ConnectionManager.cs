@@ -15,12 +15,13 @@ namespace MMOgRPC.Services
     internal class ConnectionManager
     {
         private readonly Object _lock = new();
+
+        private readonly GrpcChannel _channel;
+        private readonly ProximityUpdater.ProximityUpdaterClient _client;
+        private readonly SynchronizationContext _syncContext;
+
         private Player _playerState = new();
-
-        private GrpcChannel _channel;
-        private ProximityUpdater.ProximityUpdaterClient _client;
-
-        private SynchronizationContext _syncContext;
+        private DateTime _playerStateLastUpdate = DateTime.MinValue;
 
 
         private ConnectionManager()
@@ -31,7 +32,7 @@ namespace MMOgRPC.Services
             _channel = GrpcChannel.ForAddress("https://localhost:7197");
             _client = new ProximityUpdater.ProximityUpdaterClient(_channel);
 
-            RunSelfUpdate(50);
+            RunSelfUpdate(100);
             RunEntityUpdater();
         }
 
@@ -71,9 +72,16 @@ namespace MMOgRPC.Services
                         }
                         if (!string.IsNullOrEmpty(p.Name))
                         {
+                            _playerStateLastUpdate = DateTime.Now;
                             await _client.PlayerUpdateAsync(p);
                         }
-                        await Task.Delay(msDelay);
+                        // server built in delay + latency → the time might already past
+                        var waitTime = TimeSpan.FromMicroseconds(msDelay) - (DateTime.Now - _playerStateLastUpdate);
+                        if (waitTime.Milliseconds > 0)
+                        {
+                            GD.Print("waiting: " +  waitTime.Milliseconds);
+                            await Task.Delay(waitTime);
+                        }
                     }
                     catch (Exception ex)
                     {
