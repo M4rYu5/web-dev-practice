@@ -7,6 +7,11 @@
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_dw0dk")
 
-[node name="Player" type="MeshInstance3D" parent="."]
+[node name="body" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_dq2w7")
+
+[node name="hat" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.0199343, -0.562124, 0, 0.562124, 0.0199343, 0, 0, 0, 1.32648, 0, 2, 0)
+mesh = SubResource("CapsuleMesh_dq2w7")
+skeleton = NodePath("../body")
