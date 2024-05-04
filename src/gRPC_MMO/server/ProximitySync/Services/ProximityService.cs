@@ -97,5 +97,18 @@ public class ProximityService : ProximityUpdater.ProximityUpdaterBase
                 Y = Random.Shared.NextDouble() * 200 - 100,
             }
         });
+        // starts with 500 entities
+        while (_pm.Count < 500)
+        {
+            _pm.AddPlayer(new Player()
+            {
+                Name = Random.Shared.Next().ToString(),
+                Position = new Position2D()
+                {
+                    X = Random.Shared.NextDouble() * 200 - 100,
+                    Y = Random.Shared.NextDouble() * 200 - 100,
+                }
+            });
+        }
     }
 }
