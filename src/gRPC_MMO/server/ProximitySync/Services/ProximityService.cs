@@ -6,18 +6,9 @@ using ProximitySync.Data;
 namespace ProximitySync.Services;
 
 
-public class ProximityService : ProximityUpdater.ProximityUpdaterBase
+public class ProximityService(ILogger<ProximityService> logger) : ProximityUpdater.ProximityUpdaterBase
 {
     private readonly PlayerManager _pm = PlayerManager.Instance;
-
-    private readonly ILogger<ProximityService> _logger;
-
-
-    public ProximityService(ILogger<ProximityService> logger)
-    {
-        _logger = logger;
-    }
-
 
     public override async Task UpdatePlayers(Empty request, IServerStreamWriter<Players> responseStream, ServerCallContext context)
     {
@@ -33,12 +24,12 @@ public class ProximityService : ProximityUpdater.ProximityUpdaterBase
             }
             catch (InvalidOperationException ex)
             {
-                _logger.Log(LogLevel.Error, ex, "Client disconnected");
+                logger.Log(LogLevel.Error, ex, "Client disconnected");
                 break;
             }
             catch (Exception ex)
             {
-                _logger.Log(LogLevel.Error, ex, "Something went wrong in updating the players");
+                logger.Log(LogLevel.Error, ex, "Something went wrong in updating the players");
             }
         }
     }
