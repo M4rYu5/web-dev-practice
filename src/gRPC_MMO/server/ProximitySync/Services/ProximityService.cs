@@ -45,7 +45,7 @@ public class ProximityService(ILogger<ProximityService> logger) : ProximityUpdat
 
 
         // Note 2024-05-01: as of now we don't handle authentication. 
-        // We're assuming that the update is comming from the actual player.
+        // We're assuming that the update is coming from the actual player.
         if (!_pm.Contains(request.Name))
         {
             _pm.AddPlayer(request);
