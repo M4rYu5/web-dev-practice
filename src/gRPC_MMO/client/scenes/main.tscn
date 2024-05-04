@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://bd8bkuf5440kg"]
+
+[ext_resource type="Script" path="res://scenes/Map.cs" id="1_50ufi"]
+[ext_resource type="Texture2D" uid="uid://clwbv1f41uwxa" path="res://icon.svg" id="1_s0xgl"]
+[ext_resource type="PackedScene" uid="uid://t476dhdhc3dv" path="res://scenes/player.tscn" id="2_rqxqf"]
+[ext_resource type="Script" path="res://scenes/PlayersUpdater.cs" id="3_5xdv3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2t2xe"]
+albedo_texture = ExtResource("1_s0xgl")
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_fu28y"]
+material = SubResource("StandardMaterial3D_2t2xe")
+size = Vector2(200, 200)
+
+[node name="Map" type="Node3D"]
+script = ExtResource("1_50ufi")
+
+[node name="Player" parent="." instance=ExtResource("2_rqxqf")]
+isUser = true
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(-1, -4.88952e-15, 8.74228e-08, 5.87301e-09, 0.997741, 0.0671795, -8.72253e-08, 0.0671795, -0.997741, 0, 5.69519, -11.2148)
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_fu28y")
+metadata/_edit_lock_ = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.94728, -0.0194184, -0.319818, 0.254151, 0.653362, 0.713109, 0.19511, -0.756796, 0.623852, 0, 125, 31)
+metadata/_edit_lock_ = true
+
+[node name="Players" type="Node" parent="."]
+script = ExtResource("3_5xdv3")

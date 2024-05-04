@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://t476dhdhc3dv"]
+
+[ext_resource type="Script" path="res://scenes/PlayerNode.cs" id="1_dw0dk"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dq2w7"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_dw0dk")
+
+[node name="body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_dq2w7")
+
+[node name="hat" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.0199343, -0.562124, 0, 0.562124, 0.0199343, 0, 0, 0, 1.32648, 0, 2, 0)
+mesh = SubResource("CapsuleMesh_dq2w7")
+skeleton = NodePath("../body")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.93069, 0)
+billboard = 1
+text = "Test"
+font_size = 100
+outline_size = 30
