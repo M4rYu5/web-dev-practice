@@ -20,6 +20,10 @@ public class ProximityService(ILogger<ProximityService> logger) : ProximityUpdat
                 //DevTesting(_pm.GetPlayers());
                 var players = new Players();
                 players.Players_.AddRange(_pm.GetPlayers());
+                if (context.CancellationToken.IsCancellationRequested)
+                {
+                    break;
+                }
                 await responseStream.WriteAsync(players);
             }
             catch (InvalidOperationException ex)
