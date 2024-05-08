@@ -41,9 +41,6 @@ public class ProximityService(ILogger<ProximityService> logger) : ProximityUpdat
 
     public override async Task<UpdateResponse> PlayerUpdate(Player request, ServerCallContext context)
     {
-        Console.WriteLine("received player state: " + request.Name);
-
-
         // Note 2024-05-01: as of now we don't handle authentication. 
         // We're assuming that the update is coming from the actual player.
         if (!_pm.Contains(request.Name))
