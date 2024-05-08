@@ -77,6 +77,7 @@ namespace MMOgRPC.Services
                         }
                         // server built in delay + latency → the time might already past
                         var waitTime = TimeSpan.FromMicroseconds(msDelay) - (DateTime.Now - _playerStateLastUpdate);
+                        _playerStateLastUpdate = DateTime.Now;
                         if (waitTime.Milliseconds > 0)
                         {
                             GD.Print("waiting: " +  waitTime.Milliseconds);
