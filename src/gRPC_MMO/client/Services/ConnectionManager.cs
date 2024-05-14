@@ -18,7 +18,7 @@ namespace MMOgRPC.Services
 
         private readonly GrpcChannel _channel;
         private readonly ProximityUpdater.ProximityUpdaterClient _client;
-        private readonly SynchronizationContext _syncContext;
+        private readonly SynchronizationContext? _syncContext;
 
         private Player _playerState = new();
         private DateTime _playerStateLastUpdate = DateTime.MinValue;
@@ -39,7 +39,7 @@ namespace MMOgRPC.Services
 
         public delegate void PlayersStateUpdatedEventHandler(Players players);
 
-        public event PlayersStateUpdatedEventHandler PlayersStateUpdated;
+        public event PlayersStateUpdatedEventHandler? PlayersStateUpdated;
 
 
         public static ConnectionManager Instance { get; set; } = new();
