@@ -12,6 +12,8 @@ namespace ProximitySync.Services.V2
     /// </summary>
     public static class GameManager
     {
+        private static readonly PlayerManager _pm = PlayerManager.Instance;
+
         private static readonly TimeSpan deltaTarget = TimeSpan.FromMicroseconds(500);
         private static readonly UpdateWorker[] updateWorkers = new UpdateWorker[5];
 
@@ -101,7 +103,7 @@ namespace ProximitySync.Services.V2
                 foreach(var connection in connections)
                 {
                     var players = new Players();
-                    players.Players_.AddRange(PlayerManager.Instance.GetPlayers());
+                    players.Players_.AddRange(_pm.GetPlayers());
                     if (connection.Cancellation.IsCancellationRequested)
                     {
                         connectionsToRemove.Add(connection);
