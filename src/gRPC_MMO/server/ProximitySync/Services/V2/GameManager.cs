@@ -10,25 +10,25 @@ namespace ProximitySync.Services.V2
     /// <summary>
     /// Main purpose for this class is to test the performance of using multiple threads to write the response to clients.
     /// </summary>
-    public static class GameManager
+    public class GameManager
     {
-        private static readonly PlayerManager _pm = PlayerManager.Instance;
+        private readonly IPlayerManager _pm;
+        private readonly TimeSpan deltaTarget = TimeSpan.FromMicroseconds(500);
+        private readonly UpdateWorker[] updateWorkers = new UpdateWorker[5];
 
-        private static readonly TimeSpan deltaTarget = TimeSpan.FromMicroseconds(500);
-        private static readonly UpdateWorker[] updateWorkers = new UpdateWorker[5];
-
-        private static int nextUpdateWorkerIndexToAddTo = 0;
+        private int nextUpdateWorkerIndexToAddTo = 0;
 
 
-        static GameManager()
+        public GameManager(IPlayerManager _pm)
         {
+            this._pm = _pm;
             for (int i = 0; i < updateWorkers.Length; i++)
             {
-                updateWorkers[i] = new UpdateWorker(deltaTarget);
+                updateWorkers[i] = new UpdateWorker(deltaTarget, _pm);
             }
         }
 
-        public static Task Connected(IServerStreamWriter<Players> responseStream, CancellationToken cancellation)
+        public Task Connected(IServerStreamWriter<Players> responseStream, CancellationToken cancellation)
         {
             var index = Interlocked.Increment(ref nextUpdateWorkerIndexToAddTo) - 1;
             Console.WriteLine(index);
@@ -39,14 +39,17 @@ namespace ProximitySync.Services.V2
 
         private class UpdateWorker
         {
+
+            private readonly IPlayerManager _pm;
             private readonly List<ClientInfo> connections = [];
             private readonly List<ClientInfo> connectionsToRemove = [];
             private readonly object connectionsToAddLock = new();
             private readonly List<ClientInfo> connectionsToAdd = [];
             private readonly TimeSpan deltaTarget;
 
-            public UpdateWorker(TimeSpan deltaTarget)
+            public UpdateWorker(TimeSpan deltaTarget, IPlayerManager _pm)
             {
+                this._pm = _pm;
                 this.deltaTarget = deltaTarget;
                 Thread gameLoop = new(async () => await ProcessQueue());
                 gameLoop.Start();

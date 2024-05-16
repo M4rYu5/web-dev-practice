@@ -1,16 +1,14 @@
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 
 namespace ProximitySync.Data
 {
     public class PlayerManager : IPlayerManager
     {
-        public static readonly PlayerManager Instance = new();
-
         private readonly ConcurrentDictionary<string, Player> _players = [];
         private readonly ConcurrentDictionary<string, DateTime> _playersLastUpdate = [];
 
 
-        private PlayerManager()
+        public PlayerManager()
         {
             MonitorAndRemoveInactivePlayers(TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(10));
         }

@@ -1,4 +1,4 @@
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 
 namespace ProximitySync.Data
 {
@@ -9,8 +9,6 @@ namespace ProximitySync.Data
     /// </summary>
     public class PlayerManagerV2 : IPlayerManager
     {
-        public static readonly PlayerManagerV2 Instance = new();
-
         private readonly ReaderWriterLockSlim _lock = new();
         private readonly Dictionary<string, Player> _players = [];
 
@@ -18,7 +16,7 @@ namespace ProximitySync.Data
         //private readonly ConcurrentDictionary<string, DateTime> _playersLastUpdate = [];
 
 
-        private PlayerManagerV2()
+        public PlayerManagerV2()
         {
             //MonitorAndRemoveInactivePlayers(TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(10));
         }
@@ -36,7 +34,7 @@ namespace ProximitySync.Data
         }
 
 
-        public Player[] GetPlayers()
+        public ICollection<Player> GetPlayers()
         {
             _lock.EnterReadLock();
             var list = _players.Values.ToArray();

@@ -7,13 +7,12 @@ using ProximitySync.Services.V2;
 namespace ProximitySync.Services;
 
 
-public class ProximityServiceV2(ILogger<ProximityService> logger) : ProximityUpdater.ProximityUpdaterBase
+public class ProximityServiceV2(ILogger<ProximityService> logger, IPlayerManager _pm, GameManager _gm) : ProximityUpdater.ProximityUpdaterBase
 {
-    private readonly PlayerManager _pm = PlayerManager.Instance;
-
+    
     public override async Task UpdatePlayers(Empty request, IServerStreamWriter<Players> responseStream, ServerCallContext context)
     {
-        await GameManager.Connected(responseStream, context.CancellationToken);
+        await _gm.Connected(responseStream, context.CancellationToken);
     }
 
 

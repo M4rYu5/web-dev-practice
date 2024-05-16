@@ -1,4 +1,4 @@
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 
 namespace ProximitySync.Data
 {
@@ -9,15 +9,13 @@ namespace ProximitySync.Data
     /// </summary>
     public class PlayerManagerV3 : IPlayerManager
     {
-        public static readonly PlayerManagerV3 Instance = new();
-
         private readonly List<Player> _players = [];
 
 
         //private readonly ConcurrentDictionary<string, DateTime> _playersLastUpdate = [];
 
 
-        private PlayerManagerV3()
+        public PlayerManagerV3()
         {
             for (int i = 0; i < 1000; i++)
             {
@@ -30,7 +28,7 @@ namespace ProximitySync.Data
         public int Count { get => _players.Count; }
 
 
-        public List<Player> GetPlayers()
+        public ICollection<Player> GetPlayers()
         {
             return _players;
         }
