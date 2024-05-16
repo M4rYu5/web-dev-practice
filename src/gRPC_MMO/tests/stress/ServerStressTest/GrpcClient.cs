@@ -46,7 +46,7 @@ internal class GrpcClient
                         {
                             DateTime t = DateTime.Now;
                             await _client.PlayerUpdateAsync(p);
-                            Console.WriteLine("Getting the update took: " + (DateTime.Now - t).TotalMilliseconds + " ms");
+                            Console.WriteLine("↑Pushing the update took: " + (DateTime.Now - t).TotalMilliseconds + " ms");
                         }
                         else
                         {
