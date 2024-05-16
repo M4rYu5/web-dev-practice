@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Grpc.Net.Client;
 using ProximitySync;
@@ -81,10 +83,16 @@ internal class GrpcClient
         Task.Run(async () =>
         {
             var positionUpdater = _client.UpdatePlayers(new Google.Protobuf.WellKnownTypes.Empty());
+            DateTime t = DateTime.Now;
             await foreach (var response in positionUpdater.ResponseStream.ReadAllAsync())
             {
                 try
                 {
+                    if(tracking)
+                    {
+                        Console.WriteLine("↓Getting the update took: " + (DateTime.Now - t).TotalMilliseconds + " ms; Received: " + response.Players_.Count);
+                        t = DateTime.Now;
+                    }
                     var r = response;
                     PlayersStateUpdated?.Invoke(r);
                 }
