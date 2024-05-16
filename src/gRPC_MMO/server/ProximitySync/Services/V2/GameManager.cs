@@ -113,11 +113,15 @@ namespace ProximitySync.Services.V2
                         connection.TaskCompletionSource.SetResult();
                         return;
                     }
-                    await connection.ResponseStream.WriteAsync(players);
+                    else
+                    {
+                        await connection.ResponseStream.WriteAsync(players);
+                    }
                 }
 
                 foreach(var connection in connectionsToRemove)
                 {
+                    connection.TaskCompletionSource.SetResult();
                     connections.Remove(connection);
                 }
 
