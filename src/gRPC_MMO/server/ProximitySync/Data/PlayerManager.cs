@@ -1,8 +1,8 @@
-﻿using System.Collections.Concurrent;
+using System.Collections.Concurrent;
 
 namespace ProximitySync.Data
 {
-    public class PlayerManager
+    public class PlayerManager : IPlayerManager
     {
         public static readonly PlayerManager Instance = new();
 

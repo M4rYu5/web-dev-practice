@@ -1,4 +1,4 @@
-﻿using System.Collections.Concurrent;
+using System.Collections.Concurrent;
 
 namespace ProximitySync.Data
 {
@@ -7,7 +7,7 @@ namespace ProximitySync.Data
     /// <summary>
     /// Note: This class is used to test if by removing it's functionality and returning a static list every time.
     /// </summary>
-    public class PlayerManagerV3
+    public class PlayerManagerV3 : IPlayerManager
     {
         public static readonly PlayerManagerV3 Instance = new();
 

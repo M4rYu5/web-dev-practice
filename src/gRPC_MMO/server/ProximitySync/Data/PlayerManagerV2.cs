@@ -1,4 +1,4 @@
-﻿using System.Collections.Concurrent;
+using System.Collections.Concurrent;
 
 namespace ProximitySync.Data
 {
@@ -7,7 +7,7 @@ namespace ProximitySync.Data
     /// <summary>
     /// Note: This class is used to test if by changing ConcurrentDictionary with a custom implementation the amount of concurrent players to update will increase.
     /// </summary>
-    public class PlayerManagerV2
+    public class PlayerManagerV2 : IPlayerManager
     {
         public static readonly PlayerManagerV2 Instance = new();
 
