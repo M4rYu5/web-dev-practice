@@ -6,9 +6,8 @@ using ProximitySync.Data;
 namespace ProximitySync.Services;
 
 
-public class ProximityService(ILogger<ProximityService> logger) : ProximityUpdater.ProximityUpdaterBase
+public class ProximityService(ILogger<ProximityService> logger, IPlayerManager _pm) : ProximityUpdater.ProximityUpdaterBase
 {
-    private readonly PlayerManager _pm = PlayerManager.Instance;
 
     public override async Task UpdatePlayers(Empty request, IServerStreamWriter<Players> responseStream, ServerCallContext context)
     {

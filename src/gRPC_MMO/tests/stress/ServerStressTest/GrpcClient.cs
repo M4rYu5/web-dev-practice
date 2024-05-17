@@ -1,3 +1,6 @@
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Grpc.Net.Client;
 using ProximitySync;
@@ -35,28 +38,25 @@ internal class GrpcClient
     {
         Task.Run(async () =>
         {
+            Stopwatch stopwatch = Stopwatch.StartNew();
             while (true)
             {
                 try
                 {
                     Player p = player;
                     {
-                        _playerStateLastUpdate = DateTime.Now;
+                        stopwatch.Restart();
+                        await _client.PlayerUpdateAsync(p);
                         if (tracking)
                         {
-                            DateTime t = DateTime.Now;
-                            await _client.PlayerUpdateAsync(p);
-                            Console.WriteLine("Getting the update took: " + (DateTime.Now - t).TotalMilliseconds + " ms");
-                        }
-                        else
-                        {
-                            await _client.PlayerUpdateAsync(p);
+                            Console.WriteLine("↑Pushing the update took: " + stopwatch.Elapsed.TotalMilliseconds + " ms");
                         }
                     }
                     // server built in delay + latency → the time might already past
-                    var waitTime = TimeSpan.FromMicroseconds(msDelay) - (DateTime.Now - _playerStateLastUpdate);
-                    _playerStateLastUpdate = DateTime.Now;
-                    if (waitTime.Milliseconds > 0)
+                    var elapsed = stopwatch.Elapsed;
+                    var waitTime = TimeSpan.FromMilliseconds(msDelay) - elapsed;
+                    stopwatch.Restart();
+                    if (waitTime.TotalMilliseconds > 0)
                     {
                         await Task.Delay(waitTime);
                     }
@@ -70,6 +70,7 @@ internal class GrpcClient
     }
 
 
+
     public event Action<Players?>? PlayersStateUpdated;
 
     /// <summary>
@@ -80,11 +81,17 @@ internal class GrpcClient
     {
         Task.Run(async () =>
         {
-            var positionUpdater = _client.UpdatePlayers(new Google.Protobuf.WellKnownTypes.Empty());
+            var positionUpdater = _client.UpdatePlayers(new Empty());
+            Stopwatch stopwatch = Stopwatch.StartNew();
             await foreach (var response in positionUpdater.ResponseStream.ReadAllAsync())
             {
                 try
                 {
+                    if (tracking)
+                    {
+                        Console.WriteLine("↓Getting the update took: " + stopwatch.Elapsed.TotalMilliseconds + " ms; Received: " + response.Players_.Count);
+                        stopwatch.Restart();
+                    }
                     var r = response;
                     PlayersStateUpdated?.Invoke(r);
                 }
@@ -94,6 +101,7 @@ internal class GrpcClient
                 }
             }
         });
-    }
 
+
+    }
 }

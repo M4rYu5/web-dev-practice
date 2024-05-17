@@ -2,7 +2,7 @@
 
 
 // -----------------------------------
-const int NUM_OF_CLIENTS = 200;
+const int NUM_OF_CLIENTS = 1000;
 const string ADDRESS = "https://localhost:7197";
 
 
