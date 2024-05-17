@@ -2,6 +2,7 @@ using Grpc.Core;
 using ProximitySync.Data;
 using System.Collections.Concurrent;
 using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace ProximitySync.Services.V2
@@ -19,27 +20,27 @@ namespace ProximitySync.Services.V2
         private int nextUpdateWorkerIndexToAddTo = 0;
 
 
-        public GameManager(IPlayerManager _pm)
+        public GameManager(IPlayerManager _pm, ILogger<GameManager> logger)
         {
             this._pm = _pm;
             for (int i = 0; i < updateWorkers.Length; i++)
             {
-                updateWorkers[i] = new UpdateWorker(deltaTarget, _pm);
+                updateWorkers[i] = new UpdateWorker(deltaTarget, _pm, logger);
             }
         }
 
         public Task Connected(IServerStreamWriter<Players> responseStream, CancellationToken cancellation)
         {
-            var index = Interlocked.Increment(ref nextUpdateWorkerIndexToAddTo) - 1;
-            Console.WriteLine(index);
-            return updateWorkers[index % updateWorkers.Length].AddConnection(responseStream, cancellation);
+            var count = Interlocked.Increment(ref nextUpdateWorkerIndexToAddTo) - 1;
+            var index = count % updateWorkers.Length;
+            return updateWorkers[index].AddConnection(responseStream, cancellation);
         }
 
 
 
         private class UpdateWorker
         {
-
+            private readonly ILogger _logger;
             private readonly IPlayerManager _pm;
             private readonly List<ClientInfo> connections = [];
             private readonly List<ClientInfo> connectionsToRemove = [];
@@ -47,8 +48,9 @@ namespace ProximitySync.Services.V2
             private readonly List<ClientInfo> connectionsToAdd = [];
             private readonly TimeSpan deltaTarget;
 
-            public UpdateWorker(TimeSpan deltaTarget, IPlayerManager _pm)
+            public UpdateWorker(TimeSpan deltaTarget, IPlayerManager _pm, ILogger logger)
             {
+                _logger = logger;
                 this._pm = _pm;
                 this.deltaTarget = deltaTarget;
                 Thread gameLoop = new(async () => await ProcessQueue());
@@ -74,21 +76,25 @@ namespace ProximitySync.Services.V2
 
             private async Task ProcessQueue()
             {
-                DateTime lastUpdate = DateTime.Now;
-                TimeSpan delta;
+                Stopwatch stopwatch = new();
+                stopwatch.Start();
                 while (true)
                 {
-                    delta = deltaTarget - (DateTime.Now - lastUpdate);
-                    lastUpdate = DateTime.Now;
+                    var elapsed = stopwatch.Elapsed;
+                    var delta = deltaTarget - elapsed;
+                    stopwatch.Restart();
                     if (delta > TimeSpan.Zero)
                     {
-                        Thread.Sleep(delta);
+                        await Task.Delay(delta);
                     }
                     try
                     {
                         await UpdateClients();
                     }
-                    catch (Exception) { }
+                    catch (Exception e)
+                    {
+                        _logger.LogError(e, "Error in processing queue.");
+                    }
                 }
             }
 
@@ -103,14 +109,13 @@ namespace ProximitySync.Services.V2
                     connectionsToAdd.Clear();
                 }
 
-                foreach(var connection in connections)
+                foreach (var connection in connections)
                 {
                     var players = new Players();
                     players.Players_.AddRange(_pm.GetPlayers());
                     if (connection.Cancellation.IsCancellationRequested)
                     {
                         connectionsToRemove.Add(connection);
-                        connection.TaskCompletionSource.SetResult();
                         return;
                     }
                     else
@@ -119,7 +124,7 @@ namespace ProximitySync.Services.V2
                     }
                 }
 
-                foreach(var connection in connectionsToRemove)
+                foreach (var connection in connectionsToRemove)
                 {
                     connection.TaskCompletionSource.SetResult();
                     connections.Remove(connection);
