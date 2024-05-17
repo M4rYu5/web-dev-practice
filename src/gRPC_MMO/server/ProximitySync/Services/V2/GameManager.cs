@@ -33,6 +33,7 @@ namespace ProximitySync.Services.V2
         {
             var count = Interlocked.Increment(ref nextUpdateWorkerIndexToAddTo) - 1;
             var index = count % updateWorkers.Length;
+            Console.WriteLine($"added connection: {count}, to worker: #{index}");
             return updateWorkers[index].AddConnection(responseStream, cancellation);
         }
 
