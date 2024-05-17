@@ -13,7 +13,6 @@ namespace ProximitySync.Services.V2
     /// </summary>
     public class GameManager
     {
-        private readonly IPlayerManager _pm;
         private readonly TimeSpan deltaTarget = TimeSpan.FromMilliseconds(500);
         private readonly UpdateWorker[] updateWorkers = new UpdateWorker[5];
 
@@ -22,7 +21,6 @@ namespace ProximitySync.Services.V2
 
         public GameManager(IPlayerManager _pm, ILogger<GameManager> logger)
         {
-            this._pm = _pm;
             for (int i = 0; i < updateWorkers.Length; i++)
             {
                 updateWorkers[i] = new UpdateWorker(deltaTarget, _pm, logger);
