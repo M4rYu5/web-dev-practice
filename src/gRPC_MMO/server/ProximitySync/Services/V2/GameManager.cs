@@ -1,4 +1,4 @@
-using Grpc.Core;
+﻿using Grpc.Core;
 using ProximitySync.Data;
 using System.Collections.Concurrent;
 using System.ComponentModel.Design;
@@ -116,12 +116,9 @@ namespace ProximitySync.Services.V2
                     if (connection.Cancellation.IsCancellationRequested)
                     {
                         connectionsToRemove.Add(connection);
-                        return;
+                        continue;
                     }
-                    else
-                    {
-                        await connection.ResponseStream.WriteAsync(players);
-                    }
+                    await connection.ResponseStream.WriteAsync(players);
                 }
 
                 foreach (var connection in connectionsToRemove)
