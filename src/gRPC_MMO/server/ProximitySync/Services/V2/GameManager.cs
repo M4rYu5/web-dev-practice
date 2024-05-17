@@ -1,4 +1,4 @@
-﻿using Grpc.Core;
+using Grpc.Core;
 using ProximitySync.Data;
 using System.Collections.Concurrent;
 using System.ComponentModel.Design;
@@ -13,7 +13,7 @@ namespace ProximitySync.Services.V2
     public class GameManager
     {
         private readonly IPlayerManager _pm;
-        private readonly TimeSpan deltaTarget = TimeSpan.FromMicroseconds(500);
+        private readonly TimeSpan deltaTarget = TimeSpan.FromMilliseconds(500);
         private readonly UpdateWorker[] updateWorkers = new UpdateWorker[5];
 
         private int nextUpdateWorkerIndexToAddTo = 0;
