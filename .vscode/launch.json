@@ -6,28 +6,61 @@
     "compounds": [
         {
             "name": "[ALL] Movie Tracker - debug",
-            "configurations": ["MovieTrackerMVC - debug", "StorageAPI - debug"],
+            "configurations": [
+                "MovieTrackerMVC - debug",
+                "StorageAPI - debug"
+            ],
             "stopAll": true,
             "presentation": {
                 "hidden": false,
                 "group": "MovieTracker",
                 "order": 1
             }
-        }
-    ],
-    "configurations": [
+        },
         {
-            "name": "Store Fron React",
+            "name": "[ALL] Store Fron React",
             "presentation": {
                 "hidden": false,
                 "group": "React",
                 "order": 1
             },
+            "stopAll": true,
+            "configurations": [
+                "Store Front React: npm: dev",
+                "Store Front React: open chrome"
+            ],
+        },
+    ],
+    "configurations": [
+        {
+            "name": "Store Front React: npm: dev",
+            "presentation": {
+                "hidden": false,
+                "group": "React",
+                "order": 2
+            },
+            "cwd": "${workspaceRoot}/src/store_front_react",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run-script",
+                "dev"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Store Front React: open chrome",
+            "presentation": {
+                "hidden": true,
+                "group": "React",
+                "order": 3
+            },
             "type": "chrome",
             "request": "launch",
             "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}\\src\\store_front_react\\"
         },
+        // ----------------------------------------------------------
         {
             "name": "MovieTrackerMVC - debug",
             "presentation": {
@@ -63,7 +96,7 @@
             "presentation": {
                 "hidden": false,
                 "group": "MovieTracker",
-                "order": 2
+                "order": 3
             },
             "type": "coreclr",
             "request": "launch",
@@ -79,5 +112,4 @@
             }
         }
     ],
-
 }
