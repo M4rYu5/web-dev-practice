@@ -3,7 +3,7 @@ const filePrefix = process.env.NODE_ENV === 'production' ? '/web-dev-practice/st
 
 /**
  * Prefix the path with the actual location. 
- * If in prodution, the site will be in a file, not at root directory
+ * If in production, the site will be in a file, not at root directory
  * so all links should be prefixed with site location.
  * @param path url path that needs to be transformed
  * @returns returns the actual path
