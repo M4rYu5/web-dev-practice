@@ -21,10 +21,6 @@
             ],
             "problemMatcher": "$msCompile"
         },
-
-        // ----------------------------------------------------------
-
-        
         {
             "label": "watch - MovieTrackerMVC",
             "command": "dotnet",
@@ -84,10 +80,34 @@
             ],
             "dependsOrder": "parallel",
             "problemMatcher": "$msCompile",
-        }
-        
+        },
         // ----------------------------------------------------------
 
-        
+        {
+            "label": "npm: dev - src/store_front_react",
+            "dependsOn": [
+                "buld: npm: dev - src/store_front_react",
+                "open chrome for npm: dev - src/store_front_react",
+            ],
+            "dependsOrder": "parallel",
+            "problemMatcher": []
+        },
+        {
+            "label": "buld: npm: dev - src/store_front_react",
+            "hide": true,
+            "type": "npm",
+            "path": "src/store_front_react",
+            "script": "dev",
+            "problemMatcher": []
+        },
+        {
+            "label": "open chrome for npm: dev - src/store_front_react",
+            "hide": true,
+            "type": "shell",
+            "windows": {
+                "command": "Start-Sleep -Seconds 2; Start-Process 'chrome.exe' 'http://localhost:3000/'"
+            },
+            "problemMatcher": []
+        }
     ]
 }
