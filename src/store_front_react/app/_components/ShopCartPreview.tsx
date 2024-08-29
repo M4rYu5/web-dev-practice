@@ -1,7 +1,6 @@
 "use client";
 
-import { HtmlProps } from "next/dist/shared/lib/html-context";
-import { Attributes, useContext, useEffect } from "react";
+import { useContext } from "react";
 import { BasketContext, BasketDispatchContext } from "./BasketProvider";
 import * as Repository from "@/app/_data/repository";
 import { formatPrice } from "../_util/priceFormatter";

@@ -6,21 +6,29 @@ import { BasketDTO } from "./types/BasketDTO";
 // ---------  PRODUCTS  ------------
 
 export function getProducts(filter: ProductFilter): Promise<ProductPreview[]> {
-  return fetch("./products/products.json")
-    .then((x) => {
-      return x.json();
+  return fetch(`https://dummyjson.com/products/category/smartphones?limit=${filter.take}&skip=${filter.skip}&select=title,price,thumbnail`)
+    .then((response) => {
+      if (!response.ok){
+        return Promise.reject(response);
+      }
+      return response.json();
     })
     .then((x) => {
-      return x.slice(filter.skip, filter.skip + filter.take).map((y: any) => {
+      return x.products.slice(filter.skip, filter.skip + filter.take).map((y: any) => {
         return new ProductPreview(y.id, y.title, y.price, y.thumbnail);
       });
     });
 }
 
 export function getProductsById(ids: number[]): Promise<ProductPreview[]> {
-  return fetch("./products/products.json")
-    .then((x) => {
-      return x.json();
+  return Promise.all(ids.map((id) => fetch(`https://dummyjson.com/products/${id}?select=title,price,thumbnail`)))
+    .then((responses) => {
+      responses.forEach(response => {
+        if (!response.ok){
+          return Promise.reject(response);
+        }
+      })
+      return Promise.all(responses.map(y => y.json()));
     })
     .then((x) => {
       return x
