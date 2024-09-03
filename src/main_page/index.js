@@ -23,7 +23,7 @@ parent.innerHTML += createProjectPreviewHTML(
 
 parent.innerHTML += createProjectPreviewHTML(
     "Movie Tracker",
-    "https://github.com/M4rYu5/web-dev-practice/blob/main/content/media_tracker_0001-2227.gif?raw=true",
+    "https://github.com/M4rYu5/web-dev-practice/blob/main/content/movie_tracker_list.jpg?raw=true",
     "https://github.com/m4ryu5/web-dev-practice/tree/main/src/movie_tracker",
     "");
 
