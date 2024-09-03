@@ -10,7 +10,7 @@ services:
       dockerfile: MovieTrackerMVC/Dockerfile
     environment:
         - STORAGE__API__KEY=This is the storage api key
-        - STORAGE__ADDRESS=http://host.docker.internal:5043
+        - STORAGE__ADDRESS=http://host.docker.internal:5043/
 
   storageapi:
     image: ${DOCKER_REGISTRY-}storageapi
