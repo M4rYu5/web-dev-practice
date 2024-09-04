@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Upload main-page artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: main-page-artifact
           path: src/main_page
@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Upload pagination-practice artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: pagination-practice-artifact
           path: src/pagination_practice
@@ -37,7 +37,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Upload chat-preview artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: chat-preview-artifact
           path: src/chat_preview/src
@@ -56,7 +56,7 @@ jobs:
           npm run build
 
       - name: Upload store-front-react artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: store-front-react-artifact
           path: src/store_front_react/out
@@ -89,25 +89,25 @@ jobs:
           git worktree add --track -b gh-pages2 temp-pages origin/gh-pages
 
       - name: Download main-page artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: main-page-artifact
           path: temp-pages
 
       - name: Download pagination-practice artifact 
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: pagination-practice-artifact
           path: temp-pages/pagination_practice
           
       - name: Download chat-preview artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: chat-preview-artifact
           path: temp-pages/chat_preview
 
       - name: Download store-front-react artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: store-front-react-artifact
           path: temp-pages/store_front_react
