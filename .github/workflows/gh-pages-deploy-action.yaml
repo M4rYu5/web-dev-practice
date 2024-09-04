@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Upload main-page artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: main-page-artifact
           path: src/main_page
@@ -21,10 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Upload pagination-practice artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: pagination-practice-artifact
           path: src/pagination_practice
@@ -34,10 +34,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Upload chat-preview artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: chat-preview-artifact
           path: src/chat_preview/src
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build store-front-react project
         run: |
@@ -56,7 +56,7 @@ jobs:
           npm run build
 
       - name: Upload store-front-react artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: store-front-react-artifact
           path: src/store_front_react/out
@@ -73,7 +73,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set gh-pages as worktree
         run: |
@@ -89,25 +89,25 @@ jobs:
           git worktree add --track -b gh-pages2 temp-pages origin/gh-pages
 
       - name: Download main-page artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: main-page-artifact
           path: temp-pages
 
       - name: Download pagination-practice artifact 
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: pagination-practice-artifact
           path: temp-pages/pagination_practice
           
       - name: Download chat-preview artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: chat-preview-artifact
           path: temp-pages/chat_preview
 
       - name: Download store-front-react artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: store-front-react-artifact
           path: temp-pages/store_front_react
