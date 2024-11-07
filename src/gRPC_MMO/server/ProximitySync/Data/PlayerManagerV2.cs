@@ -42,6 +42,14 @@ namespace ProximitySync.Data
             return list;
         }
 
+        public Player[] GetPlayersAsArray()
+        {
+            _lock.EnterReadLock();
+            var list = _players.Values.ToArray();
+            _lock.ExitReadLock();
+            return list;
+        }
+
         /// <summary>
         /// Adds or updates the player
         /// </summary>
