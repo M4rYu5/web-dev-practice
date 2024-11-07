@@ -39,32 +39,41 @@ internal class GrpcClient
         Task.Run(async () =>
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
+            using var call = _client.PlayerUpdate();
             while (true)
             {
-                try
+                // try
                 {
+                    await Task.Delay(100);
                     Player p = player;
-                    {
-                        stopwatch.Restart();
-                        await _client.PlayerUpdateAsync(p);
-                        if (tracking)
-                        {
-                            Console.WriteLine("↑Pushing the update took: " + stopwatch.Elapsed.TotalMilliseconds + " ms");
-                        }
-                    }
-                    // server built in delay + latency → the time might already past
-                    var elapsed = stopwatch.Elapsed;
-                    var waitTime = TimeSpan.FromMilliseconds(msDelay) - elapsed;
                     stopwatch.Restart();
-                    if (waitTime.TotalMilliseconds > 0)
-                    {
-                        await Task.Delay(waitTime);
-                    }
+                    call.RequestStream.WriteAsync(p);
+                    if (tracking)
+                        Console.WriteLine($"↑Pushing the update took: {stopwatch.Elapsed}");
+
+
+                    // Player p = player;
+                    // {
+                    //     stopwatch.Restart();
+                    //     await _client.PlayerUpdateAsync(p);
+                    //     if (tracking)
+                    //     {
+                    //         Console.WriteLine("↑Pushing the update took: " + stopwatch.Elapsed.TotalMilliseconds + " ms");
+                    //     }
+                    // }
+                    // // server built in delay + latency → the time might already past
+                    // var elapsed = stopwatch.Elapsed;
+                    // var waitTime = TimeSpan.FromMilliseconds(msDelay) - elapsed;
+                    // stopwatch.Restart();
+                    // if (waitTime.TotalMilliseconds > 0)
+                    // {
+                    //     await Task.Delay(waitTime);
+                    // }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                }
+                // catch (Exception ex)
+                // {
+                //     Console.WriteLine(ex.ToString());
+                // }
             }
         });
     }
@@ -88,16 +97,15 @@ internal class GrpcClient
                 try
                 {
                     if (tracking)
-                    {
-                        Console.WriteLine("↓Getting the update took: " + stopwatch.Elapsed.TotalMilliseconds + " ms; Received: " + response.Players_.Count);
-                        stopwatch.Restart();
-                    }
+                        Console.WriteLine($"↓Getting the update took: {stopwatch.Elapsed}; Received: {response.Players_.Count}");
                     var r = response;
                     PlayersStateUpdated?.Invoke(r);
+                    stopwatch.Restart();
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.ToString());
+                    stopwatch.Restart();
                 }
             }
         });

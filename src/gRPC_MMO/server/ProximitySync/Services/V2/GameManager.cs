@@ -1,8 +1,10 @@
-﻿using Grpc.Core;
+using Google.Protobuf.Collections;
+using Grpc.Core;
 using ProximitySync.Data;
 using System.Collections.Concurrent;
 using System.ComponentModel.Design;
 using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace ProximitySync.Services.V2
@@ -47,6 +49,9 @@ namespace ProximitySync.Services.V2
             private readonly List<ClientInfo> connectionsToAdd = [];
             private readonly TimeSpan deltaTarget;
 
+            private readonly FieldInfo repeatedField_array;
+            private readonly FieldInfo repeatedField_count;
+
             public UpdateWorker(TimeSpan deltaTarget, IPlayerManager _pm, ILogger logger)
             {
                 _logger = logger;
@@ -54,6 +59,10 @@ namespace ProximitySync.Services.V2
                 this.deltaTarget = deltaTarget;
                 Thread gameLoop = new(async () => await ProcessQueue());
                 gameLoop.Start();
+
+                Type listType = typeof(RepeatedField<Player>);
+                repeatedField_array = listType.GetField("array", BindingFlags.NonPublic | BindingFlags.Instance)!;
+                repeatedField_count = listType.GetField("count", BindingFlags.NonPublic | BindingFlags.Instance)!;
             }
 
 
@@ -108,16 +117,20 @@ namespace ProximitySync.Services.V2
                     connectionsToAdd.Clear();
                 }
 
+                var p = _pm.GetPlayersAsArray();
                 foreach (var connection in connections)
                 {
                     var players = new Players();
-                    players.Players_.AddRange(_pm.GetPlayers());
+                    repeatedField_array.SetValue(players.Players_, p);
+                    repeatedField_count.SetValue(players.Players_, p.Length);
                     if (connection.Cancellation.IsCancellationRequested)
                     {
                         connectionsToRemove.Add(connection);
                         continue;
                     }
+                    // Stopwatch stopwatch = Stopwatch.StartNew();
                     await connection.ResponseStream.WriteAsync(players);
+                    // Console.WriteLine($"Time to write: {stopwatch.Elapsed.Milliseconds} ms");
                 }
 
                 foreach (var connection in connectionsToRemove)

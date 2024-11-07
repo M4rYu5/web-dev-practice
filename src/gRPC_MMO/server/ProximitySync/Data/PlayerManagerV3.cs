@@ -33,6 +33,11 @@ namespace ProximitySync.Data
             return _players;
         }
 
+        public Player[] GetPlayersAsArray()
+        {
+            return [.._players];
+        }
+
         /// <summary>
         /// Adds or updates the player
         /// </summary>

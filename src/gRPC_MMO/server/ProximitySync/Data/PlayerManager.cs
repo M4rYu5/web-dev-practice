@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Numerics;
 
 namespace ProximitySync.Data
 {
@@ -20,6 +21,10 @@ namespace ProximitySync.Data
         public ICollection<Player> GetPlayers()
         {
             return _players.Values;
+        }
+        public Player[] GetPlayersAsArray()
+        {
+            return _players.Values.ToArray();
         }
 
         /// <summary>

@@ -38,20 +38,21 @@ public class ProximityService(ILogger<ProximityService> logger, IPlayerManager _
     }
 
 
-    public override async Task<UpdateResponse> PlayerUpdate(Player request, ServerCallContext context)
+    public override async Task<UpdateResponse> PlayerUpdate(IAsyncStreamReader<Player> requestStream, ServerCallContext context)
     {
-        // Note 2024-05-01: as of now we don't handle authentication. 
-        // We're assuming that the update is coming from the actual player.
-        if (!_pm.Contains(request.Name))
-        {
-            _pm.AddPlayer(request);
-        }
-        else
-        {
-            _pm.Update(request);
-        }
 
-        await Task.Delay(500);
+        await foreach (var player in requestStream.ReadAllAsync()){
+            if (!_pm.Contains(player.Name))
+            {
+                _pm.AddPlayer(player);
+            }
+            else
+            {
+                _pm.Update(player);
+            }
+
+            await Task.Delay(500);
+        }
 
         return new UpdateResponse();
     }
