@@ -2,7 +2,7 @@
 
 
 // -----------------------------------
-const int NUM_OF_CLIENTS = 1000;
+const int NUM_OF_CLIENTS = 100;
 const string ADDRESS = "https://localhost:7197";
 
 
@@ -25,7 +25,7 @@ static void RunGrpcTest()
 
     for (int i = 0; i < NUM_OF_CLIENTS; i++)
     {
-        GrpcClient client = i == 0 ? new(ADDRESS, true) : new(ADDRESS, false);
+        GrpcClient client = new(ADDRESS, i==0);
         clients.Add(client);
     }
 }

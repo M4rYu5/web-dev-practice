@@ -12,7 +12,7 @@ service ProximityUpdater {
   // server sends new players positions to all clients
   rpc UpdatePlayers(google.protobuf.Empty) returns (stream Players);
   // the server receives update about each player
-  rpc PlayerUpdate(Player) returns (UpdateResponse);
+  rpc PlayerUpdate(stream Player) returns (UpdateResponse);
 
 }
 
