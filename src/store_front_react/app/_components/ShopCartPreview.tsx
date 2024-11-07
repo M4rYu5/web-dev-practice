@@ -30,7 +30,7 @@ const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
     !isCheckout && (
       <div
         {...attr}
-        className={attr.className + " rounded min-w-[400px] bg-base-100 py-2"}
+        className={attr.className + " rounded-lg min-w-[400px] bg-base-100 py-2 shadow shadow-accent"}
       >
         <ul className="flex flex-col divide-y divide-neutral-content">
           {basket.map((x) => {
@@ -58,7 +58,7 @@ const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
                         {x.count}
                       </span>
                       <span className="text-accent">
-                        <span className=" font-semibold self-center text-md">
+                        <span className="font-semibold self-center text-md">
                           {integerPart}
                           {fractionalPart != "" && dot}
                           <span className="align-super text-[12px]">
@@ -69,7 +69,7 @@ const ShopCartPreview: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
                       </span>
                     </div>
                     <button
-                      className="border  border-error/30 text-error rounded-full justify-around h-6 w-6 flex items-center"
+                      className="border border-error/30 text-error rounded-full justify-around h-6 w-6 flex items-center"
                       onClick={(e) => {
                         Repository.updateBasket(
                           basket.filter((y) => y.id != x.id)
