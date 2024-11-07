@@ -1,4 +1,5 @@
-html {
+html,
+body {
     height: 100%;
     margin: 0px;
     padding: 0px;
@@ -8,8 +9,6 @@ body {
     font-family: Arial, sans-serif;
     background-color: #1e1e1e;
     color: #d4d4d4;
-    margin: 0px;
-    height: 100%;
 }
 
 ul {
@@ -41,7 +40,7 @@ span {
 }
 
 a {
-    text-decoration-line: none;
+    text-decoration: none;
     color: #9cdcfe;
 }
 
@@ -54,13 +53,18 @@ svg {
 }
 
 .presentation {
+    position: relative;
     display: flex;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
     flex-direction: column;
     margin-bottom: 10px;
+    opacity: 1;
 }
 
 .presentation-display {
-    display: inline;
+    display: inline-block;
     margin: auto;
     flex-direction: column;
     justify-content: space-around;
@@ -69,14 +73,75 @@ svg {
 .presentation-image {
     object-fit: contain;
     width: 250px;
+    display: block;
 }
 
 .link-display {
-    display: flex;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
     justify-content: space-between;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    align-items: center;
+    padding: 0;
+    transition: opacity 0.3s;
 }
+
+.link-display:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: background-color .3s;
+}
+
+.link-display span {
+    height: 100%;
+    width: 50%;
+    position: relative;
+}
+
+.link-display a {
+    color: #fff;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    right: 0;
+    position: absolute;
+    text-align: center;
+    align-content: center;
+}
+
+.link-display span:only-child {
+    width: 100%;
+}
+
+.link-display span:first-child a {
+    border-start-start-radius: 5px;
+    border-end-start-radius: 5px;
+}
+
+.link-display span:last-child a {
+    border-start-end-radius: 5px;
+    border-end-end-radius: 5px;
+}
+
+
+
+.link-display span a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: background-color .4s;
+}
+
+.presentation:hover .presentation-image {
+    opacity: 0.4;
+    transition: opacity .2s;
+}
+
+.presentation:hover .link-display {
+    display: flex;
+}
+
 
 .container {
     min-height: 100%;
@@ -121,9 +186,3 @@ svg {
         width: 450px;
     }
 }
-
-/* @media (min-width: 1200px) {
-    .container {
-        width: 900px;
-    }
-} */
