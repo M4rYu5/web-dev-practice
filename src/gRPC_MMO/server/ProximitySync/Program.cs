@@ -8,7 +8,7 @@ using System.Diagnostics;
 // CONFIG
 
 const int GRPC_IMPLEMENTATION_VERSION = 2;
-PlayerManager _pmVersion = new(); // can be changed to another implementation eg. PlayerManagerV3
+PlayerManagerV2 _pmVersion = new(); // can be changed to another implementation eg. PlayerManagerV3
 
 
 
